@@ -1,6 +1,5 @@
 import React from "react";
 import { FiMenu, FiBell, FiSearch, FiExternalLink } from "react-icons/fi";
-const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminNavbar = ({ onToggleSidebar }) => {
 
@@ -30,7 +29,7 @@ const AdminNavbar = ({ onToggleSidebar }) => {
       <div className="flex items-center gap-3 sm:gap-4">
         {/* Visit Store Button */}
         <a
-          href="http://localhost:5173"
+          href="https://mobile-cover-store.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition text-slate-700"
