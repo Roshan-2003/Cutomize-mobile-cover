@@ -1,7 +1,9 @@
 import React from "react";
 import { FiMenu, FiBell, FiSearch, FiExternalLink } from "react-icons/fi";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AdminNavbar = ({ onToggleSidebar }) => {
+
   return (
     <header className="h-16 bg-white border-b border-slate-200/80 sticky top-0 z-30 px-4 sm:px-6 flex items-center justify-between shadow-xs">
       {/* Left: Mobile Menu Toggle & Title */}

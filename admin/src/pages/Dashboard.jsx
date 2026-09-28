@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiPackage, FiShoppingBag, FiClock, FiDollarSign, FiPlus, FiArrowRight, FiTrendingUp } from "react-icons/fi";
-
+import { API_BASE_URL } from "../api/apiUrl";
 const Dashboard = () => {
   const [stats, setStats] = useState({
     totalProducts: 0,
@@ -17,8 +17,8 @@ const Dashboard = () => {
     const fetchDashboardData = async () => {
       try {
         const [prodRes, orderRes] = await Promise.allSettled([
-          fetch("http://localhost:5000/api/products").then((res) => res.json()),
-          fetch("http://localhost:5000/api/orders").then((res) => res.json()),
+          fetch(`${API_BASE_URL}/products`).then((res) => res.json()),
+          fetch(`${API_BASE_URL}/orders`).then((res) => res.json()),
         ]);
 
         let prods = [];

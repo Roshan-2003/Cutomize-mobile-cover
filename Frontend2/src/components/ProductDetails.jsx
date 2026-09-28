@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { API_ORIGIN } from "../api/apiUrl";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { addToCart, getCartUserId } from "../api/cartApi";
 import { getProductById } from "../api/productApi";
@@ -15,7 +16,7 @@ import {
   FiSmartphone,
 } from "react-icons/fi";
 
-const IMAGE_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const IMAGE_BASE_URL = API_ORIGIN;
 
 const formatPrice = (price) =>
   new Intl.NumberFormat("en-IN", {

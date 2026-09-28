@@ -8,6 +8,7 @@ import {
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiShoppingBag, FiTrash2, FiArrowRight, FiShield, FiLock, FiSmartphone } from "react-icons/fi";
+import { API_ORIGIN } from "../api/apiUrl";
 
 const Cart = () => {
   const [cart, setCart] = useState(null);
@@ -107,7 +108,7 @@ const Cart = () => {
                       src={
                         item.product?.image?.startsWith("http")
                           ? item.product.image
-                          : `http://localhost:5000${item.product?.image || ""}`
+                          : `${API_ORIGIN}${item.product?.image || ""}`
                       }
                       alt={item.product?.title}
                       className="max-h-full max-w-full object-contain"

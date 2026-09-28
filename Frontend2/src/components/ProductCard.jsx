@@ -1,11 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FiEye, FiShoppingBag } from "react-icons/fi";
+import { API_ORIGIN } from "../api/apiUrl";
 
 const ProductCard = ({ _id, image, title, price, originalPrice, discount, category }) => {
   const resolvedImage = image?.startsWith("http")
     ? image
-    : `http://localhost:5000${image || ""}`;
+    : `${API_ORIGIN}${image || ""}`;
 
   const hasDiscount = originalPrice && originalPrice > price;
   const discountPercent = hasDiscount

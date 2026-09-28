@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { FiShoppingBag, FiUser, FiPhone, FiMapPin, FiPackage, FiCalendar, FiClock, FiCheck, FiSmartphone } from "react-icons/fi";
-
+import { API_BASE_URL } from "../api/apiUrl";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -10,7 +10,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/orders");
+      const response = await fetch(`${API_BASE_URL}/orders`);
       const data = await response.json();
       setOrders(data.orders || []);
     } catch (error) {
@@ -27,7 +27,7 @@ const Orders = () => {
   const handleStatusChange = async (orderId, newStatus) => {
     try {
       setUpdatingId(orderId);
-      const response = await fetch(`http://localhost:5000/api/orders/${orderId}`, {
+      const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ orderStatus: newStatus }),

@@ -7,6 +7,7 @@ import { createOrder } from "../api/orderApi";
 import { useCart } from "../context/CartContext";
 import { createPaymentOrder, verifyPayment } from "../api/paymentApi";
 import { FiShield, FiLock, FiTruck, FiCreditCard, FiDollarSign, FiSmartphone } from "react-icons/fi";
+import { API_ORIGIN } from "../api/apiUrl";
 
 // Helper function to dynamically load Razorpay SDK script if missing
 const loadRazorpaySDK = () => {
@@ -495,7 +496,7 @@ const Checkout = () => {
                       src={
                         item.product?.image?.startsWith("http")
                           ? item.product.image
-                          : `http://localhost:5000${item.product?.image || ""}`
+                          : `${API_ORIGIN}${item.product?.image || ""}`
                       }
                       alt={item.product?.title}
                       className="max-h-full max-w-full object-contain"

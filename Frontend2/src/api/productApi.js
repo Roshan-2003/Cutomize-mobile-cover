@@ -1,4 +1,6 @@
-const API_URL = "http://localhost:5000/api";
+import { API_BASE_URL } from "./apiUrl";
+
+const API_URL = API_BASE_URL;
 
 // Normal Products
 export const getProducts = async () => {

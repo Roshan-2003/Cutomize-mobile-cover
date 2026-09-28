@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { FiEdit, FiTrash2, FiSearch, FiX, FiCheck, FiFilter } from "react-icons/fi";
+import { API_BASE_URL, API_ORIGIN } from "../api/apiUrl";
 
-const API_URL = "http://localhost:5000/api/products";
+const API_URL = `${API_BASE_URL}/products`;
 
 const Products = () => {
   const [products, setProducts] = useState([]);
@@ -294,7 +295,7 @@ const Products = () => {
                             product.image
                               ? product.image.startsWith("http")
                                 ? product.image
-                                : `http://localhost:5000${product.image}`
+                                : `${API_ORIGIN}${product.image}`
                               : ""
                           }
                           alt={product.title}
