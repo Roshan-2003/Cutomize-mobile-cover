@@ -24,12 +24,21 @@ const ProductCard = ({ _id, image, title, price, originalPrice, discount, catego
 
       {/* Product Image Link Container */}
       <Link to={`/product/${_id}`} className="block relative overflow-hidden rounded-lg bg-gray-50 aspect-square flex items-center justify-center p-2 sm:p-3 mb-2 sm:mb-2.5">
-        <img
-          src={resolvedImage}
-          alt={title}
-          className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-108"
-          loading="lazy"
-        />
+    <div className="group relative flex items-center justify-center">
+  <img
+    src={resolvedImage}
+    alt={title}
+    className="max-h-full max-w-full object-contain transition-opacity  group-hover:opacity-0"
+    loading="lazy"
+  />
+
+  <img
+    src="/iphone-hover.webp"
+    alt={title}
+    className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity  group-hover:opacity-100"
+    loading="lazy"
+  />
+</div>
 
         {/* Hover Quick Action overlay */}
         {/* <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">
