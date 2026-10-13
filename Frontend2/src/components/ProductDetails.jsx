@@ -210,10 +210,10 @@ const ProductDetails = () => {
         <div className="lg:col-span-6 flex flex-col-reverse sm:flex-row gap-4">
           {/* Thumbnails */}
           <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-y-auto">
-            <button className="h-20 w-20 shrink-0 rounded-lg border-2  p-1.5 bg-white shadow-sm overflow-hidden">
+            <button className="h-20 w-20 shrink-0 rounded-lg border border-transparent bg-transparent p-0 shadow-none overflow-hidden  ring-0 focus:outline-none focus:ring-0 active:outline-none">
               <img
                 src={imageUrl}
-                className="h-full w-full items-center border border-gray-200 object-contain"
+                className="h-full w-full rounded-md object-contain border-0 bg-white"
                 alt="thumbnail"
               />
             </button>
