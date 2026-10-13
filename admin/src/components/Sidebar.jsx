@@ -50,8 +50,8 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <FiShield size={18} />
               </div>
               <div>
-                <h1 className="text-sm font-bold tracking-wider uppercase text-white">
-                  SINGH & CHAND
+                <h1 className="text-sm font-bold tracking-wider  text-white">
+                  Designocase
                 </h1>
                 <p className="text-[10px] text-indigo-400 font-semibold uppercase tracking-widest">
                   Admin Panel
@@ -71,9 +71,7 @@ const Sidebar = ({ isOpen, onClose }) => {
 
           {/* Navigation Links */}
           <nav className="p-4 space-y-1.5">
-            <p className="px-4 py-2 text-[10px] font-extrabold uppercase tracking-widest text-slate-400">
-              Menu Management
-            </p>
+            
             {menu.map((item) => (
               <NavLink
                 key={item.path}

@@ -86,13 +86,13 @@ const Dashboard = () => {
   return (
     <div className="space-y-8">
       {/* Top Banner */}
-      <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-8 rounded-2xl text-white shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-slate-700">
+      {/* <div className="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 p-6 sm:p-8 rounded-2xl text-white shadow-xl flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border border-slate-700">
         <div>
           <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#c5a059] block mb-1">
             Store Performance
           </span>
           <h1 className="text-xl sm:text-2xl font-extrabold uppercase tracking-wider text-white">
-            Welcome to Singh & Chand Control Center
+            Welcome to Designocase Control Center
           </h1>
           <p className="text-xs text-slate-300 font-light mt-1">
             Monitor real-time sales, product inventory, and customer purchases.
@@ -106,7 +106,7 @@ const Dashboard = () => {
           <FiPlus size={16} />
           <span>Add New Product</span>
         </Link>
-      </div>
+      </div> */}
 
       {/* Metrics Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6">
@@ -138,7 +138,7 @@ const Dashboard = () => {
       </div>
 
       {/* Quick Action Shortcuts */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         <Link
           to="/add-product"
           className="p-6 bg-white rounded-2xl border border-slate-200/80 shadow-sm hover:border-indigo-500 hover:shadow-md transition-all group flex items-center justify-between"
@@ -174,7 +174,7 @@ const Dashboard = () => {
           </div>
           <FiArrowRight className="text-slate-400 group-hover:text-[#c5a059] group-hover:translate-x-1 transition-all" size={20} />
         </Link>
-      </div>
+      </div> */}
 
       {/* Recent Orders Preview */}
       <div className="bg-white rounded-2xl border border-slate-200/80 shadow-sm p-6">

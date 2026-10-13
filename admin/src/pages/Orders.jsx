@@ -69,15 +69,7 @@ const Orders = () => {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase tracking-wider">
-            Customer Orders ({filteredOrders.length})
-          </h1>
-          <p className="text-xs text-slate-500 font-medium">
-            Review incoming orders, customer details, device model selections, and dispatch statuses
-          </p>
-        </div>
-
+        <div></div>
         {/* Filter Tabs */}
         <div className="flex gap-1.5 bg-slate-200/70 p-1 rounded-xl overflow-x-auto max-w-full">
           {["ALL", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"].map((tab) => (

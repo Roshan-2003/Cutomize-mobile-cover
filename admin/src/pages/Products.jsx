@@ -113,42 +113,7 @@ const Products = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-          <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase tracking-wider">
-            All Products ({filteredProducts.length})
-          </h1>
-          <p className="text-xs text-slate-500 font-medium">
-            Manage store inventory, update prices, or remove items
-          </p>
-        </div>
-
-        {/* Filter & Search Bar */}
-        <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-          <div className="relative flex-1 sm:w-64">
-            <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input
-              type="text"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              placeholder="Search product title..."
-              className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2 text-xs outline-none focus:border-indigo-600 transition"
-            />
-          </div>
-
-          <select
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-            className="bg-white border border-slate-200 rounded-xl px-3 py-2 text-xs font-semibold text-slate-700 outline-none focus:border-indigo-600 transition"
-          >
-            <option value="">All Categories</option>
-            <option value="Premium Tough Cases">Premium Tough Cases</option>
-            <option value="Leather Cases">Leather Cases</option>
-            <option value="CHAOS Drops">CHAOS Drops</option>
-            <option value="New iPhone 17 Series">New iPhone 17 Series</option>
-          </select>
-        </div>
-      </div>
+    
 
       {/* Edit Modal Overlay */}
       {editProduct && (

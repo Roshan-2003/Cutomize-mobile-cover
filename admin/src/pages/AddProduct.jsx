@@ -88,14 +88,7 @@ const AddProduct = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div>
-        <h1 className="text-xl sm:text-2xl font-extrabold text-slate-900 uppercase tracking-wider">
-          Add New Phone Case
-        </h1>
-        <p className="text-xs text-slate-500 font-medium">
-          Create a new product listing in your online store
-        </p>
-      </div>
+      
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 lg:grid-cols-12 gap-6">
         {/* Left Column - Product Information (8 cols) */}

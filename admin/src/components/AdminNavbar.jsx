@@ -1,7 +1,16 @@
 import React from "react";
 import { FiMenu, FiBell, FiSearch, FiExternalLink } from "react-icons/fi";
+import { useLocation } from "react-router-dom";
 
 const AdminNavbar = ({ onToggleSidebar }) => {
+  const { pathname } = useLocation();
+  const pageTitles = {
+    "/": "Dashboard",
+    "/add-product": "Add Product",
+    "/products": "Products",
+    "/orders": "Orders",
+  };
+  const pageTitle = pageTitles[pathname] || "Dashboard";
 
   return (
     <header className="h-16 bg-white border-b border-slate-200/80 sticky top-0 z-30 px-4 sm:px-6 flex items-center justify-between shadow-xs">
@@ -17,11 +26,9 @@ const AdminNavbar = ({ onToggleSidebar }) => {
 
         <div>
           <h2 className="text-sm sm:text-base font-bold text-slate-800 tracking-wide uppercase">
-            Overview Dashboard
+            {pageTitle}
           </h2>
-          <p className="text-[10px] text-slate-400 font-medium hidden sm:block">
-            Singh & Chand Luxury Store Management
-          </p>
+          
         </div>
       </div>
 
@@ -34,7 +41,7 @@ const AdminNavbar = ({ onToggleSidebar }) => {
           rel="noopener noreferrer"
           className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition text-slate-700"
         >
-          <span>Live Store</span>
+          <span >Live Store</span>
           <FiExternalLink size={14} />
         </a>
 
