@@ -108,7 +108,7 @@ const AddProduct = () => {
               onChange={handleChange}
               placeholder="e.g. Trackline Edition Tough Case"
               required
-              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-indigo-600 transition"
+              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
             />
           </div>
 
@@ -125,7 +125,7 @@ const AddProduct = () => {
                 onChange={handleChange}
                 placeholder="1499"
                 required
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-indigo-600 transition"
+                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
               />
             </div>
 
@@ -139,7 +139,7 @@ const AddProduct = () => {
                 value={form.originalPrice}
                 onChange={handleChange}
                 placeholder="1999"
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-indigo-600 transition"
+                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
               />
             </div>
 
@@ -152,7 +152,7 @@ const AddProduct = () => {
                 value={form.discount}
                 onChange={handleChange}
                 placeholder="e.g. 25% OFF"
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-indigo-600 transition"
+                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
               />
             </div>
           </div>
@@ -168,7 +168,7 @@ const AddProduct = () => {
                 value={form.category}
                 onChange={handleChange}
                 required
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-indigo-600 transition bg-white"
+                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition bg-white"
               >
                 <option value="">Select Category</option>
                 <option value="Premium Tough Cases">Premium Tough Cases</option>
@@ -187,7 +187,7 @@ const AddProduct = () => {
                 value={form.color}
                 onChange={handleChange}
                 placeholder="e.g. Matte Black"
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-indigo-600 transition"
+                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
               />
             </div>
 
@@ -200,7 +200,7 @@ const AddProduct = () => {
                 value={form.material}
                 onChange={handleChange}
                 placeholder="e.g. Polycarbonate Dual Layer"
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-indigo-600 transition"
+                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
               />
             </div>
           </div>
@@ -216,7 +216,7 @@ const AddProduct = () => {
               onChange={handleChange}
               rows="4"
               placeholder="Enter product description, drop-protection details, compatibility..."
-              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-indigo-600 transition"
+              className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
             />
           </div>
         </div>
@@ -229,7 +229,7 @@ const AddProduct = () => {
               Product Image *
             </h2>
 
-            <div className="relative border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center hover:border-indigo-500 transition-colors bg-slate-50/50">
+            <div className="relative border-2 border-dashed border-slate-300 rounded-2xl p-6 text-center hover:border-black transition-colors bg-slate-50/50">
               <input
                 type="file"
                 name="image"
@@ -239,7 +239,7 @@ const AddProduct = () => {
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
               />
               <div className="flex flex-col items-center justify-center gap-2 text-slate-500">
-                <FiUploadCloud size={32} className="text-indigo-600" />
+                <FiUploadCloud size={32} className="text-black" />
                 <span className="text-xs font-bold uppercase tracking-wider text-slate-800">
                   Upload Product Image
                 </span>
@@ -257,7 +257,7 @@ const AddProduct = () => {
                 />
                 <div>
                   <span className="text-xs font-bold text-slate-800 block">Image Selected</span>
-                  <span className="text-[10px] text-emerald-600 font-semibold flex items-center gap-1">
+                  <span className="text-[10px] text-gray-700 font-semibold flex items-center gap-1">
                     <FiCheckCircle /> Ready for upload
                   </span>
                 </div>
@@ -273,7 +273,7 @@ const AddProduct = () => {
                 name="bestseller"
                 checked={form.bestseller}
                 onChange={handleChange}
-                className="accent-indigo-600 h-5 w-5 rounded"
+                className="accent-black h-5 w-5 rounded"
               />
               <div>
                 <span className="text-xs font-bold uppercase text-slate-800 block">
@@ -290,7 +290,7 @@ const AddProduct = () => {
           <button
             type="submit"
             disabled={submitting}
-            className="w-full bg-slate-900 text-white py-4 rounded-xl text-xs font-extrabold uppercase tracking-[0.25em] hover:bg-indigo-600 transition-all duration-300 shadow-lg disabled:opacity-50 cursor-pointer"
+            className="w-full bg-black text-white py-4 rounded-xl text-xs font-extrabold uppercase tracking-[0.25em] hover:bg-gray-800 transition-all duration-300 shadow-lg disabled:opacity-50 cursor-pointer"
           >
             {submitting ? "Publishing Product..." : "Publish Product"}
           </button>

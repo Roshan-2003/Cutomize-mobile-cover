@@ -13,19 +13,19 @@ const AdminNavbar = ({ onToggleSidebar }) => {
   const pageTitle = pageTitles[pathname] || "Dashboard";
 
   return (
-    <header className="h-16 bg-white border-b border-slate-200/80 sticky top-0 z-30 px-4 sm:px-6 flex items-center justify-between shadow-xs">
+    <header className="h-16 bg-white border-b border-gray-200 sticky top-0 z-30 px-4 sm:px-6 flex items-center justify-between shadow-xs">
       {/* Left: Mobile Menu Toggle & Title */}
       <div className="flex items-center gap-3">
         <button
           onClick={onToggleSidebar}
-          className="lg:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition cursor-pointer focus:outline-none"
+          className="lg:hidden p-2 text-gray-700 hover:text-black rounded-lg hover:bg-gray-100 transition cursor-pointer focus:outline-none"
           aria-label="Toggle Sidebar"
         >
           <FiMenu size={22} />
         </button>
 
         <div>
-          <h2 className="text-sm sm:text-base font-bold text-slate-800 tracking-wide uppercase">
+          <h2 className="text-sm sm:text-base font-bold text-black tracking-wide uppercase">
             {pageTitle}
           </h2>
           
@@ -39,26 +39,26 @@ const AdminNavbar = ({ onToggleSidebar }) => {
           href="https://mobile-cover-store.vercel.app/"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition text-slate-700"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-black bg-gray-100 hover:bg-gray-200 rounded-lg transition"
         >
           <span >Live Store</span>
           <FiExternalLink size={14} />
         </a>
 
         {/* Notifications Icon */}
-        <button className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100 rounded-lg transition relative">
+        <button className="p-2 text-gray-600 hover:text-black hover:bg-gray-100 rounded-lg transition relative">
           <FiBell size={18} />
-          <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-indigo-600 animate-pulse" />
+          <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-black animate-pulse" />
         </button>
 
-        <div className="h-6 w-px bg-slate-200 hidden sm:block" />
+        <div className="h-6 w-px bg-gray-200 hidden sm:block" />
 
         {/* Admin Badge */}
         <div className="flex items-center gap-2">
-          <div className="h-8 w-8 rounded-full bg-slate-900 text-white font-bold text-xs flex items-center justify-center">
+          <div className="h-8 w-8 rounded-full bg-black text-white font-bold text-xs flex items-center justify-center">
             A
           </div>
-          <span className="text-xs font-bold text-slate-700 hidden md:inline">
+          <span className="text-xs font-bold text-gray-700 hidden md:inline">
             Administrator
           </span>
         </div>

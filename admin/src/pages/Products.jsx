@@ -140,7 +140,7 @@ const Products = () => {
                     name="title"
                     value={editProduct.title || ""}
                     onChange={handleEditChange}
-                    className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-indigo-600"
+                    className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-black"
                   />
                 </div>
 
@@ -151,7 +151,7 @@ const Products = () => {
                     name="price"
                     value={editProduct.price || ""}
                     onChange={handleEditChange}
-                    className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-indigo-600"
+                    className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-black"
                   />
                 </div>
 
@@ -162,7 +162,7 @@ const Products = () => {
                     name="originalPrice"
                     value={editProduct.originalPrice || ""}
                     onChange={handleEditChange}
-                    className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-indigo-600"
+                    className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-black"
                   />
                 </div>
 
@@ -172,7 +172,7 @@ const Products = () => {
                     name="category"
                     value={editProduct.category || ""}
                     onChange={handleEditChange}
-                    className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-indigo-600"
+                    className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-black"
                   >
                     <option value="">Select Category</option>
                     <option value="Premium Tough Cases">Premium Tough Cases</option>
@@ -190,7 +190,7 @@ const Products = () => {
                   rows="3"
                   value={editProduct.description || ""}
                   onChange={handleEditChange}
-                  className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-indigo-600"
+                  className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-black"
                 />
               </div>
 
@@ -201,7 +201,7 @@ const Products = () => {
                   id="bestseller"
                   checked={editProduct.bestseller || false}
                   onChange={handleEditChange}
-                  className="accent-indigo-600 h-4 w-4"
+                  className="accent-black h-4 w-4"
                 />
                 <label htmlFor="bestseller" className="text-xs font-bold uppercase text-slate-700 cursor-pointer">
                   Feature as Bestseller
@@ -218,7 +218,7 @@ const Products = () => {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 rounded-lg bg-indigo-600 text-white text-xs font-bold uppercase tracking-wider hover:bg-indigo-700 shadow-md"
+                  className="px-5 py-2.5 rounded-lg bg-black text-white text-xs font-bold uppercase tracking-wider hover:bg-gray-800 shadow-md"
                 >
                   Save Changes
                 </button>
@@ -289,7 +289,7 @@ const Products = () => {
 
                     <td className="p-4">
                       {product.bestseller ? (
-                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-amber-50 text-amber-600">
+                        <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-gray-100 text-gray-800">
                           ★ YES
                         </span>
                       ) : (
@@ -301,18 +301,26 @@ const Products = () => {
                       <div className="flex items-center justify-end gap-2">
                         <button
                           onClick={() => handleEdit(product)}
-                          className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors cursor-pointer"
+                          className="p-2  rounded-lg transition-colors text-blue-600 cursor-pointer"
                           title="Edit"
                         >
-                          <FiEdit size={16} />
+                          <FiEdit size={18} />
                         </button>
-                        <button
-                          onClick={() => handleDelete(product._id)}
-                          className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors cursor-pointer"
-                          title="Delete"
-                        >
-                          <FiTrash2 size={16} />
-                        </button>
+                      <button
+  onClick={() => handleDelete(product._id)}
+  className="p-2 rounded-lg transition-colors cursor-pointer"
+  title="Delete"
+>
+  <img
+    src="/delete.png"
+    alt="Delete"
+    className="w-4 h-4 object-contain brightness-0 saturate-100"
+    style={{
+      filter:
+        "invert(18%) sepia(94%) saturate(6000%) hue-rotate(350deg) brightness(95%) contrast(110%)",
+    }}
+  />
+</button>
                       </div>
                     </td>
                   </tr>

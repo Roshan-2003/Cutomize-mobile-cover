@@ -55,13 +55,13 @@ const Orders = () => {
     const s = (status || "CONFIRMED").toUpperCase();
     switch (s) {
       case "DELIVERED":
-        return "bg-emerald-50 text-emerald-600 border-emerald-200";
+        return "bg-gray-100 text-gray-800 border-gray-300";
       case "SHIPPED":
-        return "bg-indigo-50 text-indigo-600 border-indigo-200";
+        return "bg-gray-100 text-gray-800 border-gray-300";
       case "CANCELLED":
-        return "bg-red-50 text-red-600 border-red-200";
+        return "bg-gray-100 text-gray-800 border-gray-300";
       default:
-        return "bg-amber-50 text-amber-600 border-amber-200";
+        return "bg-gray-100 text-gray-800 border-gray-300";
     }
   };
 
@@ -78,8 +78,8 @@ const Orders = () => {
               onClick={() => setActiveTab(tab)}
               className={`px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider transition ${
                 activeTab === tab
-                  ? "bg-white text-slate-900 shadow-sm"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-black text-white shadow-sm"
+                  : "text-slate-600 hover:text-black"
               }`}
             >
               {tab}
@@ -185,7 +185,7 @@ const Orders = () => {
                               <span className="font-bold text-slate-900 block leading-snug">
                                 {item.title || item.product?.title || "Phone Case"} (×{item.quantity})
                               </span>
-                              <span className="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-indigo-50 text-indigo-600 border border-indigo-200">
+                              <span className="inline-flex items-center gap-1 mt-0.5 px-2 py-0.5 rounded text-[10px] font-extrabold uppercase bg-gray-100 text-gray-800 border border-gray-200">
                                 <FiSmartphone size={10} />
                                 <span>Model: {item.selectedModel || "iPhone 16 Pro Max"}</span>
                               </span>

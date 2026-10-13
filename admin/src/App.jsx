@@ -14,7 +14,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col">
+      <div className="min-h-screen bg-gray-50 text-black flex flex-col">
         {/* Sidebar */}
         <Sidebar
           isOpen={sidebarOpen}

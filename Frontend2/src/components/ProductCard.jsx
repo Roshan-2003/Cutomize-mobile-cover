@@ -23,7 +23,7 @@ const ProductCard = ({ _id, image, title, price, originalPrice, discount, catego
       )}
 
       {/* Product Image Link Container */}
-      <Link to={`/product/${_id}`} className="block relative overflow-hidden rounded-lg bg-gray-50 aspect-square flex items-center justify-center p-2 sm:p-3 mb-2 sm:mb-2.5">
+      <Link to={`/product/${_id}`} className="block relative overflow-hidden rounded-lg  aspect-square flex items-center justify-center p-2 sm:p-3 mb-2 sm:mb-2.5">
     <div className="group relative flex items-center justify-center">
   <img
     src={resolvedImage}
