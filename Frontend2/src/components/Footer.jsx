@@ -28,11 +28,11 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 sm:gap-12 mb-16">
         {/* Col 1: Brand Info */}
         <div className="space-y-4">
-          <div className="flex items-center tracking-[0.3em] text-lg font-light">
-            <span className="border border-[#c5a059] text-[#c5a059] px-1.5 py-0.5 mr-2 font-bold text-xs">
+          <div className="flex items-center tracking-[0.1em] text-lg font-light">
+            {/* <span className="border border-[#c5a059] text-[#c5a059] px-1.5 py-0.5 mr-2 font-bold text-xs">
               S&C
-            </span>
-            <span className="font-heading text-[#c5a059] font-bold">SINGH & CHAND</span>
+            </span> */}
+            <span className="font-heading text-[#c5a059] font-bold">Designocase</span>
           </div>
           <p className="text-xs text-gray-400 font-light leading-relaxed">
             Crafting luxury, dual-layer protective phone covers and premium leather accessories designed to elevate your everyday tech.
@@ -92,7 +92,7 @@ const Footer = () => {
             Have questions regarding your custom order or device compatibility?
           </p>
           <div className="space-y-2 text-xs text-gray-300">
-            <p><span className="text-[#c5a059] font-bold">Email:</span> support@singhchand.com</p>
+            <p><span className="text-[#c5a059] font-bold">Email:</span> support@designocase.com</p>
             <p><span className="text-[#c5a059] font-bold">Support Hours:</span> Mon - Sat (10am - 7pm)</p>
           </div>
         </div>

@@ -101,9 +101,9 @@ function App() {
                   products={premiumToughCases}
                   showViewAll={true}
                 />
-                <div className="py-6 sm:py-10">
+                <div className=" py-6 sm:pt-10">
                   <ProductSection
-                    title="New iPhone 17 Series"
+                    title="New iPhone 18 Series"
                     // subtitle="Designed For The Next Generation"
                     products={iphone17Series}
                   />

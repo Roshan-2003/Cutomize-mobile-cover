@@ -11,17 +11,17 @@ const ProductSection = ({
   onViewAll,
 }) => {
   return (
-    <section id={id} className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+    <section id={id} className=" sm:py-12 md:pb-15 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
       
       {/* Section Header */}
       <div className="text-center mb-8 sm:mb-12">
         {subtitle && (
-          <span className="text-[10px] sm:text-xs font-extrabold uppercase tracking-[0.3em] text-[#c5a059] block mb-1">
+          <span className="text-[10px] sm:text-xs font-extrabold  tracking-[0.3em] text-[#c5a059] block mb-1">
             {subtitle}
           </span>
         )}
 
-        <h2 className="font-heading text-xl sm:text-2xl md:text-3xl font-extrabold text-gray-900 uppercase tracking-wider">
+        <h2 className="font-heading text-xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 uppercase">
           {title}
         </h2>
 

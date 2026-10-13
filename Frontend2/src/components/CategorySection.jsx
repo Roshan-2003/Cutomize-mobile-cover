@@ -50,15 +50,13 @@ function CategorySection() {
           Explore Collections
         </p> */}
 
-        <h2 className="font-heading text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 uppercase">
+        <h2 className="font-heading text-xl sm:text-3xl md:text-4xl font-extrabold tracking-tight text-gray-900 uppercase">
           Shop By Category
         </h2>
 
         <div className="h-0.5 w-16 bg-[#c5a059] mx-auto mt-3 mb-3 rounded-full" />
 
-        <p className="mt-2 text-xs sm:text-sm text-gray-500 font-light">
-          Bespoke craftsmanship & precision protection designed for your daily aesthetic.
-        </p>
+   
       </div>
 
       {/* Slider Wrapper */}
@@ -70,14 +68,14 @@ function CategorySection() {
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-12 sm:w-24 md:w-36 bg-gradient-to-l from-white to-transparent" />
 
         {/* Moving Container */}
-        <div className="flex w-max gap-4 sm:gap-6 md:gap-8 animate-marquee hover:[animation-play-state:paused] py-4">
+        <div className="flex w-max gap-4 sm:gap-6 md:gap-4 animate-marquee hover:[animation-play-state:paused] py-4">
           {sliderItems.map((category, index) => (
             <div
               key={`${category.id}-${index}`}
               className="group flex w-28 sm:w-36 md:w-44 shrink-0 cursor-pointer flex-col items-center transition-transform duration-300 hover:-translate-y-1"
             >
               {/* Image Thumbnail */}
-              <div className="relative h-20 w-20 sm:h-28 sm:w-28 md:h-32 md:w-32 overflow-hidden rounded-full bg-gray-100 p-1 ring-2 ring-gray-200/80 transition-all duration-500 group-hover:ring-[#c5a059] group-hover:shadow-xl group-hover:scale-105">
+              <div className="relative h-10 w-10 sm:h-15 sm:w-15 md:h-25 md:w-25 overflow-hidden rounded-full bg-gray-100 p-1 ring-2 ring-gray-200/80 transition-all duration-500 group-hover:ring-[#c5a059] group-hover:shadow-md group-hover:scale-105">
                 <img
                   src={category.img}
                   alt={category.name}

@@ -83,7 +83,7 @@ const CategoryGrid = () => {
 
             {/* Dark Gradient Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent flex flex-col justify-end p-6 text-white text-center transition-all duration-300 group-hover:via-black/50">
-              <h3 className="font-heading text-lg sm:text-xl font-bold uppercase tracking-wider mb-3 drop-shadow-md">
+              <h3 className="font-heading text-lg sm:text-xl font-bold  tracking-wider mb-3 drop-shadow-md">
                 {cat.title}
               </h3>
 

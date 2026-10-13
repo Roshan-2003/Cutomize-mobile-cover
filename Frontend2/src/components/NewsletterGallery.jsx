@@ -23,10 +23,10 @@ const NewsletterGallery = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
         {/* Left: Sign up Form */}
         <div className="w-full lg:w-1/2 p-6 sm:p-10 bg-black text-white rounded-2xl border border-[#c5a059]/30 shadow-xl flex flex-col justify-center">
-          <div className="inline-flex items-center gap-2 text-[#c5a059] text-xs font-bold uppercase tracking-[0.25em] mb-3">
+          {/* <div className="inline-flex items-center gap-2 text-[#c5a059] text-xs font-bold uppercase tracking-[0.25em] mb-3">
             <FiMail />
             <span>VIP Access</span>
-          </div>
+          </div> */}
 
           <h2 className="font-heading text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-wider mb-4 leading-snug">
             Unlock 10% Off Your First Purchase

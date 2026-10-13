@@ -59,12 +59,9 @@ const Navbar = () => {
             to="/"
             className="flex items-center tracking-[0.2em] sm:tracking-[0.35em] text-base sm:text-xl font-light cursor-pointer group select-none"
           >
-            <span className="border-2 border-[#c5a059] text-[#c5a059] px-1.5 py-0.5 mr-2 sm:mr-3 font-bold text-xs sm:text-sm group-hover:bg-[#c5a059] group-hover:text-black transition-all rounded-sm shadow-sm">
-              S&C
-            </span>
+          
             <span className="font-heading font-semibold bg-gradient-to-r from-white via-[#f0f0f0] to-[#c5a059] bg-clip-text text-transparent">
-              SINGH & CHAND
-            </span>
+Designocase            </span>
           </Link>
 
           {/* Right: User & Cart Icons */}

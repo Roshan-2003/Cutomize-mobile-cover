@@ -31,15 +31,15 @@ const TrustBar = () => {
         {items.map((item, i) => (
           <div
             key={i}
-            className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 border border-white/10 hover:border-white/60 hover:bg-white hover:text-black transition-all duration-300 hover:-translate-y-1 group"
+            className="flex flex-col items-center text-center p-4 rounded-xl bg-white/5 border border-white/10   transition-all duration-300  group"
           >
-            <div className="text-2xl sm:text-3xl p-3 rounded-full bg-black border border-white/30 mb-3 group-hover:scale-110 transition-transform">
+            <div className="text-2xl sm:text-3xl p-3 rounded-full bg-black border border-white/30 mb-3  transition-transform">
               {item.icon}
             </div>
             <h4 className="text-xs sm:text-sm font-bold uppercase tracking-wider mb-1">
               {item.title}
             </h4>
-            <p className="text-[10px] sm:text-xs text-gray-400 group-hover:text-gray-600 font-light transition-colors">
+            <p className="text-[10px] sm:text-xs text-gray-400  font-light transition-colors">
               {item.subtitle}
             </p>
           </div>
