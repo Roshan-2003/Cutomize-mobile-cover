@@ -189,7 +189,7 @@ const ProductDetails = () => {
     product.originalPrice && product.originalPrice > product.price;
 
   return (
-    <div className="bg-gray-50/50 py-8 sm:py-12">
+    <div className="bg-gray-50/50 py-2 sm:py-12 md:py-5">
       {/* Breadcrumb */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
         <nav className="flex items-center gap-2 text-xs text-gray-500 uppercase tracking-widest">
@@ -205,15 +205,15 @@ const ProductDetails = () => {
         </nav>
       </div>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+      <main className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         {/* Left Gallery (6 cols on lg) */}
         <div className="lg:col-span-6 flex flex-col-reverse sm:flex-row gap-4">
           {/* Thumbnails */}
           <div className="flex sm:flex-col gap-3 overflow-x-auto sm:overflow-y-auto">
-            <button className="h-20 w-20 shrink-0 rounded-lg border-2 border-[#c5a059] p-1.5 bg-white shadow-sm overflow-hidden">
+            <button className="h-20 w-20 shrink-0 rounded-lg border-2  p-1.5 bg-white shadow-sm overflow-hidden">
               <img
                 src={imageUrl}
-                className="h-full w-full object-contain"
+                className="h-full w-full items-center border border-gray-200 object-contain"
                 alt="thumbnail"
               />
             </button>
@@ -233,7 +233,7 @@ const ProductDetails = () => {
             />
           </div> */}
 
-          <div className="flex-1 relative rounded-2xl bg-white border border-gray-100 shadow-lg flex items-center justify-center overflow-hidden">
+          <div className="flex-1 relative rounded-2xl bg-white border border-gray-100 shadow-lg py-7 overflow-hidden self-start">
             {product.bestseller && (
               <span className="absolute top-4 left-4 z-10 bg-[#c5a059] text-black text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow">
                 ★ BESTSELLER
@@ -242,7 +242,7 @@ const ProductDetails = () => {
             <img
               src={imageUrl}
               alt={product.title}
-              className="w-full h-full max-h-[400px] object-contain transition-transform duration-500"
+              className="w-full h-full max-h-[480px] object-contain transition-transform duration-500 ease-out"
             />
           </div>
         </div>
