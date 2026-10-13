@@ -14,16 +14,16 @@ const ProductCard = ({ _id, image, title, price, originalPrice, discount, catego
     : discount;
 
   return (
-    <div className="group relative bg-white rounded-xl border border-gray-100 p-2 sm:p-3 transition-all duration-300 hover:shadow-xl hover:border-[#c5a059]/40 flex flex-col justify-between h-full">
+    <div className="group relative bg-white rounded-xl border border-gray-100 p-2 sm:p-3 md:p-3.5 transition-all duration-300 hover:shadow-xl hover:border-[#c5a059]/40 flex flex-col justify-between h-full">
       {/* Discount Badge */}
       {(discountPercent || hasDiscount) && (
-        <span className="absolute top-3 left-3 z-10 bg-black text-[#c5a059] text-[9px] sm:text-[10px] font-extrabold px-2 py-0.5 rounded uppercase tracking-wider shadow-md">
+        <span className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 z-10 bg-black text-[#c5a059] text-[8px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded uppercase tracking-wider shadow-md">
           {discountPercent ? `${discountPercent}% OFF` : "SALE"}
         </span>
       )}
 
       {/* Product Image Link Container */}
-      <Link to={`/product/${_id}`} className="block relative overflow-hidden rounded-lg bg-gray-50 aspect-square flex items-center justify-center p-3 mb-3">
+      <Link to={`/product/${_id}`} className="block relative overflow-hidden rounded-lg bg-gray-50 aspect-square flex items-center justify-center p-2 sm:p-3 mb-2 sm:mb-2.5">
         <img
           src={resolvedImage}
           alt={title}
@@ -43,29 +43,29 @@ const ProductCard = ({ _id, image, title, price, originalPrice, discount, catego
       </Link>
 
       {/* Product Details */}
-      <div className="text-center px-1 flex flex-col flex-1 justify-between">
+      <div className="text-center px-0.5 sm:px-1 flex flex-col flex-1 justify-between">
         <div>
           {category && (
-            <p className="text-[9px] sm:text-[10px] text-gray-400 uppercase tracking-widest font-semibold mb-1 truncate">
+            <p className="text-[8px] sm:text-[9px] md:text-[10px] text-gray-400 uppercase tracking-wider font-semibold mb-0.5 sm:mb-1 truncate">
               {category}
             </p>
           )}
 
           <Link to={`/product/${_id}`}>
-            <h3 className="text-xs sm:text-sm font-bold tracking-wider uppercase text-gray-900 line-clamp-2 leading-snug mb-2  transition-colors">
+            <h3 className="text-[11px] sm:text-xs md:text-sm font-bold tracking-tight sm:tracking-wider uppercase text-gray-900 line-clamp-2 leading-tight sm:leading-snug mb-1 sm:mb-2 transition-colors">
               {title}
             </h3>
           </Link>
         </div>
 
         {/* Price Row */}
-        <div className="mt-2 pt-2 border-t border-gray-100 flex items-center justify-center gap-2 flex-wrap">
+        <div className="mt-1.5 sm:mt-2 pt-1.5 sm:pt-2 border-t border-gray-100 flex items-center justify-center gap-1.5 sm:gap-2 flex-wrap">
           {originalPrice && (
-            <span className="text-gray-400 line-through text-xs font-normal">
+            <span className="text-gray-400 line-through text-[10px] sm:text-xs font-normal">
               ₹{originalPrice}
             </span>
           )}
-          <span className="text-sm sm:text-base font-extrabold text-gray-900">
+          <span className="text-xs sm:text-sm md:text-base font-extrabold text-gray-900">
             ₹{price}
           </span>
         </div>
