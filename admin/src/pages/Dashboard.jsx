@@ -181,7 +181,7 @@ const Dashboard = () => {
         <div className="flex justify-between items-center mb-6">
           <div>
             <h2 className="text-base font-bold text-slate-900 uppercase tracking-wider">Recent Store Activity</h2>
-            <p className="text-xs text-slate-500">Latest customer transactions</p>
+            {/* <p className="text-xs text-slate-500">Latest customer transactions</p> */}
           </div>
           <Link to="/orders" className="text-xs font-bold text-indigo-600 hover:underline uppercase tracking-wider">
             View All Orders →
