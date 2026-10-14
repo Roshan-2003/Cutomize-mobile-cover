@@ -13,7 +13,7 @@ import CategoryGrid from "./components/CategoryGrid";
 import TrustBar from "./components/TrustBar";
 import NewsletterGallery from "./components/NewsletterGallery";
 import Footer from "./components/Footer";
-
+import AllProducts from "./page/AllProducts";
 import { getProducts, getIphone17Products } from "./api/productApi";
 import { getCategories } from "./api/categoryApi";
 import ProductDetails from "./components/ProductDetails";
@@ -179,6 +179,7 @@ function App() {
                   title="Premium Tough Cases"
                   // subtitle="Military-Grade Dual Layer Protection"
                   products={premiumToughCases}
+                  
                   showViewAll={true}
                 />
                 <div className=" py-6 sm:pt-10">
@@ -214,6 +215,7 @@ function App() {
           />
 
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/products/:category" element={<AllProducts />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/order-success/:id" element={<OrderSuccess />} />

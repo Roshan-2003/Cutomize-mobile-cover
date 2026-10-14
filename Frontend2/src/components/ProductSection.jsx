@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import ProductCard from "./ProductCard";
 
 const ProductSection = ({
@@ -7,52 +8,57 @@ const ProductSection = ({
   subtitle,
   products = [],
   showViewAll = false,
-  showAll,
-  onViewAll,
+  categorySlug,
 }) => {
+  const navigate = useNavigate();
+
+  const visibleProducts = products.slice(0, 8);
+
   return (
-    <section id={id} className="py-6 sm:py-10 md:py-14 px-3 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Section Header */}
-      <div className="text-center mb-6 sm:mb-8 md:mb-10">
+    <section
+      id={id}
+      className="mx-auto max-w-7xl px-3 py-6 sm:px-6 sm:py-10 md:py-14 lg:px-8"
+    >
+      <div className="mb-6 text-center sm:mb-8 md:mb-10">
         {subtitle && (
-          <span className="text-[10px] sm:text-xs md:text-sm font-extrabold tracking-[0.25em] sm:tracking-[0.3em] text-[#c5a059] block mb-1 sm:mb-1.5">
+          <span className="mb-1.5 block text-xs font-extrabold tracking-widest text-[#c5a059]">
             {subtitle}
           </span>
         )}
 
-        <h2 className="font-heading text-xl sm:text-2xl md:text-2.5xl lg:text-4xl font-extrabold tracking-tight text-gray-900 uppercase">
+        <h2 className="font-heading text-xl font-extrabold uppercase text-gray-900 sm:text-2xl md:text-3xl lg:text-4xl">
           {title}
         </h2>
 
-        <div className="h-0.5 w-12 sm:w-16 bg-[#c5a059] mx-auto mt-2.5 sm:mt-3 rounded-full" />
+        <div className="mx-auto mt-3 h-0.5 w-16 rounded-full bg-[#c5a059]" />
       </div>
 
-      {/* Grid Display */}
-      {products.length === 0 ? (
-        <div className="text-center py-10 sm:py-14 bg-white rounded-xl border border-gray-100 p-6 sm:p-8 shadow-sm">
-          <p className="text-xs sm:text-sm text-gray-500 font-medium uppercase tracking-widest">
+      {visibleProducts.length === 0 ? (
+        <div className="rounded-xl border border-gray-100 bg-white p-8 text-center">
+          <p className="text-sm text-gray-500">
             New arrivals coming soon in this collection.
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6 lg:gap-8">
-          {products.map((product) => (
-            <ProductCard
-              key={product._id}
-              {...product}
-            />
+        <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-8">
+          {visibleProducts.map((product) => (
+            <ProductCard key={product._id} {...product} />
           ))}
         </div>
       )}
 
-      {/* View All CTA */}
-      {showViewAll && !showAll && products.length > 0 && (
-        <div className="flex justify-center mt-8 sm:mt-12">
+      {showViewAll && products.length > 8 && (
+        <div className="mt-8 flex justify-center sm:mt-12">
           <button
-            onClick={onViewAll}
-            className="group relative inline-flex items-center justify-center px-6 py-2.5 sm:px-10 sm:py-3.5 text-[11px] sm:text-xs md:text-sm font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-white bg-black rounded-md overflow-hidden shadow-lg hover:bg-[#c5a059] hover:text-black transition-all duration-300 cursor-pointer"
+            type="button"
+            onClick={() =>
+              navigate(
+                `/products/${categorySlug || encodeURIComponent(title)}`
+              )
+            }
+            className="rounded-md bg-black px-6 py-3 text-xs cursor-pointer font-bold uppercase tracking-widest text-white transition hover:bg-[#c5a059] hover:text-black sm:px-10"
           >
-            <span>View All Products</span>
+            View All Products 
           </button>
         </div>
       )}

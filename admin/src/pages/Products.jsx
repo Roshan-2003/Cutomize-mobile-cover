@@ -10,6 +10,7 @@ const API_URL = `${API_BASE_URL}/products`;
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [productsError, setProductsError] = useState("");
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editProduct, setEditProduct] = useState(null);
@@ -25,11 +26,16 @@ const Products = () => {
   const fetchProducts = async () => {
     try {
       setLoading(true);
+      setProductsError("");
       const response = await fetch(API_URL);
       const data = await response.json();
+      if (!response.ok || data.success === false) {
+        throw new Error(data.message || `Unable to load products (HTTP ${response.status}).`);
+      }
       setProducts(data.products || []);
     } catch (error) {
       console.log("Get Products Error:", error);
+      setProductsError(error.message || "Unable to load products. Check the backend API URL and connection.");
     } finally {
       setLoading(false);
     }
@@ -156,6 +162,12 @@ const Products = () => {
           )}
         </div>
       </div>
+
+      {productsError && (
+        <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+          {productsError}
+        </p>
+      )}
 
       {categoryError && (
         <p role="status" className="text-xs text-amber-700">

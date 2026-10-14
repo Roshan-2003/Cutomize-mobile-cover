@@ -37,7 +37,7 @@ const getProducts = async (req, res) => {
       success: false,
       message: error.message,
     });
-  }2
+  }
 };
 
 // GET - Get single product
