@@ -6,6 +6,7 @@ import {
 } from "../api/categoryApi";
 
 import CategoryModal from "./AddCategoryModel";
+import { Link } from "react-router-dom";
 
 import {
   FiPlus,
@@ -184,7 +185,7 @@ function AddCategory() {
                   <th className="px-5 py-4">Name</th>
                   <th className="px-5 py-4">Slug</th>
                   <th className="px-5 py-4">Description</th>
-                  <th className="px-5 py-4 text-center">Action</th>
+                  <th className="px-5 py-4 text-center">Products / Action</th>
                 </tr>
               </thead>
 
@@ -249,6 +250,19 @@ function AddCategory() {
                       </td>
 
                       <td className="px-5 py-4 text-center">
+                        <div className="flex items-center justify-center gap-2">
+                        <Link
+                          to={`/products?category=${encodeURIComponent(category.slug)}`}
+                          className="rounded-lg bg-slate-900 px-3 py-2 text-xs font-semibold text-white hover:bg-slate-700"
+                        >
+                          View Products
+                        </Link>
+                        <Link
+                          to={`/add-product?category=${encodeURIComponent(category.slug)}`}
+                          className="rounded-lg bg-amber-500 px-3 py-2 text-xs font-semibold text-white hover:bg-amber-600"
+                        >
+                          Add Product
+                        </Link>
                         <button
                           type="button"
                           onClick={() =>
@@ -277,6 +291,7 @@ function AddCategory() {
     }}
   />                          )}
                         </button>
+                        </div>
                       </td>
                     </tr>
                   ))

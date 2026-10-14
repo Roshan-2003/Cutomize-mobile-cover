@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { createProduct } from "../api/productApi";
 import { getCategories } from "../api/categoryApi";
 import { getProductCategoryOptions } from "../data/productCategories";
@@ -23,13 +24,25 @@ const AddProduct = () => {
   const [categories, setCategories] = useState([]);
   const [categoryError, setCategoryError] = useState("");
   const [isCustomCategory, setIsCustomCategory] = useState(false);
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
     let isCurrent = true;
 
     getCategories()
       .then((data) => {
-        if (isCurrent) setCategories(data.categories || []);
+        if (isCurrent) {
+          const loadedCategories = data.categories || [];
+          setCategories(loadedCategories);
+          const requestedCategory = searchParams.get("category");
+          const selectedCategory = loadedCategories.find(
+            (category) => category.slug === requestedCategory || category._id === requestedCategory
+          );
+          if (selectedCategory) {
+            setForm((prev) => ({ ...prev, category: selectedCategory.name }));
+            setIsCustomCategory(false);
+          }
+        }
       })
       .catch((error) => {
         console.error("Failed to load categories:", error);

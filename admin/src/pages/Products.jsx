@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { FiEdit, FiTrash2, FiSearch, FiX, FiCheck, FiFilter } from "react-icons/fi";
 import { API_BASE_URL, API_ORIGIN } from "../api/apiUrl";
 import { getCategories } from "../api/categoryApi";
@@ -14,6 +15,7 @@ const Products = () => {
   const [editProduct, setEditProduct] = useState(null);
   const [categories, setCategories] = useState([]);
   const [categoryError, setCategoryError] = useState("");
+  const [searchParams] = useSearchParams();
 
   const categoryOptions = getProductCategoryOptions(
     categories,
@@ -36,7 +38,13 @@ const Products = () => {
   useEffect(() => {
     fetchProducts();
     getCategories()
-      .then((data) => setCategories(data.categories || []))
+      .then((data) => {
+        const loadedCategories = data.categories || [];
+        setCategories(loadedCategories);
+        const requestedSlug = searchParams.get("category");
+        const requestedCategory = loadedCategories.find((category) => category.slug === requestedSlug);
+        if (requestedCategory) setSelectedCategory(requestedCategory.name);
+      })
       .catch((error) => {
         console.error("Failed to load categories:", error);
         setCategoryError(
@@ -45,7 +53,7 @@ const Products = () => {
             "Custom categories could not be loaded."
         );
       });
-  }, []);
+  }, [searchParams]);
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
@@ -131,7 +139,23 @@ const Products = () => {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
+      <div className="flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 className="text-xl font-bold text-slate-900">Products</h1>
+          <p className="mt-1 text-sm text-slate-500">Browse products by category.</p>
+        </div>
+        <div className="flex flex-wrap items-center gap-3">
+          <select value={selectedCategory} onChange={(event) => setSelectedCategory(event.target.value)} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
+            <option value="">All categories</option>
+            {getProductCategoryOptions(categories).map((name) => <option key={name} value={name}>{name}</option>)}
+          </select>
+          {selectedCategory && (
+            <Link to={`/add-product?category=${encodeURIComponent(categories.find((category) => category.name === selectedCategory)?.slug || selectedCategory)}`} className="rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800">
+              Add product to {selectedCategory}
+            </Link>
+          )}
+        </div>
+      </div>
 
       {categoryError && (
         <p role="status" className="text-xs text-amber-700">

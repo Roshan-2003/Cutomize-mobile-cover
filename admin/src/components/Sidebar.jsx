@@ -14,11 +14,7 @@ const Sidebar = ({ isOpen, onClose }) => {
       path: "/add-product",
       icon: <FiPlusSquare size={18} />,
     },
-    {
-      name: "Categories",
-      path: "/categories",
-      icon: <FiTag size={18} />,
-    },
+   
     {
       name: "Products",
       path: "/products",
