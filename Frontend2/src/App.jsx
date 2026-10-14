@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, useSearchParams } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { CartProvider } from "./context/CartContext";
 import OrderSuccess from "./page/OrderSuccess";
@@ -21,16 +21,17 @@ import Checkout from "./page/Checkout";
 
 // ScrollToTop component to reset window scroll position on page change
 function ScrollToTop() {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pathname]);
+  }, [pathname, search]);
 
   return null;
 }
 
 function App() {
+  const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [iphone17Series, setIphone17Series] = useState([]);
 
@@ -77,6 +78,69 @@ function App() {
     (product) => product.category === "CHAOS Drops"
   );
 
+const categoryViews = {
+  tough: {
+    title: "Premium Tough Cases",
+    products: products.filter(
+      (product) => product.category === "Premium Tough Cases"
+    ),
+  },
+  leather: {
+    title: "Premium Leather Cases",
+    products: products.filter(
+      (product) => product.category === "Leather Cases"
+    ),
+  },
+  chaos: {
+    title: "CHAOS – Our Newest Drops",
+    products: products.filter(
+      (product) => product.category === "CHAOS Drops"
+    ),
+  },
+  iphone17: {
+    title: "New iPhone 17 Series",
+    products: iphone17Series,
+  },
+  glass: {
+    title: "Glass Cases",
+    products: products.filter(
+      (product) => product.category === "Glass Cases"
+    ),
+  },
+  stride: {
+    title: "Stride Cases",
+    products: products.filter(
+      (product) => product.category === "Stride Cases"
+    ),
+  },
+  silicon: {
+    title: "Silicon Cases",
+    products: products.filter(
+      (product) => product.category === "Silicon Cases"
+    ),
+  },
+  wallet: {
+    title: "Card Wallet",
+    products: products.filter(
+      (product) => product.category === "Card Wallet"
+    ),
+  },
+  "pop-slider": {
+    title: "Pop Slider",
+    products: products.filter(
+      (product) => product.category === "Pop Slider"
+    ),
+  },
+  printed: {
+    title: "Printed Cases",
+    products: products.filter(
+      (product) => product.category === "Printed Cases"
+    ),
+  },
+};
+
+const selectedCategory = categoryViews[searchParams.get("cat")];
+
   return (
     <div className="min-h-screen bg-white">
       <CartProvider>
@@ -92,6 +156,13 @@ function App() {
             path="/"
             element={
               <>
+                {selectedCategory ? (
+                  <ProductSection
+                    title={selectedCategory.title}
+                    products={selectedCategory.products}
+                  />
+                ) : (
+                  <>
                 <Hero />
                 <CategorySection />
                 <ProductSection
@@ -103,7 +174,7 @@ function App() {
                 />
                 <div className=" py-6 sm:pt-10">
                   <ProductSection
-                    title="New iPhone 18 Series"
+                    title="New iPhone 17 Series"
                     // subtitle="Designed For The Next Generation"
                     products={iphone17Series}
                   />
@@ -127,6 +198,8 @@ function App() {
 
                   <NewsletterGallery />
                 </div>
+                  </>
+                )}
               </>
             }
           />

@@ -57,9 +57,9 @@ const Orders = () => {
       <div className="mx-auto max-w-5xl">
         <div className="flex flex-col gap-5 border-b border-gray-200 pb-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-gray-500">Singh &amp; Chand</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-gray-500">Designocase</p>
             <h1 className="font-heading text-3xl font-extrabold uppercase tracking-wider text-black sm:text-4xl">Your Orders</h1>
-            <p className="mt-2 text-sm text-gray-600">Track the latest progress of your purchases.</p>
+            {/* <p className="mt-2 text-sm text-gray-600">Track the latest progress of your purchases.</p> */}
           </div>
           {userId && (
             <button
