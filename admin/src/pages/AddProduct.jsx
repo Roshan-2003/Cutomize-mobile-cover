@@ -61,12 +61,32 @@ const AddProduct = () => {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setForm({
-      ...form,
-      [name]: type === "checkbox" ? checked : value,
+    const { name, value } = e.target;
+
+    setForm((prev) => {
+      const updatedForm = {
+        ...prev,
+        [name]: value,
+      };
+
+      if (name === "price" || name === "originalPrice") {
+        const sellingPrice = Number(updatedForm.price);
+        const originalPrice = Number(updatedForm.originalPrice);
+
+        updatedForm.discount =
+          updatedForm.price !== "" &&
+          updatedForm.originalPrice !== "" &&
+          originalPrice > 0 &&
+          sellingPrice >= 0 &&
+          sellingPrice < originalPrice
+            ? Math.round(((originalPrice - sellingPrice) / originalPrice) * 100)
+            : "";
+      }
+
+      return updatedForm;
     });
   };
+
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -78,6 +98,9 @@ const AddProduct = () => {
     });
     setPreview(URL.createObjectURL(file));
   };
+
+  
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -156,34 +179,37 @@ const AddProduct = () => {
 
           {/* Price, Original Price, Discount Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div>
-              <label className="block text-xs font-bold uppercase text-slate-700 mb-1.5">
-                Selling Price (₹) *
-              </label>
-              <input
-                name="price"
-                type="number"
-                value={form.price}
-                onChange={handleChange}
-                placeholder="1499"
-                required
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
-              />
-            </div>
+         
+<div>
+  <label className="block text-xs font-bold uppercase text-slate-700 mb-1.5">
+    Selling Price (₹) *
+  </label>
+  <input
+    name="price"
+    type="number"
+    min="0"
+    value={form.price}
+    onChange={handleChange}
+    placeholder="1499"
+    required
+    className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
+  />
+</div>
 
-            <div>
-              <label className="block text-xs font-bold uppercase text-slate-700 mb-1.5">
-                Original MRP (₹)
-              </label>
-              <input
-                name="originalPrice"
-                type="number"
-                value={form.originalPrice}
-                onChange={handleChange}
-                placeholder="1999"
-                className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
-              />
-            </div>
+<div>
+  <label className="block text-xs font-bold uppercase text-slate-700 mb-1.5">
+    Original MRP (₹)
+  </label>
+  <input
+    name="originalPrice"
+    type="number"
+    min="0"
+    value={form.originalPrice}
+    onChange={handleChange}
+    placeholder="1999"
+    className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition"
+  />
+</div>
 
             <div>
               <label className="block text-xs font-bold uppercase text-slate-700 mb-1.5">
