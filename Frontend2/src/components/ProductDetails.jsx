@@ -219,19 +219,7 @@ const ProductDetails = () => {
             </button>
           </div>
 
-          {/* Main Display Image */}
-          {/* <div className="flex-1 relative rounded-2xl bg-white p-6 sm:p-0 border border-gray-100 shadow-lg flex items-center justify-center min-h-[380px] sm:min-h-[80px]">
-            {product.bestseller && (
-              <span className="absolute top-4 left-4 z-10 bg-[#c5a059] text-black text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow">
-                ★ BESTSELLER
-              </span>
-            )}
-            <img
-              src={imageUrl}
-              alt={product.title}
-              className="max-h-[400px] max-w-full object-contain transition-transform duration-500 "
-            />
-          </div> */}
+     
 
           <div className="flex-1 relative rounded-2xl bg-white border border-gray-100 shadow-lg py-7 overflow-hidden self-start">
             {product.bestseller && (
