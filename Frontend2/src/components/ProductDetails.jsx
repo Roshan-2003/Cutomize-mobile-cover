@@ -221,7 +221,7 @@ const ProductDetails = () => {
 
      
 
-          <div className="flex-1 relative rounded-2xl bg-white border border-gray-100 shadow-lg py-7 overflow-hidden self-start">
+          <div className="flex-1 relative rounded-2xl bg-white border border-gray-100 shadow-lg py-7 overflow-hidden">
             {product.bestseller && (
               <span className="absolute top-4 left-4 z-10 bg-[#c5a059] text-black text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider shadow">
                 ★ BESTSELLER

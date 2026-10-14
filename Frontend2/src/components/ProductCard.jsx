@@ -17,7 +17,7 @@ const ProductCard = ({ _id, image, title, price, originalPrice, discount, catego
     <div className="group relative bg-white rounded-xl border border-gray-100 p-2 sm:p-3 md:p-3.5 transition-all duration-300  flex flex-col justify-between h-full">
       {/* Discount Badge */}
       {(discountPercent || hasDiscount) && (
-        <span className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 z-10 bg-black text-[#c5a059] text-[8px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded uppercase tracking-wider shadow-md">
+        <span className="absolute top-2 left-2 sm:top-2.5 sm:left-2.5 z-10 bg-black text-white text-[8px] sm:text-[10px] font-extrabold px-1.5 sm:px-2 py-0.5 rounded uppercase tracking-wider shadow-md">
           {discountPercent ? `${discountPercent}% OFF` : "SALE"}
         </span>
       )}
