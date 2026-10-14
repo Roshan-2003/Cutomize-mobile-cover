@@ -1,8 +1,5 @@
-const configuredApiUrl = import.meta.env.VITE_API_URL?.trim().replace(/\/+$/, "");
-
-if (!configuredApiUrl) {
-  throw new Error("VITE_API_URL must be configured in the Frontend2 root .env file.");
-}
+const configuredApiUrl =
+  import.meta.env.VITE_API_URL?.trim().replace(/\/+$/, "") || "http://localhost:5000";
 
 export const API_BASE_URL = configuredApiUrl.endsWith("/api")
   ? configuredApiUrl

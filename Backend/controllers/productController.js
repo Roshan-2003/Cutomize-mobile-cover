@@ -67,19 +67,23 @@ const getProduct = async (req, res) => {
 // POST - Create product
 const createProduct = async (req, res) => {
   try {
+    const imageUrl = req.file
+      ? await saveProductImage(req.file)
+      : req.body.image || "";
+
     const product = await Product.create({
       title: req.body.title,
       price: req.body.price,
-      originalPrice: req.body.originalPrice,
-      discount: req.body.discount,
+      originalPrice: req.body.originalPrice || null,
+      discount: req.body.discount || "",
 
-      image: req.file ? await saveProductImage(req.file) : "",
+      image: imageUrl,
 
       category: req.body.category,
-      color: req.body.color,
-      material: req.body.material,
-      description: req.body.description,
-      bestseller: req.body.bestseller === "true",
+      color: req.body.color || "",
+      material: req.body.material || "",
+      description: req.body.description || "",
+      bestseller: req.body.bestseller === true || req.body.bestseller === "true",
     });
 
     return res.status(201).json({
@@ -159,8 +163,10 @@ const deleteProduct = async (req, res) => {
 // GET - Products by category
 const getProductsByCategory = async (req, res) => {
   try {
+    const rawCategory = req.params.category.trim();
+    // Match either the category string itself or variations like glass -> Glass Cases
     const products = await Product.find({
-      category: req.params.category,
+      category: { $regex: new RegExp(`^${rawCategory.replace(/-/g, "[ -]?")}$`, "i") },
     });
 
     res.status(200).json({

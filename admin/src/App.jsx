@@ -8,6 +8,7 @@ import Dashboard from "./pages/Dashboard";
 import AddProduct from "./pages/AddProduct";
 import Products from "./pages/Products";
 import Orders from "./pages/Orders";
+import AddCategory from "./pages/AddCategory";
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -29,6 +30,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Dashboard />} />
               <Route path="/add-product" element={<AddProduct />} />
+              <Route path="/categories" element={<AddCategory />} />
               <Route path="/products" element={<Products />} />
               <Route path="/orders" element={<Orders />} />
             </Routes>

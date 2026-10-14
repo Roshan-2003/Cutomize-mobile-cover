@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { FiEdit, FiTrash2, FiSearch, FiX, FiCheck, FiFilter } from "react-icons/fi";
 import { API_BASE_URL, API_ORIGIN } from "../api/apiUrl";
+import { getCategories } from "../api/categoryApi";
+import { getProductCategoryOptions } from "../data/productCategories";
 
 const API_URL = `${API_BASE_URL}/products`;
 
@@ -10,6 +12,13 @@ const Products = () => {
   const [search, setSearch] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [editProduct, setEditProduct] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [categoryError, setCategoryError] = useState("");
+
+  const categoryOptions = getProductCategoryOptions(
+    categories,
+    editProduct?.category
+  );
 
   const fetchProducts = async () => {
     try {
@@ -26,6 +35,16 @@ const Products = () => {
 
   useEffect(() => {
     fetchProducts();
+    getCategories()
+      .then((data) => setCategories(data.categories || []))
+      .catch((error) => {
+        console.error("Failed to load categories:", error);
+        setCategoryError(
+          error.response?.data?.message ||
+            error.message ||
+            "Custom categories could not be loaded."
+        );
+      });
   }, []);
 
   const handleDelete = async (id) => {
@@ -113,7 +132,12 @@ const Products = () => {
   return (
     <div className="space-y-6">
       {/* Header */}
-    
+
+      {categoryError && (
+        <p role="status" className="text-xs text-amber-700">
+          Custom categories could not be loaded ({categoryError}). The built-in categories are still available.
+        </p>
+      )}
 
       {/* Edit Modal Overlay */}
       {editProduct && (
@@ -175,10 +199,11 @@ const Products = () => {
                     className="w-full border rounded-lg px-3 py-2 text-xs outline-none focus:border-black"
                   >
                     <option value="">Select Category</option>
-                    <option value="Premium Tough Cases">Premium Tough Cases</option>
-                    <option value="Leather Cases">Leather Cases</option>
-                    <option value="CHAOS Drops">CHAOS Drops</option>
-                    <option value="New iPhone 17 Series">New iPhone 17 Series</option>
+                    {categoryOptions.map((categoryName) => (
+                      <option key={categoryName} value={categoryName}>
+                        {categoryName}
+                      </option>
+                    ))}
                   </select>
                 </div>
               </div>

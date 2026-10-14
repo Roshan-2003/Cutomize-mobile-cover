@@ -15,6 +15,7 @@ import NewsletterGallery from "./components/NewsletterGallery";
 import Footer from "./components/Footer";
 
 import { getProducts, getIphone17Products } from "./api/productApi";
+import { getCategories } from "./api/categoryApi";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import Checkout from "./page/Checkout";
@@ -34,6 +35,7 @@ function App() {
   const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [iphone17Series, setIphone17Series] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const [loading, setLoading] = useState(true);
 
@@ -42,9 +44,11 @@ function App() {
       try {
         const productResponse = await getProducts();
         const iphoneResponse = await getIphone17Products();
+        const categoryResponse = await getCategories();
 
         setProducts(productResponse.products || []);
         setIphone17Series(iphoneResponse.products || []);
+        setCategories(categoryResponse.categories || []);
       } catch (error) {
         console.error("API Error:", error);
       } finally {
@@ -78,68 +82,63 @@ function App() {
     (product) => product.category === "CHAOS Drops"
   );
 
-const categoryViews = {
-  tough: {
-    title: "Premium Tough Cases",
-    products: products.filter(
-      (product) => product.category === "Premium Tough Cases"
-    ),
-  },
-  leather: {
-    title: "Premium Leather Cases",
-    products: products.filter(
-      (product) => product.category === "Leather Cases"
-    ),
-  },
-  chaos: {
-    title: "CHAOS – Our Newest Drops",
-    products: products.filter(
-      (product) => product.category === "CHAOS Drops"
-    ),
-  },
-  iphone17: {
-    title: "New iPhone 17 Series",
-    products: iphone17Series,
-  },
-  glass: {
-    title: "Glass Cases",
-    products: products.filter(
-      (product) => product.category === "Glass Cases"
-    ),
-  },
-  stride: {
-    title: "Stride Cases",
-    products: products.filter(
-      (product) => product.category === "Stride Cases"
-    ),
-  },
-  silicon: {
-    title: "Silicon Cases",
-    products: products.filter(
-      (product) => product.category === "Silicon Cases"
-    ),
-  },
-  wallet: {
-    title: "Card Wallet",
-    products: products.filter(
-      (product) => product.category === "Card Wallet"
-    ),
-  },
-  "pop-slider": {
-    title: "Pop Slider",
-    products: products.filter(
-      (product) => product.category === "Pop Slider"
-    ),
-  },
-  printed: {
-    title: "Printed Cases",
-    products: products.filter(
-      (product) => product.category === "Printed Cases"
-    ),
-  },
-};
+  const normalizeCategory = (val) =>
+    val ? val.toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "") : "";
 
-const selectedCategory = categoryViews[searchParams.get("cat")];
+  const matchesCategory = (productCat, catName, catSlug) => {
+    if (!productCat) return false;
+    const p = normalizeCategory(productCat);
+    const n = normalizeCategory(catName);
+    const s = normalizeCategory(catSlug);
+    return (
+      p === n ||
+      p === s ||
+      (catName &&
+        productCat.toString().trim().toLowerCase() ===
+          catName.toString().trim().toLowerCase())
+    );
+  };
+
+  const PRESET_MAP = {
+    glass: "Glass Cases",
+    stride: "Stride Cases",
+    silicon: "Silicon Cases",
+    wallet: "Card Wallet",
+    "pop-slider": "Pop Slider",
+    printed: "Printed Cases",
+    tough: "Premium Tough Cases",
+    leather: "Leather Cases",
+    chaos: "CHAOS Drops",
+  };
+
+  const categorySlug = searchParams.get("cat");
+
+  let selectedCategory = null;
+
+  if (categorySlug) {
+    if (categorySlug === "iphone17") {
+      selectedCategory = {
+        title: "New iPhone 17 Series",
+        products: iphone17Series,
+      };
+    } else {
+      const dynamicCategory = categories.find(
+        (category) =>
+          category.slug === categorySlug ||
+          normalizeCategory(category.name) === normalizeCategory(categorySlug)
+      );
+
+      const title =
+        dynamicCategory?.name || PRESET_MAP[categorySlug] || categorySlug;
+
+      selectedCategory = {
+        title,
+        products: products.filter((product) =>
+          matchesCategory(product.category, title, categorySlug)
+        ),
+      };
+    }
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -157,14 +156,24 @@ const selectedCategory = categoryViews[searchParams.get("cat")];
             element={
               <>
                 {selectedCategory ? (
-                  <ProductSection
-                    title={selectedCategory.title}
-                    products={selectedCategory.products}
-                  />
+                  <div className="py-6 sm:py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="mb-4">
+                      <a
+                        href="/"
+                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-500 hover:text-black transition"
+                      >
+                        ← Back to All Products
+                      </a>
+                    </div>
+                    <ProductSection
+                      title={selectedCategory.title}
+                      products={selectedCategory.products}
+                    />
+                  </div>
                 ) : (
                   <>
                 <Hero />
-                <CategorySection />
+                <CategorySection categories={categories} />
                 <ProductSection
                   id="products-section"
                   title="Premium Tough Cases"

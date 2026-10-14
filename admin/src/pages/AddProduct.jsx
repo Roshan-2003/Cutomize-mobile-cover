@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createProduct } from "../api/productApi";
+import { getCategories } from "../api/categoryApi";
+import { getProductCategoryOptions } from "../data/productCategories";
 import { FiUploadCloud, FiCheckCircle, FiPackage } from "react-icons/fi";
 
 const AddProduct = () => {
@@ -18,6 +20,32 @@ const AddProduct = () => {
 
   const [preview, setPreview] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [categoryError, setCategoryError] = useState("");
+  const [isCustomCategory, setIsCustomCategory] = useState(false);
+
+  useEffect(() => {
+    let isCurrent = true;
+
+    getCategories()
+      .then((data) => {
+        if (isCurrent) setCategories(data.categories || []);
+      })
+      .catch((error) => {
+        console.error("Failed to load categories:", error);
+        if (isCurrent) {
+          setCategoryError(
+            error.response?.data?.message ||
+              error.message ||
+              "Custom categories could not be loaded."
+          );
+        }
+      });
+
+    return () => {
+      isCurrent = false;
+    };
+  }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -76,6 +104,7 @@ const AddProduct = () => {
         description: "",
         bestseller: false,
       });
+      setIsCustomCategory(false);
       setPreview("");
     } catch (error) {
       console.error(error);
@@ -165,17 +194,57 @@ const AddProduct = () => {
               </label>
               <select
                 name="category"
-                value={form.category}
-                onChange={handleChange}
-                required
+                value={isCustomCategory ? "__custom__" : form.category}
+                onChange={(e) => {
+                  if (e.target.value === "__custom__") {
+                    setIsCustomCategory(true);
+                    setForm((prev) => ({ ...prev, category: "" }));
+                  } else {
+                    setIsCustomCategory(false);
+                    setForm((prev) => ({ ...prev, category: e.target.value }));
+                  }
+                }}
+                required={!isCustomCategory}
                 className="w-full border border-slate-200 rounded-xl px-4 py-3 text-xs outline-none focus:border-black transition bg-white"
               >
                 <option value="">Select Category</option>
-                <option value="Premium Tough Cases">Premium Tough Cases</option>
-                <option value="Leather Cases">Leather Cases</option>
-                <option value="CHAOS Drops">CHAOS – Our Newest Drops</option>
-                <option value="New iPhone 17 Series">New iPhone 17 Series</option>
+                {getProductCategoryOptions(categories).map((categoryName) => (
+                  <option key={categoryName} value={categoryName}>
+                    {categoryName}
+                  </option>
+                ))}
+                <option value="__custom__">+ Enter Custom Category Name...</option>
               </select>
+
+              {isCustomCategory && (
+                <div className="mt-2 flex gap-2">
+                  <input
+                    type="text"
+                    name="category"
+                    value={form.category}
+                    onChange={handleChange}
+                    placeholder="Enter category name"
+                    required
+                    className="w-full border border-slate-300 rounded-xl px-3 py-2 text-xs outline-none focus:border-black"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsCustomCategory(false);
+                      setForm((prev) => ({ ...prev, category: "" }));
+                    }}
+                    className="px-2 py-1 text-xs text-slate-500 hover:text-slate-800"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+
+              {categoryError && (
+                <p role="status" className="mt-2 text-xs text-amber-700">
+                  Custom categories could not be loaded ({categoryError}). The built-in categories are still available.
+                </p>
+              )}
             </div>
 
             <div>

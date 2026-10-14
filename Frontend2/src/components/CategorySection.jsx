@@ -41,8 +41,55 @@ const categories = [
   },
 ];
 
-function CategorySection() {
-  const sliderItems = [...categories, ...categories];
+function CategorySection({ categories: savedCategories = [] }) {
+  const savedCategoryFor = (category) =>
+    savedCategories.find(
+      (savedCategory) =>
+        savedCategory.slug === category.slug ||
+        savedCategory.name.toLowerCase() === category.name.toLowerCase()
+    );
+
+  const featuredCategories = categories.map((category) => {
+    const savedCategory = savedCategoryFor(category);
+    const images = savedCategory?.images?.length
+      ? savedCategory.images
+      : [savedCategory?.image].filter(Boolean);
+
+    return savedCategory
+      ? {
+          ...category,
+          ...savedCategory,
+          id: savedCategory._id || category.id,
+          img: images[0] || category.img,
+          secondaryImg: images[1] || "",
+        }
+      : category;
+  });
+
+  const customCategories = savedCategories
+    .filter(
+      (savedCategory) =>
+        !categories.some(
+          (category) =>
+            savedCategory.slug === category.slug ||
+            savedCategory.name.toLowerCase() === category.name.toLowerCase()
+        )
+    )
+    .map((category) => {
+      const images = category.images?.length
+        ? category.images
+        : [category.image].filter(Boolean);
+
+      return {
+        ...category,
+        id: category._id,
+        img: images[0] || "",
+        secondaryImg: images[1] || "",
+      };
+    });
+
+  const sliderItems = [...featuredCategories, ...customCategories];
+  const repeatedSliderItems = [...sliderItems, ...sliderItems];
 
   return (
     <section className="w-full overflow-hidden bg-white py-8 sm:py-12 md:py-16">
@@ -60,9 +107,9 @@ function CategorySection() {
         <div className="pointer-events-none absolute right-0 top-0 z-10 h-full w-8 sm:w-16 md:w-28 bg-gradient-to-l from-white to-transparent" />
 
         <div className="flex w-max gap-4 sm:gap-6 md:gap-8 animate-marquee hover:[animation-play-state:paused] py-3 sm:py-4">
-          {sliderItems.map((category, index) => (
+          {repeatedSliderItems.map((category, index) => (
             <Link
-              key={`${category.id}-${index}`}
+              key={`${category.slug || category.id}-${index}`}
               to={`/?cat=${category.slug}`}
               className="group flex w-24 sm:w-32 md:w-40 shrink-0 cursor-pointer flex-col items-center transition-transform duration-300 hover:-translate-y-1"
             >
@@ -70,8 +117,17 @@ function CategorySection() {
                 <img
                   src={category.img}
                   alt={category.name}
-                  className="h-full w-full rounded-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className={`h-full w-full rounded-full object-cover transition duration-700 group-hover:scale-110 ${
+                    category.secondaryImg ? "group-hover:opacity-0" : ""
+                  }`}
                 />
+                {category.secondaryImg && (
+                  <img
+                    src={category.secondaryImg}
+                    alt={`${category.name} alternate`}
+                    className="absolute inset-1 h-[calc(100%-0.5rem)] w-[calc(100%-0.5rem)] rounded-full object-cover opacity-0 transition duration-700 group-hover:scale-110 group-hover:opacity-100"
+                  />
+                )}
               </div>
 
               <h3 className="mt-2.5 sm:mt-3.5 text-center text-[11px] sm:text-xs md:text-sm font-semibold tracking-wider text-gray-800 uppercase">

@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FiGrid, FiPlusSquare, FiPackage, FiShoppingBag, FiX, FiShield } from "react-icons/fi";
+import { FiGrid, FiPlusSquare, FiPackage, FiShoppingBag, FiX, FiShield, FiTag } from "react-icons/fi";
 
 const Sidebar = ({ isOpen, onClose }) => {
   const menu = [
@@ -13,6 +13,11 @@ const Sidebar = ({ isOpen, onClose }) => {
       name: "Add Product",
       path: "/add-product",
       icon: <FiPlusSquare size={18} />,
+    },
+    {
+      name: "Categories",
+      path: "/categories",
+      icon: <FiTag size={18} />,
     },
     {
       name: "Products",

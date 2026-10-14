@@ -6,6 +6,7 @@ const express = require("express");
 const cors = require("cors");
 const connectDB = require("./config/db");
 const paymentRoutes = require("./routes/paymentRoutes");
+const categoryRoutes = require("./routes/categoryRoutes");
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use("/api/cart", require("./routes/cartRoutes"));
 app.use("/api/orders", require("./routes/orderRoutes"));
 app.use("/api/products", require("./routes/productRoutes"));
 app.use("/api/iphone17", require("./routes/iphone17Routes"));
+app.use("/api/categories", categoryRoutes);
 app.use("/api/payment", paymentRoutes);
 app.get("/", (req, res) => {
   res.json({
