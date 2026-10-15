@@ -29,6 +29,9 @@ const getImageUrl = (image) =>
   image?.startsWith("http") ? image : `${IMAGE_BASE_URL}${image || ""}`;
 
 const IPHONE_MODELS = [
+    "iPhone 18 Pro Max",
+  "iPhone 18 Pro",
+  "iPhone 18",
   "iPhone 17 Pro Max",
   "iPhone 17 Pro",
   "iPhone 17",
@@ -49,6 +52,11 @@ const IPHONE_MODELS = [
 ];
 
 const SAMSUNG_MODELS = [
+
+
+    "Samsung Galaxy S26 Ultra",
+  "Samsung Galaxy S26+",
+  "Samsung Galaxy S26",
   "Samsung Galaxy S25 Ultra",
   "Samsung Galaxy S25+",
   "Samsung Galaxy S25",
