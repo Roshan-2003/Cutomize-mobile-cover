@@ -86,3 +86,31 @@ button:active {
   background-color: #000;
   color: #fff;
 }
+
+.auth-switch-button,
+.auth-switch-button:hover,
+.auth-switch-button:focus-visible,
+.auth-switch-button:active {
+  background-color: transparent;
+}
+
+.auth-switch-button {
+  color: #000;
+}
+
+.auth-switch-button:hover {
+  color: #c5a059;
+}
+
+.remove-cart-item-btn,
+.remove-cart-item-btn:hover,
+.remove-cart-item-btn:focus-visible,
+.remove-cart-item-btn:active {
+  background-color: transparent !important;
+  color: #ef4444 !important;
+}
+
+.remove-cart-item-btn:hover {
+  color: #dc2626 !important;
+}
+

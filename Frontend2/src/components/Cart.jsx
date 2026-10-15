@@ -93,7 +93,8 @@ const Cart = () => {
     <div className="bg-gray-50/50 min-h-screen py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <h1 className="font-heading text-2xl sm:text-3xl font-extrabold uppercase tracking-widest mb-8 text-gray-900 text-center sm:text-left">
-          Shopping Cart ({cart.items.length} {cart.items.length === 1 ? "Item" : "Items"})
+          Shopping Items
+          {/* ({cart.items.length} {cart.items.length === 1 ? "Item" : "Items"}) */}
         </h1>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
@@ -121,25 +122,27 @@ const Cart = () => {
                   <div className="flex-1">
                     <Link
                       to={`/product/${item.product?._id}`}
-                      className="text-xs sm:text-sm font-bold uppercase tracking-wider text-gray-900 hover:text-[#c5a059] transition-colors line-clamp-2"
+                      className="text-xs sm:text-sm font-bold uppercase tracking-wider text-gray-900  transition-colors line-clamp-2"
                     >
                       {item.product?.title}
                     </Link>
 
                     {/* Selected Model Display Pill */}
                     <div className="mt-1">
-                      <span className="inline-flex items-center gap-1 bg-slate-900 text-[#c5a059] text-[10px] font-extrabold px-2.5 py-0.5 rounded uppercase tracking-wider">
+                      <span className="inline-flex items-center gap-1  text-[#000] text-[10px] font-extrabold  py-0.5 rounded uppercase tracking-wider">
                         <FiSmartphone size={11} />
                         <span>Model: {item.selectedModel || "iPhone 16 Pro Max"}</span>
                       </span>
                     </div>
 
-                    <p className="text-xs text-gray-400 mt-1.5 font-semibold">
+                    <p className="text-xs text-black mt-1.5 font-semibold">
                       Unit Price: ₹{item.product?.price}
                     </p>
                     <button
+                      type="button"
                       onClick={() => handleRemove(item.product?._id, item.selectedModel)}
-                      className="flex items-center gap-1.5 text-[10px] font-extrabold text-red-500 uppercase tracking-wider mt-3 hover:text-red-700 transition cursor-pointer"
+                      className="remove-cart-item-btn flex items-center gap-1.5 text-[10px] font-extrabold !text-red-500  uppercase tracking-wider mt-3 !bg-transparent hover:!bg-transparent border-0 p-0 outline-none shadow-none transition cursor-pointer"
+                      style={{ backgroundColor: "transparent" }}
                     >
                       <FiTrash2 size={13} />
                       <span>Remove Item</span>
@@ -183,9 +186,11 @@ const Cart = () => {
             <div className="flex justify-between items-center pt-2">
               <Link
                 to="/"
-                className="text-xs font-bold uppercase tracking-widest text-[#c5a059] hover:underline"
+                className="text-xs font-bold uppercase gap-2 tracking-widest text-[#c5a059] "
               >
-                ← Continue Shopping
+                
+                <span>←</span>
+                 Continue Shopping
               </Link>
             </div>
           </div>

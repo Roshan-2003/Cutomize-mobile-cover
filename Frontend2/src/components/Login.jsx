@@ -190,7 +190,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setIsSignup(false)}
-                  className="font-bold text-black hover:text-[#c5a059] hover:underline cursor-pointer"
+                  className="auth-switch-button font-bold text-black hover:text-[#c5a059] hover:underline cursor-pointer"
                 >
                   Sign in here
                 </button>
@@ -201,7 +201,7 @@ const Login = () => {
                 <button
                   type="button"
                   onClick={() => setIsSignup(true)}
-                  className="font-bold text-black hover:text-[#c5a059] hover:underline cursor-pointer"
+                  className="auth-switch-button font-bold text-black hover:text-[#c5a059] hover:underline cursor-pointer"
                 >
                   Create one now
                 </button>
@@ -210,14 +210,10 @@ const Login = () => {
           </div>
         </form>
 
-        <div className="mt-8 pt-6 border-t border-gray-100 flex items-center justify-center gap-2 text-[11px] text-gray-400 uppercase tracking-widest font-semibold">
-          <FiCheckCircle className="text-emerald-500" />
-          <span>100% Secure & Encrypted</span>
-        </div>
+      
       </div>
     </div>
   );
 };
 
 export default Login;
-
