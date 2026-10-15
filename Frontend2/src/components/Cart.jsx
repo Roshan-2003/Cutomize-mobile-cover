@@ -70,15 +70,15 @@ const Cart = () => {
         <div className="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center text-gray-400 mb-6">
           <FiShoppingBag size={36} />
         </div>
-        <h2 className="font-heading text-2xl sm:text-3xl font-bold uppercase tracking-widest text-gray-900 mb-3">
+        <h2 className="font-heading text-2xl sm:text-3xl font-bold uppercase tracking-widest text-gray-900 mb-7">
           Your Shopping Cart is Empty
         </h2>
-        <p className="text-xs sm:text-sm text-gray-500 max-w-md mb-8">
+        {/* <p className="text-xs sm:text-sm text-gray-500 max-w-md mb-8">
           Explore our latest collection of luxury phone covers and custom trackline editions to find your match.
-        </p>
+        </p> */}
         <Link
           to="/"
-          className="bg-black text-white px-10 py-4 text-xs font-extrabold uppercase tracking-[0.25em] rounded-md shadow-lg hover:bg-[#c5a059] hover:text-black transition-all"
+          className="bg-black text-white px-10 py-4 text-xs font-extrabold uppercase tracking-[0.25em] rounded-md shadow-lg  transition-all"
         >
           Explore Collections
         </Link>

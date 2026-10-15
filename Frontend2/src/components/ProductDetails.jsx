@@ -72,7 +72,7 @@ const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
   const [addingToCart, setAddingToCart] = useState(false);
   const [activeTab, setActiveTab] = useState("description");
-
+  const [buyingNow, setBuyingNow] = useState(false);
   const [selectedBrand, setSelectedBrand] = useState("Apple");
   const [selectedModel, setSelectedModel] = useState("iPhone 16 Pro Max");
 
@@ -125,7 +125,11 @@ const ProductDetails = () => {
     }
 
     try {
-      setAddingToCart(true);
+      if (redirectToCart) {
+        setBuyingNow(true);
+      } else {
+        setAddingToCart(true);
+      }
       const response = await addToCart(
         userId,
         product._id,
@@ -153,7 +157,11 @@ const ProductDetails = () => {
         err.response?.data?.message || err.message || "Failed to add to cart",
       );
     } finally {
-      setAddingToCart(false);
+      if (redirectToCart) {
+        setBuyingNow(false);
+      } else {
+        setAddingToCart(false);
+      }
     }
   };
 
@@ -383,25 +391,50 @@ const ProductDetails = () => {
             </div>
 
             {/* CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-3">
-              <button
-                onClick={() => handleAddToCart(false)}
-                disabled={addingToCart}
-                className="flex-1 bg-white border-2 border-black py-4 px-6 rounded-lg text-xs font-extrabold uppercase tracking-[0.2em] text-black hover:bg-black hover:text-white transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer shadow-md"
-              >
-                <FiShoppingBag size={16} />
-                <span>{addingToCart ? "Adding..." : "Add to Cart"}</span>
-              </button>
+          {/* CTA Buttons */}
+{/* CTA Buttons */}
+<div className="flex flex-col sm:flex-row gap-3">
+  {/* Add to Cart */}
+  <button
+    onClick={() => handleAddToCart(false)}
+    disabled={addingToCart || buyingNow}
+    className={`flex-1 py-4 px-6 rounded-lg text-xs font-extrabold uppercase tracking-[0.2em] text-black transition-all duration-300 flex items-center justify-center gap-2 shadow-lg ${
+      addingToCart
+        ? "bg-[#d4af37] ring-2 ring-black cursor-wait"
+        : buyingNow
+          ? "bg-[#c5a059]  cursor-not-allowed"
+          : ""
+    }`}
+  >
+    {addingToCart ? (
+      <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+    ) : (
+      <FiShoppingBag size={16} />
+    )}
+    <span>{addingToCart ? "Adding..." : "Add to Cart"}</span>
+  </button>
 
-              <button
-                onClick={() => handleAddToCart(true)}
-                disabled={addingToCart}
-                className="flex-1 bg-[#c5a059] py-4 px-6 rounded-lg text-xs font-extrabold uppercase tracking-[0.2em] text-black hover:bg-[#d4af37] transition-all duration-300 disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer shadow-lg"
-              >
-                <FiZap size={16} />
-                <span>Buy It Now</span>
-              </button>
-            </div>
+  {/* Buy It Now */}
+  <button
+    onClick={() => handleAddToCart(true)}
+    disabled={addingToCart || buyingNow}
+    className={`flex-1 py-4 px-6 rounded-lg text-xs font-extrabold uppercase tracking-[0.2em] text-black transition-all duration-300 flex items-center justify-center gap-2 shadow-lg ${
+      buyingNow
+        ? "bg-[#d4af37] ring-2 ring-black cursor-wait"
+        : addingToCart
+          ? "bg-[#c5a059]  cursor-not-allowed"
+          : "bg-[#c5a059] hover:bg-[#d4af37] cursor-pointer"
+    }`}
+  >
+    {buyingNow ? (
+      <span className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
+    ) : (
+      <FiZap size={16} />
+    )}
+    <span>{buyingNow ? "Processing..." : "Buy It Now"}</span>
+  </button>
+</div>
+
           </div>
 
           {/* Guarantee Badges */}
