@@ -1,10 +1,11 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useContext } from "react";
 import { API_ORIGIN } from "../api/apiUrl";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { addToCart, getCartUserId } from "../api/cartApi";
 import { getProductById } from "../api/productApi";
 import toast from "react-hot-toast";
 import { useCart } from "../context/CartContext";
+import { AuthContext } from "../context/AuthContext";
 import {
   FiShoppingBag,
   FiZap,
@@ -73,6 +74,7 @@ const SAMSUNG_MODELS = [
 const ProductDetails = () => {
   const { id } = useParams();
   const { refreshCartCount } = useCart();
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -120,15 +122,32 @@ const ProductDetails = () => {
   };
 
   const handleAddToCart = async (redirectToCart = false) => {
+    if (!selectedModel) {
+      toast.error("Please select your phone model number!");
+      return;
+    }
+
+    // Sign in is compulsory when buying
+    if (redirectToCart && !user) {
+      localStorage.setItem(
+        "pendingBuyItem",
+        JSON.stringify({
+          productId: product._id,
+          selectedModel,
+          quantity,
+        })
+      );
+      toast("Please sign in or create an account to buy this product", {
+        icon: "🔒",
+      });
+      navigate(`/auth?next=${encodeURIComponent("/checkout")}`);
+      return;
+    }
+
     const userId = getCartUserId();
 
     if (!userId) {
       toast.error("User session expired. Please refresh.", { icon: "👤" });
-      return;
-    }
-
-    if (!selectedModel) {
-      toast.error("Please select your phone model number!");
       return;
     }
 
@@ -156,7 +175,7 @@ const ProductDetails = () => {
         });
 
         if (refreshCartCount) refreshCartCount();
-        if (redirectToCart) navigate("/cart");
+        if (redirectToCart) navigate("/checkout");
       } else {
         throw new Error(response.message || "Failed to add to cart");
       }

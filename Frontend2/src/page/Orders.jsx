@@ -79,9 +79,14 @@ const Orders = () => {
             <FiPackage className="mx-auto mb-4 text-gray-400" size={36} />
             <h2 className="text-xl font-bold text-black">Sign in to view your orders</h2>
             <p className="mx-auto mt-2 max-w-md text-sm text-gray-600">Your order history is connected to the account used at checkout.</p>
-            <Link to="/" className="mt-6 inline-flex min-h-11 items-center justify-center bg-black px-6 text-xs font-bold uppercase tracking-widest text-white hover:bg-gray-800">
-              Continue shopping
-            </Link>
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+              <Link to={`/auth?next=${encodeURIComponent("/orders")}`} className="inline-flex min-h-11 items-center justify-center bg-black px-6 text-xs font-bold uppercase tracking-widest text-white hover:bg-[#c5a059] hover:text-black transition">
+                Sign In / Sign Up
+              </Link>
+              <Link to="/" className="inline-flex min-h-11 items-center justify-center border border-gray-300 px-6 text-xs font-bold uppercase tracking-widest text-gray-700 hover:bg-gray-100 transition">
+                Continue shopping
+              </Link>
+            </div>
           </div>
         ) : loading ? (
           <div className="py-20 text-center text-sm font-semibold uppercase tracking-widest text-gray-500">Loading your orders...</div>

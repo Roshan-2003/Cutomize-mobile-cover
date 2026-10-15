@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   getCart,
   getCartUserId,
@@ -9,12 +9,15 @@ import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { FiShoppingBag, FiTrash2, FiArrowRight, FiShield, FiLock, FiSmartphone } from "react-icons/fi";
 import { API_ORIGIN } from "../api/apiUrl";
+import { AuthContext } from "../context/AuthContext";
 
 const Cart = () => {
+  const { user } = useContext(AuthContext);
   const [cart, setCart] = useState(null);
   const [loading, setLoading] = useState(true);
   const userId = getCartUserId();
   const navigate = useNavigate();
+
 
   const fetchCartData = async () => {
     try {
@@ -216,12 +219,20 @@ const Cart = () => {
             </div>
 
             <button
-              onClick={() => navigate("/checkout")}
+              onClick={() => {
+                if (!user) {
+                  toast("Sign in is compulsory to proceed to checkout", { icon: "🔒" });
+                  navigate(`/auth?next=${encodeURIComponent("/checkout")}`);
+                } else {
+                  navigate("/checkout");
+                }
+              }}
               className="w-full bg-black text-white py-4 rounded-lg text-xs font-extrabold uppercase tracking-[0.25em] hover:bg-[#c5a059] hover:text-black transition-all duration-300 shadow-xl flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Proceed to Checkout</span>
               <FiArrowRight size={16} />
             </button>
+
 
             <div className="pt-4 border-t border-gray-100 text-[10px] text-gray-400 space-y-2 uppercase font-semibold text-center">
               <div className="flex items-center justify-center gap-2">

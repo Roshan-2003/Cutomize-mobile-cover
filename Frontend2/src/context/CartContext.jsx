@@ -1,9 +1,11 @@
 import React, { createContext, useState, useEffect, useContext } from 'react';
 import { getCart, getCartUserId } from '../api/cartApi';
+import { AuthContext } from './AuthContext';
 
 const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  const { user } = useContext(AuthContext);
   const [cartCount, setCartCount] = useState(0);
 
   const refreshCartCount = async () => {
@@ -22,7 +24,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     refreshCartCount(); // Jab App load ho tab count fetch karein
-  }, []);
+  }, [user?.userId]);
 
   return (
     <CartContext.Provider value={{ cartCount, refreshCartCount }}>

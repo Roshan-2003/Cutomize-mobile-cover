@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
 import { getCart, getCartUserId } from "../api/cartApi";
@@ -8,6 +8,7 @@ import { useCart } from "../context/CartContext";
 import { createPaymentOrder, verifyPayment } from "../api/paymentApi";
 import { FiShield, FiLock, FiTruck, FiCreditCard, FiDollarSign, FiSmartphone } from "react-icons/fi";
 import { API_ORIGIN } from "../api/apiUrl";
+import { AuthContext } from "../context/AuthContext";
 
 // Helper function to dynamically load Razorpay SDK script if missing
 const loadRazorpaySDK = () => {
@@ -26,6 +27,7 @@ const loadRazorpaySDK = () => {
 
 const Checkout = () => {
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const { refreshCartCount } = useCart();
 
   const userId = getCartUserId();
@@ -63,6 +65,38 @@ const Checkout = () => {
 
     fetchCart();
   }, [userId]);
+
+  useEffect(() => {
+    if (user?.name && !formData.fullName) {
+      setFormData((prev) => ({
+        ...prev,
+        fullName: user.name,
+      }));
+    }
+  }, [user]);
+
+  if (!user) {
+    return (
+      <div className="min-h-[70vh] flex flex-col items-center justify-center px-4 py-16 text-center bg-gray-50/50">
+        <div className="w-16 h-16 rounded-full bg-[#c5a059]/10 text-[#c5a059] flex items-center justify-center mb-4 shadow-sm">
+          <FiLock size={28} />
+        </div>
+        <h1 className="font-heading text-2xl font-bold uppercase tracking-widest text-gray-900">
+          Sign In Compulsory To Checkout
+        </h1>
+        <p className="mt-3 text-sm text-gray-600 max-w-md">
+          Please sign in or create an account to proceed with your order. Your selected phone model and case will remain safely in your bag.
+        </p>
+        <Link
+          to={`/auth?next=${encodeURIComponent("/checkout")}`}
+          className="mt-6 bg-black px-8 py-3.5 text-xs font-extrabold uppercase tracking-widest text-white hover:bg-[#c5a059] hover:text-black transition shadow-xl rounded-lg"
+        >
+          Sign In / Create Account
+        </Link>
+      </div>
+    );
+  }
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;

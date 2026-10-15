@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FiMenu, FiSearch, FiUser, FiShoppingBag, FiX, FiChevronRight } from "react-icons/fi";
 import { useCart } from "../context/CartContext";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { FaPowerOff } from "react-icons/fa6";
+
 
 const Navbar = () => {
   const { cartCount } = useCart();
+  const { user, logout } = useContext(AuthContext);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +31,7 @@ const Navbar = () => {
     { name: "CHAOS Drops", path: "/?cat=chaos" },
     { name: "Cart", path: "/cart" },
     { name: "Orders", path: "/orders" },
+    ...(user ? [] : [{ name: "Sign In / Sign Up", path: "/auth" }]),
   ];
 
   return (
@@ -65,23 +69,44 @@ Designocase            </span>
           </Link>
 
           {/* Right: User & Cart Icons */}
-          <div className="flex gap-3 sm:gap-5 text-lg sm:text-xl items-center">
-            <Link
-              to="/orders"
-              aria-label="Your orders"
-              className="p-2 rounded-lg hover:bg-white/10  transition-all hidden sm:block cursor-pointer"
-            >
-              <FiUser size={20} />
-            </Link>
+          <div className="flex gap-2 sm:gap-4 text-lg sm:text-xl items-center">
+            {user ? (
+              <div className="hidden sm:flex items-center gap-2">
+                <Link
+                  to="/orders"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 text-xs font-semibold text-gray-200 transition"
+                  title="View your orders"
+                >
+                  <FiUser className="text-[#c5a059]" size={15} />
+                  <span>{user.name ? `Hi, ${user.name.split(" ")[0]}` : "Account"}</span>
+                </Link>
+                <button
+                  onClick={logout}
+                  className="text-[11px] uppercase tracking-wider cursor-pointer text-gray-400 hover:text-white px-2 py-1 transition"
+                  title="Sign out"
+                >
+               <FaPowerOff size={17} />
+
+                </button>
+              </div>
+            ) : (
+              <Link
+                to="/auth"
+                className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#c5a059] text-xs font-bold uppercase tracking-wider text-[#c5a059] hover:bg-[#c5a059] hover:text-black transition"
+              >
+                <FiUser size={22} className="cursor-pointer"/>
+                <span>Sign In</span>
+              </Link>
+            )}
 
             <Link
               to="/cart"
               aria-label="Shopping Cart"
-              className="relative p-2 rounded-lg  cursor-pointer group transition-all"
+              className="relative p-2 rounded-lg cursor-pointer group transition-all"
             >
-              <FiShoppingBag size={22} className=" transition-colors" />
+              <FiShoppingBag size={22} className="transition-colors cursor-pointer" />
               {cartCount > 0 && (
-                <span className="absolute top-1 right-1 bg-[#c5a059] text-black text-[10px] font-extrabold rounded-full h-4 min-w-[16px] px-1 flex items-center justify-center shadow-md ">
+                <span className="absolute top-1 right-1 bg-[#c5a059] text-black text-[10px] font-extrabold rounded-full h-4 min-w-[16px] px-1 flex items-center justify-center shadow-md">
                   {cartCount}
                 </span>
               )}
@@ -146,6 +171,18 @@ Designocase            </span>
               </div>
 
               {/* Navigation Links */}
+              {user && (
+                <div className="px-5 py-3.5 bg-white/5 border-b border-white/10 flex items-center gap-3 mb-2">
+                  <div className="w-9 h-9 rounded-full bg-[#c5a059]/20 text-[#c5a059] flex items-center justify-center font-bold text-sm border border-[#c5a059]/40">
+                    {user.name ? user.name.charAt(0).toUpperCase() : "U"}
+                  </div>
+                  <div className="overflow-hidden">
+                    <p className="text-xs font-bold text-white truncate">{user.name || "Customer"}</p>
+                    <p className="text-[10px] text-gray-400 truncate">{user.email || "Signed In"}</p>
+                  </div>
+                </div>
+              )}
+
               <nav className="p-4 space-y-2">
                 {navLinks.map((link) => (
                   <Link
@@ -159,7 +196,21 @@ Designocase            </span>
                   </Link>
                 ))}
               </nav>
+              {user && (
+                <div className="px-4 pt-2">
+                  <button
+                    onClick={() => {
+                      logout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="w-full text-left px-4 py-3 rounded-lg hover:bg-white/5 text-xs font-bold uppercase tracking-widest text-[#c5a059] transition"
+                  >
+                    Sign out
+                  </button>
+                </div>
+              )}
             </div>
+
 
             {/* Footer inside drawer */}
             <div className="p-5 border-t border-white/10 bg-black/40 text-center text-xs text-gray-400 space-y-3">

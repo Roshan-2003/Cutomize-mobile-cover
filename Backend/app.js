@@ -22,6 +22,7 @@ app.use("/api/products", require("./routes/productRoutes"));
 app.use("/api/iphone17", require("./routes/iphone17Routes"));
 app.use("/api/categories", categoryRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/auth", require("./routes/authRoutes"));
 app.get("/", (req, res) => {
   res.json({
     success: true,

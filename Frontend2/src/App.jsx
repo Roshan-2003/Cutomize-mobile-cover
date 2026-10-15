@@ -19,6 +19,8 @@ import { getCategories } from "./api/categoryApi";
 import ProductDetails from "./components/ProductDetails";
 import Cart from "./components/Cart";
 import Checkout from "./page/Checkout";
+import Login from "./components/Login";
+import { AuthProvider } from "./context/AuthContext";
 
 // ScrollToTop component to reset window scroll position on page change
 function ScrollToTop() {
@@ -142,6 +144,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-white">
+      <AuthProvider>
       <CartProvider>
         <ScrollToTop />
         <Toaster position="top-center" reverseOrder={false} />
@@ -218,12 +221,15 @@ function App() {
           <Route path="/products/:category" element={<AllProducts />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/checkout" element={<Checkout />} />
+          <Route path="/auth" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/order-success/:id" element={<OrderSuccess />} />
           <Route path="/orders" element={<Orders />} />
         </Routes>
 
         <Footer />
       </CartProvider>
+      </AuthProvider>
     </div>
   );
 }
