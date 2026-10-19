@@ -1,10 +1,16 @@
 import React, { useState, useContext } from "react";
-import { FiMenu, FiSearch, FiUser, FiShoppingBag, FiX, FiChevronRight } from "react-icons/fi";
+import {
+  FiMenu,
+  FiSearch,
+  FiUser,
+  FiShoppingBag,
+  FiX,
+  FiChevronRight,
+} from "react-icons/fi";
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { FaPowerOff } from "react-icons/fa6";
-
 
 const Navbar = () => {
   const { cartCount } = useCart();
@@ -38,7 +44,6 @@ const Navbar = () => {
     <>
       <header className="sticky top-0 z-50 glass-nav border-b border-white/10 text-white transition-all duration-300">
         <div className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-12 h-16 sm:h-20 flex justify-between items-center bg-black">
-          
           {/* Left: Mobile Menu & Search Icon */}
           <div className="flex items-center gap-3 sm:gap-5 text-lg sm:text-xl">
             <button
@@ -63,9 +68,9 @@ const Navbar = () => {
             to="/"
             className="flex items-center tracking-[0.2em] sm:tracking-[0.35em] text-base sm:text-xl font-light cursor-pointer group select-none"
           >
-          
             <span className="font-heading font-semibold bg-gradient-to-r from-white via-[#f0f0f0] to-[#c5a059] bg-clip-text text-transparent">
-Designocase            </span>
+              Designocase{" "}
+            </span>
           </Link>
 
           {/* Right: User & Cart Icons */}
@@ -78,15 +83,16 @@ Designocase            </span>
                   title="View your orders"
                 >
                   <FiUser className="text-[#c5a059]" size={15} />
-                  <span>{user.name ? `Hi, ${user.name.split(" ")[0]}` : "Account"}</span>
+                  <span>
+                    {user.name ? `Hi, ${user.name.split(" ")[0]}` : "Account"}
+                  </span>
                 </Link>
                 <button
                   onClick={logout}
                   className="text-[11px] uppercase tracking-wider cursor-pointer text-gray-400 hover:text-white px-2 py-1 transition"
                   title="Sign out"
                 >
-               <FaPowerOff size={17} />
-
+                  <FaPowerOff size={17} />
                 </button>
               </div>
             ) : (
@@ -94,7 +100,7 @@ Designocase            </span>
                 to="/auth"
                 className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#c5a059] text-xs font-bold uppercase tracking-wider text-[#c5a059] hover:bg-[#c5a059] hover:text-black transition"
               >
-                <FiUser size={22} className="cursor-pointer"/>
+                <FiUser size={22} className="cursor-pointer" />
                 <span>Sign In</span>
               </Link>
             )}
@@ -104,7 +110,10 @@ Designocase            </span>
               aria-label="Shopping Cart"
               className="relative p-2 rounded-lg cursor-pointer group transition-all"
             >
-              <FiShoppingBag size={22} className="transition-colors cursor-pointer" />
+              <FiShoppingBag
+                size={22}
+                className="transition-colors cursor-pointer"
+              />
               {cartCount > 0 && (
                 <span className="absolute top-1 right-1 bg-[#c5a059] text-black text-[10px] font-extrabold rounded-full h-4 min-w-[16px] px-1 flex items-center justify-center shadow-md">
                   {cartCount}
@@ -112,13 +121,15 @@ Designocase            </span>
               )}
             </Link>
           </div>
-
         </div>
 
         {/* Expandable Search Bar */}
         {searchOpen && (
           <div className="border-t border-white/10 bg-black/95 py-3 px-4 sm:px-12 transition-all">
-            <form onSubmit={handleSearchSubmit} className="max-w-3xl mx-auto flex items-center gap-3">
+            <form
+              onSubmit={handleSearchSubmit}
+              className="max-w-3xl mx-auto flex items-center gap-3"
+            >
               <FiSearch className="text-[#c5a059] text-lg shrink-0" />
               <input
                 type="text"
@@ -177,8 +188,12 @@ Designocase            </span>
                     {user.name ? user.name.charAt(0).toUpperCase() : "U"}
                   </div>
                   <div className="overflow-hidden">
-                    <p className="text-xs font-bold text-white truncate">{user.name || "Customer"}</p>
-                    <p className="text-[10px] text-gray-400 truncate">{user.email || "Signed In"}</p>
+                    <p className="text-xs font-bold text-white truncate">
+                      {user.name || "Customer"}
+                    </p>
+                    <p className="text-[10px] text-gray-400 truncate">
+                      {user.email || "Signed In"}
+                    </p>
                   </div>
                 </div>
               )}
@@ -211,10 +226,11 @@ Designocase            </span>
               )}
             </div>
 
-
             {/* Footer inside drawer */}
             <div className="p-5 border-t border-white/10 bg-black/40 text-center text-xs text-gray-400 space-y-3">
-              <p className="tracking-widest uppercase text-[#c5a059]">Singh & Chand Luxury</p>
+              <p className="tracking-widest uppercase text-[#c5a059]">
+                Singh & Chand Luxury
+              </p>
               <p>© 2026 Premium Mobile Accessories</p>
             </div>
           </div>
