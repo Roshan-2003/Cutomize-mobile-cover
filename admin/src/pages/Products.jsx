@@ -1,6 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { FiEdit, FiTrash2, FiSearch, FiX, FiCheck, FiFilter } from "react-icons/fi";
+import {
+  FiEdit,
+  FiTrash2,
+  FiSearch,
+  FiX,
+  FiCheck,
+  FiFilter,
+} from "react-icons/fi";
 import { API_BASE_URL, API_ORIGIN } from "../api/apiUrl";
 import { getCategories } from "../api/categoryApi";
 import { getProductCategoryOptions } from "../data/productCategories";
@@ -20,7 +27,7 @@ const Products = () => {
 
   const categoryOptions = getProductCategoryOptions(
     categories,
-    editProduct?.category
+    editProduct?.category,
   );
 
   const fetchProducts = async () => {
@@ -30,12 +37,17 @@ const Products = () => {
       const response = await fetch(API_URL);
       const data = await response.json();
       if (!response.ok || data.success === false) {
-        throw new Error(data.message || `Unable to load products (HTTP ${response.status}).`);
+        throw new Error(
+          data.message || `Unable to load products (HTTP ${response.status}).`,
+        );
       }
       setProducts(data.products || []);
     } catch (error) {
       console.log("Get Products Error:", error);
-      setProductsError(error.message || "Unable to load products. Check the backend API URL and connection.");
+      setProductsError(
+        error.message ||
+          "Unable to load products. Check the backend API URL and connection.",
+      );
     } finally {
       setLoading(false);
     }
@@ -48,7 +60,9 @@ const Products = () => {
         const loadedCategories = data.categories || [];
         setCategories(loadedCategories);
         const requestedSlug = searchParams.get("category");
-        const requestedCategory = loadedCategories.find((category) => category.slug === requestedSlug);
+        const requestedCategory = loadedCategories.find(
+          (category) => category.slug === requestedSlug,
+        );
         if (requestedCategory) setSelectedCategory(requestedCategory.name);
       })
       .catch((error) => {
@@ -56,14 +70,14 @@ const Products = () => {
         setCategoryError(
           error.response?.data?.message ||
             error.message ||
-            "Custom categories could not be loaded."
+            "Custom categories could not be loaded.",
         );
       });
   }, [searchParams]);
 
   const handleDelete = async (id) => {
     const confirmDelete = window.confirm(
-      "Are you sure you want to delete this product?"
+      "Are you sure you want to delete this product?",
     );
 
     if (!confirmDelete) return;
@@ -139,7 +153,9 @@ const Products = () => {
   // Filter products by search and category
   const filteredProducts = products.filter((p) => {
     const matchesSearch = p.title?.toLowerCase().includes(search.toLowerCase());
-    const matchesCat = selectedCategory ? p.category === selectedCategory : true;
+    const matchesCat = selectedCategory
+      ? p.category === selectedCategory
+      : true;
     return matchesSearch && matchesCat;
   });
 
@@ -147,16 +163,27 @@ const Products = () => {
     <div className="space-y-6">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h1 className="text-xl font-bold text-slate-900">Products</h1>
-          <p className="mt-1 text-sm text-slate-500">Browse products by category.</p>
+          {/* <h1 className="text-xl font-bold text-slate-900">Products</h1> */}
+          {/* <p className="mt-1 text-sm text-slate-500">Browse products by category.</p> */}
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <select value={selectedCategory} onChange={(event) => setSelectedCategory(event.target.value)} className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm">
+          <select
+            value={selectedCategory}
+            onChange={(event) => setSelectedCategory(event.target.value)}
+            className="rounded-lg border border-slate-200 bg-white px-3 py-2 text-sm"
+          >
             <option value="">All categories</option>
-            {getProductCategoryOptions(categories).map((name) => <option key={name} value={name}>{name}</option>)}
+            {getProductCategoryOptions(categories).map((name) => (
+              <option key={name} value={name}>
+                {name}
+              </option>
+            ))}
           </select>
           {selectedCategory && (
-            <Link to={`/add-product?category=${encodeURIComponent(categories.find((category) => category.name === selectedCategory)?.slug || selectedCategory)}`} className="rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800">
+            <Link
+              to={`/add-product?category=${encodeURIComponent(categories.find((category) => category.name === selectedCategory)?.slug || selectedCategory)}`}
+              className="rounded-lg bg-black px-4 py-2 text-sm font-semibold text-white hover:bg-slate-800"
+            >
               Add product to {selectedCategory}
             </Link>
           )}
@@ -164,14 +191,18 @@ const Products = () => {
       </div>
 
       {productsError && (
-        <p role="alert" className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700">
+        <p
+          role="alert"
+          className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-700"
+        >
           {productsError}
         </p>
       )}
 
       {categoryError && (
         <p role="status" className="text-xs text-amber-700">
-          Custom categories could not be loaded ({categoryError}). The built-in categories are still available.
+          Custom categories could not be loaded ({categoryError}). The built-in
+          categories are still available.
         </p>
       )}
 
@@ -194,7 +225,9 @@ const Products = () => {
             <form onSubmit={handleUpdate} className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-xs font-bold uppercase text-slate-700 mb-1">Title</label>
+                  <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+                    Title
+                  </label>
                   <input
                     type="text"
                     name="title"
@@ -205,7 +238,9 @@ const Products = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase text-slate-700 mb-1">Price (₹)</label>
+                  <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+                    Price (₹)
+                  </label>
                   <input
                     type="number"
                     name="price"
@@ -216,7 +251,9 @@ const Products = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase text-slate-700 mb-1">Original Price (₹)</label>
+                  <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+                    Original Price (₹)
+                  </label>
                   <input
                     type="number"
                     name="originalPrice"
@@ -227,7 +264,9 @@ const Products = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-bold uppercase text-slate-700 mb-1">Category</label>
+                  <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+                    Category
+                  </label>
                   <select
                     name="category"
                     value={editProduct.category || ""}
@@ -245,7 +284,9 @@ const Products = () => {
               </div>
 
               <div>
-                <label className="block text-xs font-bold uppercase text-slate-700 mb-1">Description</label>
+                <label className="block text-xs font-bold uppercase text-slate-700 mb-1">
+                  Description
+                </label>
                 <textarea
                   name="description"
                   rows="3"
@@ -264,7 +305,10 @@ const Products = () => {
                   onChange={handleEditChange}
                   className="accent-black h-4 w-4"
                 />
-                <label htmlFor="bestseller" className="text-xs font-bold uppercase text-slate-700 cursor-pointer">
+                <label
+                  htmlFor="bestseller"
+                  className="text-xs font-bold uppercase text-slate-700 cursor-pointer"
+                >
                   Feature as Bestseller
                 </label>
               </div>
@@ -303,7 +347,7 @@ const Products = () => {
           <div className="table-wrapper">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-slate-100/70 border-b border-slate-200 text-[10px] font-extrabold uppercase tracking-widest text-slate-500">
+                <tr className="bg-slate-100/70 border-b border-slate-200 text-[10px] font-extrabold uppercase tracking-widest text-black">
                   <th className="p-4">Product Details</th>
                   <th className="p-4">Price</th>
                   <th className="p-4">Category</th>
@@ -313,7 +357,10 @@ const Products = () => {
               </thead>
               <tbody className="divide-y divide-slate-100 text-xs text-slate-700">
                 {filteredProducts.map((product) => (
-                  <tr key={product._id} className="hover:bg-slate-50/80 transition-colors">
+                  <tr
+                    key={product._id}
+                    className="hover:bg-slate-50/80 transition-colors"
+                  >
                     <td className="p-4 flex items-center gap-3">
                       <div className="w-12 h-14 bg-slate-50 border border-slate-200 rounded-lg p-1 flex-shrink-0 flex items-center justify-center">
                         <img
@@ -343,7 +390,7 @@ const Products = () => {
                     </td>
 
                     <td className="p-4">
-                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase bg-slate-100 text-slate-700">
+                      <span className="px-2.5 py-1 rounded-full text-[10px] font-bold uppercase  text-slate-700">
                         {product.category || "Uncategorized"}
                       </span>
                     </td>
@@ -354,7 +401,9 @@ const Products = () => {
                           ★ YES
                         </span>
                       ) : (
-                        <span className="text-slate-400 text-[10px] font-bold">No</span>
+                        <span className="text-slate-400 text-[10px] font-bold">
+                          No
+                        </span>
                       )}
                     </td>
 
@@ -367,21 +416,21 @@ const Products = () => {
                         >
                           <FiEdit size={18} />
                         </button>
-                      <button
-  onClick={() => handleDelete(product._id)}
-  className="p-2 rounded-lg transition-colors cursor-pointer"
-  title="Delete"
->
-  <img
-    src="/delete.png"
-    alt="Delete"
-    className="w-4 h-4 object-contain brightness-0 saturate-100"
-    style={{
-      filter:
-        "invert(18%) sepia(94%) saturate(6000%) hue-rotate(350deg) brightness(95%) contrast(110%)",
-    }}
-  />
-</button>
+                        <button
+                          onClick={() => handleDelete(product._id)}
+                          className="p-2 rounded-lg transition-colors cursor-pointer"
+                          title="Delete"
+                        >
+                          <img
+                            src="/delete.png"
+                            alt="Delete"
+                            className="w-4 h-4 object-contain brightness-0 saturate-100"
+                            style={{
+                              filter:
+                                "invert(18%) sepia(94%) saturate(6000%) hue-rotate(350deg) brightness(95%) contrast(110%)",
+                            }}
+                          />
+                        </button>
                       </div>
                     </td>
                   </tr>

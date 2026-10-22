@@ -29,7 +29,7 @@ const formatPrice = (price) =>
 const getImageUrl = (image) =>
   image?.startsWith("http") ? image : `${IMAGE_BASE_URL}${image || ""}`;
 
-const IPHONE_MODELS = [
+const IPHONE_MODELS = [                      
     "iPhone 18 Pro Max",
   "iPhone 18 Pro",
   "iPhone 18",
@@ -522,3 +522,4 @@ const ProductDetails = () => {
 };
 
 export default ProductDetails;
+

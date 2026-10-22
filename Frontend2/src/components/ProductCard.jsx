@@ -3,7 +3,15 @@ import { Link } from "react-router-dom";
 import { FiEye, FiShoppingBag } from "react-icons/fi";
 import { API_ORIGIN } from "../api/apiUrl";
 
-const ProductCard = ({ _id, image, title, price, originalPrice, discount, category }) => {
+const ProductCard = ({
+  _id,
+  image,
+  title,
+  price,
+  originalPrice,
+  discount,
+  category,
+}) => {
   const resolvedImage = image?.startsWith("http")
     ? image
     : `${API_ORIGIN}${image || ""}`;
@@ -23,22 +31,25 @@ const ProductCard = ({ _id, image, title, price, originalPrice, discount, catego
       )}
 
       {/* Product Image Link Container */}
-      <Link to={`/product/${_id}`} className="block relative overflow-hidden rounded-lg  aspect-square flex items-center justify-center p-2 sm:p-3 mb-2 sm:mb-2.5">
-    <div className="group relative flex items-center justify-center">
-  <img
-    src={resolvedImage}
-    alt={title}
-    className="max-h-full max-w-full object-contain transition-opacity  group-hover:opacity-0"
-    loading="lazy"
-  />
+      <Link
+        to={`/product/${_id}`}
+        className="block relative overflow-hidden rounded-lg  aspect-square flex items-center justify-center p-2 sm:p-3 mb-2 sm:mb-2.5"
+      >
+        <div className="group relative flex items-center justify-center">
+          <img
+            src={resolvedImage}
+            alt={title}
+            className="max-h-full max-w-full object-contain transition-opacity  group-hover:opacity-0"
+            loading="lazy"
+          />
 
-  <img
-    src="/iphone-hover.webp"
-    alt={title}
-    className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity  group-hover:opacity-100"
-    loading="lazy"
-  />
-</div>
+          <img
+            src="/iphone-hover.webp"
+            alt={title}
+            className="absolute inset-0 h-full w-full object-contain opacity-0 transition-opacity  group-hover:opacity-100"
+            loading="lazy"
+          />
+        </div>
 
         {/* Hover Quick Action overlay */}
         {/* <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2">

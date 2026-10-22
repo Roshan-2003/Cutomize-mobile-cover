@@ -61,31 +61,28 @@ function App() {
     fetchProducts();
   }, []);
 
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[#0a0a0a] text-white">
-  //       <div className="w-12 h-12 border-4 border-[#c5a059] border-t-transparent rounded-full animate-spin" />
-  //       <p className="text-xs font-bold uppercase tracking-[0.25em] text-[#c5a059]">
-  //         Loading Singh & Chand...
-  //       </p>
-  //     </div>
-  //   );
-  // }
+  
 
   const premiumToughCases = products.filter(
-    (product) => product.category === "Premium Tough Cases"
+    (product) => product.category === "Premium Tough Cases",
   );
 
   const leatherCases = products.filter(
-    (product) => product.category === "Leather Cases"
+    (product) => product.category === "Leather Cases",
   );
 
   const ChaosDrop = products.filter(
-    (product) => product.category === "CHAOS Drops"
+    (product) => product.category === "CHAOS Drops",
   );
 
   const normalizeCategory = (val) =>
-    val ? val.toString().trim().toLowerCase().replace(/[^a-z0-9]/g, "") : "";
+    val
+      ? val
+          .toString()
+          .trim()
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, "")
+      : "";
 
   const matchesCategory = (productCat, catName, catSlug) => {
     if (!productCat) return false;
@@ -127,7 +124,7 @@ function App() {
       const dynamicCategory = categories.find(
         (category) =>
           category.slug === categorySlug ||
-          normalizeCategory(category.name) === normalizeCategory(categorySlug)
+          normalizeCategory(category.name) === normalizeCategory(categorySlug),
       );
 
       const title =
@@ -136,7 +133,7 @@ function App() {
       selectedCategory = {
         title,
         products: products.filter((product) =>
-          matchesCategory(product.category, title, categorySlug)
+          matchesCategory(product.category, title, categorySlug),
         ),
       };
     }
@@ -145,90 +142,89 @@ function App() {
   return (
     <div className="min-h-screen bg-white">
       <AuthProvider>
-      <CartProvider>
-        <ScrollToTop />
-        <Toaster position="top-center" reverseOrder={false} />
+        <CartProvider>
+          <ScrollToTop />
+          <Toaster position="top-center" reverseOrder={false} />
 
-        {/* <AnnouncementBar /> */}
+          {/* <AnnouncementBar /> */}
 
-        <Navbar />
+          <Navbar />
 
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                {selectedCategory ? (
-                  <div className="py-6 sm:py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="mb-4">
-                      <a
-                        href="/"
-                        className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-500 hover:text-black transition"
-                      >
-                        ← Back to All Products
-                      </a>
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <>
+                  {selectedCategory ? (
+                    <div className="py-6 sm:py-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                      <div className="mb-4">
+                        <a
+                          href="/"
+                          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-gray-500 hover:text-black transition"
+                        >
+                          ← Back to All Products
+                        </a>
+                      </div>
+                      <ProductSection
+                        title={selectedCategory.title}
+                        products={selectedCategory.products}
+                      />
                     </div>
-                    <ProductSection
-                      title={selectedCategory.title}
-                      products={selectedCategory.products}
-                    />
-                  </div>
-                ) : (
-                  <>
-                <Hero />
-                <CategorySection categories={categories} />
-                <ProductSection
-                  id="products-section"
-                  title="Premium Tough Cases"
-                  // subtitle="Military-Grade Dual Layer Protection"
-                  products={premiumToughCases}
-                  
-                  showViewAll={true}
-                />
-                <div className=" py-6 sm:pt-10">
-                  <ProductSection
-                    title="New iPhone 18 Series"
-                    // subtitle="Designed For The Next Generation"
-                    products={iphone17Series}
-                  />
-                </div>
-                <div className="space-y-12 sm:space-y-20">
-                  <CategoryGrid />
-                  <ProductSection
-                    title="Premium Leather Cases"
-                    // subtitle="Handcrafted Elegance"
-                    products={leatherCases}
-                    showViewAll={true}
-                  />
+                  ) : (
+                    <>
+                      <Hero />
+                      <CategorySection categories={categories} />
+                      <ProductSection
+                        id="products-section"
+                        title="Premium Tough Cases"
+                        // subtitle="Military-Grade Dual Layer Protection"
+                        products={premiumToughCases}
+                        showViewAll={true}
+                      />
+                      <div className=" py-6 sm:pt-10">
+                        <ProductSection
+                          title="New iPhone 18 Series"
+                          // subtitle="Designed For The Next Generation"
+                          products={iphone17Series}
+                        />
+                      </div>
+                      <div className="space-y-12 sm:space-y-20">
+                        <CategoryGrid />
+                        <ProductSection
+                          title="Premium Leather Cases"
+                          // subtitle="Handcrafted Elegance"
+                          products={leatherCases}
+                          showViewAll={true}
+                        />
 
-                  <ProductSection
-                    title="CHAOS – Our Newest Drops"
-                    // subtitle="Bespoke Art & Trendsetter Covers"
-                    products={ChaosDrop}
-                    showViewAll={true}
-                  />
-                  <TrustBar />
+                        <ProductSection
+                          title="CHAOS – Our Newest Drops"
+                          // subtitle="Bespoke Art & Trendsetter Covers"
+                          products={ChaosDrop}
+                          showViewAll={true}
+                        />
+                        <TrustBar />
 
-                  <NewsletterGallery />
-                </div>
-                  </>
-                )}
-              </>
-            }
-          />
+                        <NewsletterGallery />
+                      </div>
+                    </>
+                  )}
+                </>
+              }
+            />
 
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/products/:category" element={<AllProducts />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/auth" element={<Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/order-success/:id" element={<OrderSuccess />} />
-          <Route path="/orders" element={<Orders />} />
-        </Routes>
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route path="/products/:category" element={<AllProducts />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/auth" element={<Login />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/order-success/:id" element={<OrderSuccess />} />
+            <Route path="/orders" element={<Orders />} />
+          </Routes>
 
-        <Footer />
-      </CartProvider>
+          <Footer />
+        </CartProvider>
       </AuthProvider>
     </div>
   );
