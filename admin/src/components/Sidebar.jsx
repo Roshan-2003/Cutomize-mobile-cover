@@ -99,7 +99,7 @@ const Sidebar = ({ isOpen, onClose }) => {
             <div className="h-9 w-9 rounded-full bg-white flex items-center justify-center text-black font-bold text-xs">
               AD
             </div>
-            <div className="flex-1 overflow-hidden">
+            <div className="flex-1 overflow-hidden cursor-pointer">
               <p className="text-xs font-bold text-gray-200 truncate">Store Manager</p>
               <p className="text-[10px] text-gray-400 truncate">admin@singhchand.com</p>
             </div>
