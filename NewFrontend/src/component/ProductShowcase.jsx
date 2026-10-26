@@ -8,6 +8,7 @@ const products = [
     oldPrice: 1199,
     image: "/images/Orangefruitcase1.webp",
     lifestyle: "/images/Orange_fruit_case1_5.webp",
+    hoverImage: "/images/Orange_fruit_case_4.webp",
   },
 ];
 
@@ -53,15 +54,23 @@ function ProductShowcase({ product }) {
           </div>
         </div>
 
-        {/* Product showcase image card - full image display without crop */}
-        <div className="flex h-[240px] xs:h-[280px] sm:h-[360px] md:h-[400px] lg:h-[420px] w-full max-w-[420px] items-center justify-center overflow-hidden rounded-2xl bg-white p-3 sm:p-5 shadow-lg">
-          <img
-            src={product.image}
-            alt={product.name}
-            loading="lazy"
-            className="h-full w-full object-contain p-2 sm:p-3 transition-transform duration-500 hover:scale-105 drop-shadow-sm"
-          />
-        </div>
+     <div className="group relative h-[240px] xs:h-[280px] sm:h-[360px] md:h-[400px] lg:h-[420px] w-full max-w-[420px] overflow-hidden rounded-2xl bg-white shadow-lg">
+  {/* Original Image */}
+  <img
+    src={product.image}
+    alt={product.name}
+    loading="lazy"
+    className="absolute inset-0 h-full w-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+  />
+
+  {/* Hover Image */}
+  <img
+    src={product.hoverImage}
+    alt={`${product.name} alternate view`}
+    loading="lazy"
+    className="absolute inset-0 h-full w-full object-cover opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+  />
+</div>
 
         <div className="mt-4 sm:mt-5 flex w-full max-w-[420px] items-center justify-between gap-3">
           <p className="text-xs sm:text-sm font-medium text-white/90">
