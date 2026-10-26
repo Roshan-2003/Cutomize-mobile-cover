@@ -56,7 +56,7 @@ function ProductCard({ product }) {
       </div>
 
       <div className="pt-2 sm:pt-3">
-        <h3 className="truncate font-['Bagel_Fat_One'] text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-[#ff4d2d] transition-colors">
+        <h3 className="truncate font-['Bagel_Fat_One'] text-xs sm:text-sm font-extrabold text-slate-900 transition-colors">
           {product.name}
         </h3>
 
@@ -70,7 +70,7 @@ function ProductCard({ product }) {
           </span>
         </div>
 
-        <button className="mt-2 sm:mt-3 w-full rounded-full bg-gradient-to-r from-slate-950 to-slate-800 hover:from-[#ff4d2d] hover:to-[#f43f5e] py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold text-white shadow-md hover:shadow-orange-500/20 transition-all duration-300 active:scale-98">
+        <button className="mt-2 sm:mt-3 w-full rounded-full bg-gradient-to-r from-slate-950 to-slate-800 cursor-pointer py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold text-white shadow-md hover:shadow-orange-500/20 transition-all duration-300 active:scale-98">
           Shop Now
         </button>
       </div>
@@ -96,7 +96,7 @@ function FeaturedProduct({ product }) {
       </div>
 
       <div className="pt-3 sm:pt-4">
-        <h3 className="font-['Bagel_Fat_One'] text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 group-hover:text-[#ff4d2d] transition-colors">
+        <h3 className="font-['Bagel_Fat_One'] text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900  transition-colors">
           {product.name}
         </h3>
 
@@ -110,7 +110,7 @@ function FeaturedProduct({ product }) {
           </span>
         </div>
 
-        <button className="mt-2.5 sm:mt-3.5 w-full rounded-full bg-gradient-to-r from-slate-950 to-slate-800 hover:from-[#ff4d2d] hover:to-[#f43f5e] py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-md hover:shadow-orange-500/25 transition-all duration-300 active:scale-98">
+        <button className="mt-2.5 sm:mt-3.5 w-full rounded-full bg-gradient-to-r from-slate-950 to-slate-800 cursor-pointer py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-md hover:shadow-orange-500/25 transition-all duration-300 active:scale-98">
           Shop Now
         </button>
       </div>
