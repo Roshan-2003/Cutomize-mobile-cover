@@ -66,7 +66,7 @@ function HeroCarousel() {
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
-      className="relative w-full overflow-hidden bg-neutral-900 aspect-[2.3/1] xs:aspect-[2.45/1] sm:aspect-[2.6/1] md:aspect-[2.76/1] max-h-[620px] select-none"
+      className="relative w-full overflow-hidden bg-[#0b0f19] aspect-[2.3/1] xs:aspect-[2.45/1] sm:aspect-[2.6/1] md:aspect-[2.76/1] max-h-[620px] select-none"
     >
       {/* Slides */}
       {slides.map((item, index) => (
@@ -89,7 +89,7 @@ function HeroCarousel() {
       <button
         onClick={() => changeSlide(-1)}
         aria-label="Previous slide"
-        className="absolute left-2 xs:left-3 sm:left-5 md:left-7 top-1/2 z-20 flex h-7 w-7 xs:h-8 xs:w-8 sm:h-11 sm:w-11 md:h-12 md:w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-black shadow-lg backdrop-blur-xs transition hover:bg-[#f45d19] hover:text-white active:scale-95"
+        className="absolute left-2 xs:left-3 sm:left-5 md:left-7 top-1/2 z-20 flex h-7 w-7 xs:h-8 xs:w-8 sm:h-11 sm:w-11 md:h-12 md:w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-slate-900 shadow-xl backdrop-blur-xs transition-all duration-300 hover:bg-gradient-to-r hover:from-[#ff4d2d] hover:to-[#f43f5e] hover:text-white border border-white/40 active:scale-95"
       >
         <ChevronLeft className="h-4 w-4 xs:h-4.5 xs:w-4.5 sm:h-6 sm:w-6" />
       </button>
@@ -98,7 +98,7 @@ function HeroCarousel() {
       <button
         onClick={() => changeSlide(1)}
         aria-label="Next slide"
-        className="absolute right-2 xs:right-3 sm:right-5 md:right-7 top-1/2 z-20 flex h-7 w-7 xs:h-8 xs:w-8 sm:h-11 sm:w-11 md:h-12 md:w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-black shadow-lg backdrop-blur-xs transition hover:bg-[#f45d19] hover:text-white active:scale-95"
+        className="absolute right-2 xs:right-3 sm:right-5 md:right-7 top-1/2 z-20 flex h-7 w-7 xs:h-8 xs:w-8 sm:h-11 sm:w-11 md:h-12 md:w-12 -translate-y-1/2 items-center justify-center rounded-full bg-white/95 text-slate-900 shadow-xl backdrop-blur-xs transition-all duration-300 hover:bg-gradient-to-r hover:from-[#ff4d2d] hover:to-[#f43f5e] hover:text-white border border-white/40 active:scale-95"
       >
         <ChevronRight className="h-4 w-4 xs:h-4.5 xs:w-4.5 sm:h-6 sm:w-6" />
       </button>
@@ -112,8 +112,8 @@ function HeroCarousel() {
             aria-label={`Go to slide ${index + 1}`}
             className={`h-1.5 sm:h-2 md:h-2.5 rounded-full transition-all duration-300 ${
               activeSlide === index
-                ? "w-4 sm:w-6 md:w-8 bg-[#f45d19]"
-                : "w-1.5 sm:w-2 md:w-2.5 bg-white/70 hover:bg-white"
+                ? "w-5 sm:w-7 md:w-9 bg-gradient-to-r from-[#ff4d2d] to-[#f43f5e] shadow-md shadow-orange-500/50"
+                : "w-1.5 sm:w-2 md:w-2.5 bg-white/50 hover:bg-white/80"
             }`}
           />
         ))}

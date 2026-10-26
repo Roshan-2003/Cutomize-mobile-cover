@@ -41,8 +41,8 @@ const featuredProduct = {
 function ProductCard({ product }) {
   return (
     <article className="group flex flex-col justify-between">
-      <div className="relative flex h-[170px] xs:h-[190px] sm:h-[220px] md:h-[235px] items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl bg-neutral-50/80 border border-neutral-100/80 p-2 sm:p-3 transition hover:shadow-md">
-        <span className="absolute right-2 top-2 z-10 rounded-sm bg-[#ff641f] px-1.5 py-0.5 text-[9px] sm:text-[10px] font-bold text-white uppercase tracking-wider">
+      <div className="relative flex h-[170px] xs:h-[190px] sm:h-[220px] md:h-[235px] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50 to-orange-50/20 border border-slate-200/80 p-2 sm:p-3 transition-all duration-300 group-hover:border-[#ff4d2d]/60 group-hover:shadow-xl group-hover:shadow-orange-500/10">
+        <span className="absolute right-2 top-2 z-10 rounded-md bg-gradient-to-r from-[#ff4d2d] to-[#f43f5e] px-2 py-0.5 text-[9px] sm:text-[10px] font-black text-white uppercase tracking-wider shadow-xs">
           DEAL
         </span>
 
@@ -51,26 +51,26 @@ function ProductCard({ product }) {
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="h-full w-full object-contain p-1.5 sm:p-2.5 drop-shadow-sm transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-contain p-1.5 sm:p-2.5 drop-shadow-md transition-transform duration-300 group-hover:scale-105"
         />
       </div>
 
       <div className="pt-2 sm:pt-3">
-        <h3 className="truncate font-['Bagel_Fat_One'] text-xs sm:text-sm font-extrabold text-neutral-800">
+        <h3 className="truncate font-['Bagel_Fat_One'] text-xs sm:text-sm font-extrabold text-slate-900 group-hover:text-[#ff4d2d] transition-colors">
           {product.name}
         </h3>
 
         <div className="mt-1 sm:mt-1.5 flex flex-wrap items-baseline gap-1.5 sm:gap-2">
-          <span className="text-xs sm:text-sm font-bold text-[#ff641f]">
+          <span className="text-xs sm:text-sm font-black text-[#ff4d2d]">
             Rs. {product.price.toFixed(2)}
           </span>
 
-          <span className="text-[10px] sm:text-xs text-neutral-400 line-through">
+          <span className="text-[10px] sm:text-xs text-slate-400 line-through">
             Rs. {product.oldPrice.toFixed(2)}
           </span>
         </div>
 
-        <button className="mt-2 sm:mt-3 w-full rounded-full bg-black py-2 sm:py-2.5 text-[11px] sm:text-xs font-semibold text-white transition hover:bg-[#ff641f] active:scale-98">
+        <button className="mt-2 sm:mt-3 w-full rounded-full bg-gradient-to-r from-slate-950 to-slate-800 hover:from-[#ff4d2d] hover:to-[#f43f5e] py-2 sm:py-2.5 text-[11px] sm:text-xs font-bold text-white shadow-md hover:shadow-orange-500/20 transition-all duration-300 active:scale-98">
           Shop Now
         </button>
       </div>
@@ -81,8 +81,8 @@ function ProductCard({ product }) {
 function FeaturedProduct({ product }) {
   return (
     <article className="group flex flex-col justify-between">
-      <div className="relative flex h-[260px] xs:h-[300px] sm:h-[370px] md:h-[400px] lg:h-[440px] items-center justify-center overflow-hidden rounded-xl sm:rounded-2xl bg-neutral-50/80 border border-neutral-100/80 p-3 sm:p-5 transition hover:shadow-md">
-        <span className="absolute right-3 top-3 z-10 rounded-sm bg-[#ff641f] px-2 py-0.5 text-[10px] sm:text-xs font-bold text-white uppercase tracking-wider">
+      <div className="relative flex h-[260px] xs:h-[300px] sm:h-[370px] md:h-[400px] lg:h-[440px] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50 to-orange-50/25 border border-slate-200/80 p-3 sm:p-5 transition-all duration-300 group-hover:border-[#ff4d2d]/60 group-hover:shadow-xl group-hover:shadow-orange-500/10">
+        <span className="absolute right-3 top-3 z-10 rounded-md bg-gradient-to-r from-[#ff4d2d] to-[#f43f5e] px-2.5 py-0.5 text-[10px] sm:text-xs font-black text-white uppercase tracking-wider shadow-sm">
           BEST DEAL
         </span>
 
@@ -91,26 +91,26 @@ function FeaturedProduct({ product }) {
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="h-full w-full object-contain p-2 sm:p-4 drop-shadow-md transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-contain p-2 sm:p-4 drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
         />
       </div>
 
       <div className="pt-3 sm:pt-4">
-        <h3 className="font-['Bagel_Fat_One'] text-sm sm:text-base md:text-lg font-black tracking-tight text-neutral-800">
+        <h3 className="font-['Bagel_Fat_One'] text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900 group-hover:text-[#ff4d2d] transition-colors">
           {product.name}
         </h3>
 
         <div className="mt-1 sm:mt-1.5 flex flex-wrap items-baseline gap-2">
-          <span className="text-sm sm:text-base font-bold text-[#ff641f]">
+          <span className="text-sm sm:text-base font-black text-[#ff4d2d]">
             Rs. {product.price.toFixed(2)}
           </span>
 
-          <span className="text-xs text-neutral-400 line-through">
+          <span className="text-xs text-slate-400 line-through">
             Rs. {product.oldPrice.toFixed(2)}
           </span>
         </div>
 
-        <button className="mt-2.5 sm:mt-3.5 w-full rounded-full bg-black py-2.5 sm:py-3 text-xs sm:text-sm font-semibold text-white transition hover:bg-[#ff641f] active:scale-98">
+        <button className="mt-2.5 sm:mt-3.5 w-full rounded-full bg-gradient-to-r from-slate-950 to-slate-800 hover:from-[#ff4d2d] hover:to-[#f43f5e] py-2.5 sm:py-3 text-xs sm:text-sm font-bold text-white shadow-md hover:shadow-orange-500/25 transition-all duration-300 active:scale-98">
           Shop Now
         </button>
       </div>
@@ -120,17 +120,19 @@ function FeaturedProduct({ product }) {
 
 export default function Bestsellers() {
   return (
-    <section id="bestsellers" className="w-full bg-white px-3 xs:px-4 sm:px-6 md:px-10 py-10 sm:py-16">
+    <section id="bestsellers" className="w-full bg-gradient-to-b from-white to-slate-50/50 px-3 xs:px-4 sm:px-6 md:px-10 py-10 sm:py-16 border-b border-slate-100">
       <div className="mx-auto max-w-7xl">
         {/* Section heading */}
         <div className="mb-8 sm:mb-12 text-center">
-          <h2 className="font-['Bagel_Fat_One'] text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-normal uppercase leading-tight tracking-tight text-[#484848]">
+          <h2 className="font-['Bagel_Fat_One'] text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-normal uppercase leading-tight tracking-tight text-slate-900">
             Our
             <br />
-            Bestsellers
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff4d2d] via-[#f43f5e] to-[#ff7a45]">
+              Bestsellers
+            </span>
           </h2>
 
-          <p className="mx-auto mt-3 sm:mt-4 max-w-xl text-xs sm:text-sm leading-relaxed text-gray-500">
+          <p className="mx-auto mt-3 sm:mt-4 max-w-xl text-xs sm:text-sm leading-relaxed text-slate-500 font-medium">
             Turn heads with our latest collection of premium phone cases built to protect and impress.
           </p>
         </div>
