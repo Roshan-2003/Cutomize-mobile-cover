@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
 @import "tailwindcss";
 
-/* body {
-  font-family: 'Bagel Fat One', cursive;
-} */
+@theme {
+  --breakpoint-xs: 400px;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
 
 .offer-marquee {
   overflow: hidden;
@@ -11,7 +23,7 @@
 }
 
 .offer-track {
-  animation: offer-scroll 50s linear infinite;
+  animation: offer-scroll 35s linear infinite;
   will-change: transform;
 }
 
