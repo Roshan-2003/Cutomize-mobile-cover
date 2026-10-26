@@ -90,10 +90,7 @@ function OfferBanner() {
               key={item}
               className="text-xl xs:text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase leading-tight tracking-tight"
             >
-              BUY 1 @999 · BUY 2 @1599 · BUY 3 @1999
-              <span className="mx-3 sm:mx-5 text-[#ffe0a5]">
-                + FREE GIFTS INSIDE
-              </span>
+              BUY 1 @999 · BUY 2 @1599 · BUY 3 @1999 + FREE GIFTS INSIDE
             </p>
           ))}
         </div>
