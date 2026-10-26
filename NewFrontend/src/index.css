@@ -1,1 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Bagel+Fat+One&display=swap');
 @import "tailwindcss";
+
+/* body {
+  font-family: 'Bagel Fat One', cursive;
+} */
+
+.offer-marquee {
+  overflow: hidden;
+  width: 100%;
+}
+
+.offer-track {
+  animation: offer-scroll 50s linear infinite;
+  will-change: transform;
+}
+
+@keyframes offer-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.offer-marquee:hover .offer-track {
+  animation-play-state: paused;
+}

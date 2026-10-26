@@ -9,7 +9,7 @@ const products = [
     price: 999,
     originalPrice: 1499,
     discount: "33% OFF",
-    video: "/videos/gingham-love.mp4",
+    video: "/videos/video1.mp4",
     image: "/images/gingham-love.jpg",
   },
   {
@@ -18,7 +18,7 @@ const products = [
     price: 999,
     originalPrice: 1499,
     discount: "33% OFF",
-    video: "/videos/what-the-duck.mp4",
+    video: "/videos/video2.mp4",
     image: "/images/what-the-duck.jpg",
   },
   {
@@ -27,7 +27,7 @@ const products = [
     price: 999,
     originalPrice: 1499,
     discount: "33% OFF",
-    video: "/videos/blue-flower.mp4",
+    video: "/videos/video3.mp4",
     image: "/images/blue-flower.jpg",
   },
   {
@@ -36,7 +36,7 @@ const products = [
     price: 999,
     originalPrice: 1499,
     discount: "33% OFF",
-    video: "/videos/diet-coke.mp4",
+    video: "/videos/video4.mp4",
     image: "/images/diet-coke.jpg",
   },
   {
@@ -45,7 +45,7 @@ const products = [
     price: 999,
     originalPrice: 1499,
     discount: "33% OFF",
-    video: "/videos/goofy-cat.mp4",
+    video: "/videos/video5.mp4",
     image: "/images/goofy-cat.jpg",
   },
   {
@@ -54,7 +54,25 @@ const products = [
     price: 1249,
     originalPrice: 1499,
     discount: "17% OFF",
-    video: "/videos/floral-pop.mp4",
+    video: "/videos/video6.mp4",
+    image: "/images/floral-pop.jpg",
+  },
+   {
+    id: 7,
+    name: "Floral Pop Case",
+    price: 1249,
+    originalPrice: 1499,
+    discount: "17% OFF",
+    video: "/videos/video8.mp4",
+    image: "/images/floral-pop.jpg",
+  },
+     {
+    id: 8,
+    name: "Floral Pop Case",
+    price: 1249,
+    originalPrice: 1499,
+    discount: "17% OFF",
+    video: "/videos/video10.mp4",
     image: "/images/floral-pop.jpg",
   },
 ];
@@ -127,14 +145,7 @@ export default function WatchNShop() {
 
       <div className="group/slider relative">
         {/* Previous arrow */}
-        <button
-          onClick={() => scrollProducts(-1)}
-          aria-label="Previous products"
-          className="absolute left-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-lg transition hover:bg-orange-500 hover:text-white sm:flex"
-        >
-          <ChevronLeft size={24} />
-        </button>
-
+    
         {/* Product videos */}
         <div
           ref={scrollRef}
@@ -149,13 +160,7 @@ export default function WatchNShop() {
         </div>
 
         {/* Next arrow */}
-        <button
-          onClick={() => scrollProducts(1)}
-          aria-label="Next products"
-          className="absolute right-2 top-1/2 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-white text-black shadow-lg transition hover:bg-orange-500 hover:text-white sm:flex"
-        >
-          <ChevronRight size={24} />
-        </button>
+       
       </div>
     </section>
   );

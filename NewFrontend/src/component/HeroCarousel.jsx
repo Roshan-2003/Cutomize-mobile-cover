@@ -1,54 +1,50 @@
-import React from 'react'
+import React from "react";
 import { useState } from "react";
 import festiveBanner from "../assets/festive_desktop_banner.webp";
 import festiveBannerSecond from "../assets/festive_desktop_banner_second.webp";
+import newdesign from "../assets/newdesign.png"
 
-
-import {
-    ChevronLeft,ChevronRight
-} from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 function HeroCarousel() {
-      const [activeSlide, setActiveSlide] = useState(0);
-    
-        const slides = [
+  const [activeSlide, setActiveSlide] = useState(0);
+
+  const slides = [
     {
       image: festiveBanner,
       imageAlt: "CovrX festive sale and phone covers",
-      
     },
     {
       image: festiveBannerSecond,
       imageAlt: "CovrX phone cover collection",
-    
     },
+    {
+      image: newdesign,
+      imageAlt: "CovrX new design collection",
+    }
   ];
- 
-     const slide = slides[activeSlide];
+
+  const slide = slides[activeSlide];
 
   const changeSlide = (direction) => {
     setActiveSlide(
-      (current) => (current + direction + slides.length) % slides.length
+      (current) => (current + direction + slides.length) % slides.length,
     );
   };
 
-
   return (
-    <section
-      id="home"
-className="relative h-[630px] w-full overflow-hidden"    >
+    <section id="home" className="relative h-[630px] w-full overflow-hidden">
       {/* Background image */}
       <img
-    src={slide.image}
-    alt={slide.imageAlt}
-    className="absolute inset-0 h-full w-full object-cover object-center"
-  />
+        src={slide.image}
+        alt={slide.imageAlt}
+        className="absolute inset-0 h-full w-full object-cover object-center"
+      />
 
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
 
       {/* Hero content */}
-     
 
       {/* Previous button */}
       <button
@@ -76,15 +72,13 @@ className="relative h-[630px] w-full overflow-hidden"    >
             onClick={() => setActiveSlide(index)}
             aria-label={`Go to slide ${index + 1}`}
             className={`h-3 w-3 rounded-full transition ${
-              activeSlide === index
-                ? "scale-110 bg-[#f45d19]"
-                : "bg-white/60"
+              activeSlide === index ? "scale-110 bg-[#f45d19]" : "bg-white/60"
             }`}
           />
         ))}
       </div>
     </section>
-  )
+  );
 }
 
-export default HeroCarousel
+export default HeroCarousel;
