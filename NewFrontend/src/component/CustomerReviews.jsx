@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Star, CheckCircle2, Play } from "lucide-react";
 
 const initialReviews = [
@@ -104,21 +104,32 @@ function ReviewCard({ review }) {
   );
 }
 
-function VideoReviewCard({ review }) {
+function VideoReviewCard({ review, activeVideoId, onPlay }) {
   const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef(null);
+
+  useEffect(() => {
+    if (activeVideoId !== review.id) {
+      videoRef.current?.pause();
+    }
+  }, [activeVideoId, review.id]);
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:border-[#ff4d2d]/50 transition-all duration-300 group">
-      <div className="relative aspect-[9/16] max-h-[380px] bg-slate-950 overflow-hidden">
+    <article className="w-full overflow-hidden rounded-2xl border border-slate-200/90 bg-white shadow-sm hover:shadow-xl hover:shadow-orange-500/10 hover:border-[#ff4d2d]/50 transition-all duration-300 group">
+      <div className="relative aspect-[9/16] w-full max-h-[380px] bg-slate-950 overflow-hidden">
         <video
+          ref={videoRef}
           src={review.src}
           poster={review.poster}
           controls
           playsInline
           preload="metadata"
-          onPlay={() => setIsPlaying(true)}
+          onPlay={() => {
+            setIsPlaying(true);
+            onPlay(review.id);
+          }}
           onPause={() => setIsPlaying(false)}
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="absolute inset-0 block h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           aria-label={`Video review by ${review.name}`}
         >
           Your browser does not support video playback.
@@ -148,6 +159,7 @@ function VideoReviewCard({ review }) {
 export default function CustomerReviews() {
   const [reviews] = useState(initialReviews);
   const [videos] = useState(initialVideos);
+  const [activeVideoId, setActiveVideoId] = useState(null);
 
   return (
     <section
@@ -211,7 +223,12 @@ export default function CustomerReviews() {
 
           <div className="grid gap-4 xs:gap-5 grid-cols-2 lg:grid-cols-4">
             {videos.map((video) => (
-              <VideoReviewCard key={video.id} review={video} />
+              <VideoReviewCard
+                key={video.id}
+                review={video}
+                activeVideoId={activeVideoId}
+                onPlay={setActiveVideoId}
+              />
             ))}
           </div>
         </div>

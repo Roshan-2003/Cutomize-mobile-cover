@@ -88,11 +88,11 @@ export default function NewArrivals() {
           {products.map((product) => (
             <article
               key={product.id}
-              className="w-full rounded-2xl bg-white border border-slate-200/90 p-3 sm:p-4 shadow-sm hover:border-[#ff4d2d]/60 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 flex flex-col justify-between group"
+              className="w-full relative rounded-2xl  border border-slate-200/90  sm:p-3 shadow-sm hover:border-[#ff4d2d]/60 hover:shadow-xl hover:shadow-orange-500/10 transition-all duration-300 flex flex-col justify-between group"
             >
               {/* Product image container */}
-              <div className="relative flex h-[150px] xs:h-[170px] sm:h-[210px] md:h-[240px] items-center justify-center overflow-hidden rounded-xl bg-gradient-to-b from-slate-50 to-orange-50/20 border border-slate-100 p-2 sm:p-3">
-                <span className="absolute right-2 top-2 z-10 rounded-md bg-gradient-to-r from-[#ff4d2d] to-[#f43f5e] px-2 py-0.5 text-[9px] sm:text-[10px] font-black text-white uppercase tracking-wider shadow-xs">
+              {/* <div className="relative flex h-[150px] xs:h-[170px] sm:h-[210px] md:h-[240px] items-center justify-center overflow-hidden rounded-xl bg-gradient-to-b from-slate-50 to-orange-50/20 border border-slate-100 p-2 sm:p-3"> */}
+                <span className="absolute right-2 top-2 z-10 rounded-md bg-gradient-to-r from-[#ff4d2d] to-[#f43f5e]  text-[9px] sm:text-[10px] font-black text-white uppercase tracking-wider shadow-xs">
                   SAVE ₹500
                 </span>
 
@@ -100,9 +100,9 @@ export default function NewArrivals() {
                   src={product.image}
                   alt={product.name}
                   loading="lazy"
-                  className="h-full w-full object-contain p-1.5 drop-shadow-md transition-transform duration-300 group-hover:scale-105"
+                  className="h-full w-full object-contain  drop-shadow-md transition-transform duration-300 group-hover:scale-105"
                 />
-              </div>
+              {/* </div> */}
 
               {/* Product details */}
               <div className="pt-3">

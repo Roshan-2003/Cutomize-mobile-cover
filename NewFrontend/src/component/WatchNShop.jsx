@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Volume2, VolumeX } from "lucide-react";
 
 const products = [
@@ -9,7 +9,6 @@ const products = [
     originalPrice: 1499,
     discount: "33% OFF",
     video: "/videos/video1.mp4",
-    image: "/images/6.webp",
   },
   {
     id: 2,
@@ -18,7 +17,6 @@ const products = [
     originalPrice: 1499,
     discount: "33% OFF",
     video: "/videos/video2.mp4",
-    image: "/images/3.webp",
   },
   {
     id: 3,
@@ -27,7 +25,6 @@ const products = [
     originalPrice: 1499,
     discount: "33% OFF",
     video: "/videos/video3.mp4",
-    image: "/images/5.webp",
   },
   {
     id: 4,
@@ -36,7 +33,6 @@ const products = [
     originalPrice: 1499,
     discount: "33% OFF",
     video: "/videos/video4.mp4",
-    image: "/images/newimage.webp",
   },
   {
     id: 5,
@@ -45,7 +41,6 @@ const products = [
     originalPrice: 1499,
     discount: "33% OFF",
     video: "/videos/video5.mp4",
-    image: "/images/7.webp",
   },
   {
     id: 6,
@@ -54,7 +49,7 @@ const products = [
     originalPrice: 1499,
     discount: "17% OFF",
     video: "/videos/video6.mp4",
-    image: "/images/Orangefruitcase1.webp",
+  
   },
   {
     id: 7,
@@ -63,7 +58,6 @@ const products = [
     originalPrice: 1499,
     discount: "17% OFF",
     video: "/videos/video8.mp4",
-    image: "/images/Orange_fruit_case1_5.webp",
   },
   {
     id: 8,
@@ -72,19 +66,34 @@ const products = [
     originalPrice: 1499,
     discount: "17% OFF",
     video: "/videos/video10.mp4",
-    image: "/images/Orange_fruit_case_4.webp",
+
   },
 ];
 
-function ProductVideoCard({ product }) {
+function ProductVideoCard({ product, activeVideoId, onVideoPlay }) {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef(null);
 
+  useEffect(() => {
+    if (activeVideoId !== null && activeVideoId !== product.id) {
+      videoRef.current?.pause();
+    }
+  }, [activeVideoId, product.id]);
+
   const toggleMute = (e) => {
     e.stopPropagation();
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(videoRef.current.muted);
+    const video = videoRef.current;
+    if (video) {
+      const nextMuted = !video.muted;
+      video.muted = nextMuted;
+      setIsMuted(nextMuted);
+
+      if (!nextMuted) {
+        onVideoPlay(product.id);
+        video.play().catch((error) => {
+          console.error("Unable to play product video:", error);
+        });
+      }
     }
   };
 
@@ -100,6 +109,7 @@ function ProductVideoCard({ product }) {
         loop
         playsInline
         preload="metadata"
+        onPlay={() => onVideoPlay(product.id)}
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
       />
 
@@ -117,7 +127,8 @@ function ProductVideoCard({ product }) {
           {isMuted ? (
             <VolumeX className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
           ) : (
-            <Volume2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+                        <Volume2 className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
+
           )}
         </button>
       </div>
@@ -154,6 +165,7 @@ function ProductVideoCard({ product }) {
 
 export default function WatchNShop() {
   const scrollRef = useRef(null);
+  const [activeVideoId, setActiveVideoId] = useState(null);
 
   const scrollProducts = (direction) => {
     if (!scrollRef.current) return;
@@ -165,8 +177,8 @@ export default function WatchNShop() {
   };
 
   return (
-    <section id="watch-shop" className="w-full overflow-hidden bg-gradient-to-b from-white via-orange-50/15 to-white text-slate-900 px-3 xs:px-4 sm:px-6 md:px-10 py-10 sm:py-16 border-b border-slate-100">
-      <div className="mx-auto max-w-7xl">
+    <section id="watch-shop" className="w-full overflow-hidden bg-gradient-to-b from-white via-orange-50/15 to-white text-slate-900 px-3 xs:px-4 sm:px-6 md:px-7 py-10 sm:py-16 border-b border-slate-100">
+      <div className="mx-auto max-w-8xl">
         <div className="mb-6 sm:mb-8 text-center">
           <h2 className="font-['Bagel_Fat_One'] text-2xl xs:text-3xl sm:text-4xl text-slate-900 uppercase tracking-tight">
             WATCH <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#ff4d2d] to-[#f43f5e]">N</span> SHOP
@@ -178,13 +190,13 @@ export default function WatchNShop() {
 
         <div className="relative group/slider">
           {/* Previous scroll button */}
-          <button
+          {/* <button
             onClick={() => scrollProducts(-1)}
             aria-label="Scroll left"
             className="absolute -left-2 sm:-left-3 md:-left-4 top-1/2 -translate-y-1/2 z-20 hidden sm:flex h-9 w-9 md:h-11 md:w-11 items-center justify-center rounded-full bg-white text-slate-900 border border-slate-200 shadow-xl hover:bg-gradient-to-r hover:from-[#ff4d2d] hover:to-[#f43f5e] hover:text-white hover:border-transparent transition-all duration-300 active:scale-95"
           >
             <ChevronLeft size={22} />
-          </button>
+          </button> */}
 
           {/* Product videos slider */}
           <div
@@ -192,18 +204,23 @@ export default function WatchNShop() {
             className="flex gap-3 xs:gap-4 sm:gap-5 md:gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory py-2 px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {products.map((product) => (
-              <ProductVideoCard key={product.id} product={product} />
+              <ProductVideoCard
+                key={product.id}
+                product={product}
+                activeVideoId={activeVideoId}
+                onVideoPlay={setActiveVideoId}
+              />
             ))}
           </div>
 
           {/* Next scroll button */}
-          <button
+          {/* <button
             onClick={() => scrollProducts(1)}
             aria-label="Scroll right"
             className="absolute -right-2 sm:-right-3 md:-right-4 top-1/2 -translate-y-1/2 z-20 hidden sm:flex h-9 w-9 md:h-11 md:w-11 items-center justify-center rounded-full bg-white text-slate-900 border border-slate-200 shadow-xl hover:bg-gradient-to-r hover:from-[#ff4d2d] hover:to-[#f43f5e] hover:text-white hover:border-transparent transition-all duration-300 active:scale-95"
           >
             <ChevronRight size={22} />
-          </button>
+          </button> */}
         </div>
       </div>
     </section>

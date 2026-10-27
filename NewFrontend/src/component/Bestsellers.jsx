@@ -40,8 +40,8 @@ const featuredProduct = {
 
 function ProductCard({ product }) {
   return (
-    <article className="group flex flex-col justify-between">
-      <div className="relative flex h-[170px] xs:h-[190px] sm:h-[220px] md:h-[235px] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50 to-orange-50/20 border border-slate-200/80 p-2 sm:p-3 transition-all duration-300 group-hover:border-[#ff4d2d]/60 group-hover:shadow-xl group-hover:shadow-orange-500/10">
+    <article className="group relative flex flex-col justify-between">
+      {/* <div className="relative flex h-[170px] xs:h-[190px] sm:h-[220px] md:h-[235px] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50 to-orange-50/20 border border-slate-200/80 p-2 sm:p-3 transition-all duration-300 group-hover:border-[#ff4d2d]/60 group-hover:shadow-xl group-hover:shadow-orange-500/10"> */}
         <span className="absolute right-2 top-2 z-10 rounded-md bg-gradient-to-r from-[#ff4d2d] to-[#f43f5e] px-2 py-0.5 text-[9px] sm:text-[10px] font-black text-white uppercase tracking-wider shadow-xs">
           DEAL
         </span>
@@ -51,9 +51,9 @@ function ProductCard({ product }) {
           src={product.image}
           alt={product.name}
           loading="lazy"
-          className="h-full w-full object-contain p-1.5 sm:p-2.5 drop-shadow-md transition-transform duration-300 group-hover:scale-105"
+          className="h-full w-full object-contain p-1.5 sm:p-2.5 drop-shadow-md transition-transform duration-300 group-hover:scale-105 "
         />
-      </div>
+      {/* </div> */}
 
       <div className="pt-2 sm:pt-3">
         <h3 className="truncate font-['Bagel_Fat_One'] text-xs sm:text-sm font-extrabold text-slate-900 transition-colors">
@@ -80,8 +80,8 @@ function ProductCard({ product }) {
 
 function FeaturedProduct({ product }) {
   return (
-    <article className="group flex flex-col justify-between">
-      <div className="relative flex h-[260px] xs:h-[300px] sm:h-[370px] md:h-[400px] lg:h-[440px] items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-b from-slate-50 to-orange-50/25 border border-slate-200/80 p-3 sm:p-5 transition-all duration-300 group-hover:border-[#ff4d2d]/60 group-hover:shadow-xl group-hover:shadow-orange-500/10">
+    <article className=" relative group flex flex-col justify-between">
+      {/* <div className="relative flex h-[260px] xs:h-[300px] sm:h-[370px] md:h-[400px] lg:h-[440px] items-center justify-center overflow-hidden rounded-2xl  border border-slate-200/80 p-3 sm:p-5 transition-all duration-300 group-hover:border-[#ff4d2d]/60 group-hover:shadow-xl group-hover:shadow-orange-500/10"> */}
         <span className="absolute right-3 top-3 z-10 rounded-md bg-gradient-to-r from-[#ff4d2d] to-[#f43f5e] px-2.5 py-0.5 text-[10px] sm:text-xs font-black text-white uppercase tracking-wider shadow-sm">
           BEST DEAL
         </span>
@@ -93,7 +93,7 @@ function FeaturedProduct({ product }) {
           loading="lazy"
           className="h-full w-full object-contain p-2 sm:p-4 drop-shadow-xl transition-transform duration-300 group-hover:scale-105"
         />
-      </div>
+      {/* </div> */}
 
       <div className="pt-3 sm:pt-4">
         <h3 className="font-['Bagel_Fat_One'] text-sm sm:text-base md:text-lg font-black tracking-tight text-slate-900  transition-colors">
