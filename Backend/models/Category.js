@@ -34,6 +34,11 @@ const categorySchema = new mongoose.Schema(
       trim: true,
     },
 
+    bestProduct: {
+      type: Boolean,
+      default: false,
+    },
+
     isActive: {
       type: Boolean,
       default: true,

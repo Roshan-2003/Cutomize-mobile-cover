@@ -184,6 +184,7 @@ function AddCategory() {
                   <th className="px-5 py-4">Image</th>
                   <th className="px-5 py-4">Name</th>
                   <th className="px-5 py-4">Slug</th>
+                  <th className="px-5 py-4 text-center">Best Product</th>
                   <th className="px-5 py-4">Description</th>
                   <th className="px-5 py-4 text-center">Products / Action</th>
                 </tr>
@@ -193,7 +194,7 @@ function AddCategory() {
                 {fetching ? (
                   <tr>
                     <td
-                      colSpan={6}
+                      colSpan={7}
                       className="px-5 py-12 text-center text-slate-500"
                     >
                       Loading categories...
@@ -201,7 +202,7 @@ function AddCategory() {
                   </tr>
                 ) : categories.length === 0 ? (
                   <tr>
-                    <td colSpan={6} className="px-5 py-12 text-center">
+                    <td colSpan={7} className="px-5 py-12 text-center">
                       <FiImage
                         size={30}
                         className="mx-auto mb-2 text-slate-300"
@@ -241,6 +242,18 @@ function AddCategory() {
 
                       <td className="px-5 py-4 text-sm text-slate-600">
                         {category.slug}
+                      </td>
+
+                      <td className="px-5 py-4 text-center">
+                        <span
+                          className={`inline-flex rounded-full px-2.5 py-1 text-xs font-semibold ${
+                            category.bestProduct
+                              ? "bg-amber-100 text-amber-800"
+                              : "bg-slate-100 text-slate-500"
+                          }`}
+                        >
+                          {category.bestProduct ? "Yes" : "No"}
+                        </span>
                       </td>
 
                       <td className="max-w-xs px-5 py-4 text-sm text-slate-500">

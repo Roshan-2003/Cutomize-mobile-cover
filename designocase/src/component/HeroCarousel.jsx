@@ -43,7 +43,7 @@ export default function HeroCarousel({
             key={item.title}
             className="absolute left-1/2 top-0 h-full w-[94%] overflow-hidden rounded-[18px] bg-neutral-300 transition-transform duration-700 ease-in-out motion-reduce:transition-none"
             style={{
-              transform: `translateX(calc(-50% + ${offset * 100}% + ${offset * 10}px))`,
+              transform: `translateX(calc(-50% + ${offset * 100}% + ${offset * 20}px))`,
               zIndex: isActive ? 2 : 1,
             }}
           >

@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 
 import AnnouncementBar from "./component/AnnouncementBar";
@@ -9,6 +8,7 @@ import CartDrawer from "./component/CartDrawer";
 import HeroCarousel from "./component/HeroCarousel";
 
 import slides from "./data/slides";
+import BestSellers from "./component/BestSellers";
 
 export default function App() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -20,7 +20,7 @@ export default function App() {
     <main className="min-h-screen bg-white text-neutral-900">
       <AnnouncementBar />
 
-      <div className="relative mx-auto max-w-[1800px] rounded-t-[28px] bg-[#f8f8f8] px-4 pb-6 sm:px-6 lg:px-[3.1%]">
+      <div className="relative mx-auto max-w-full rounded-t-[28px] bg-white/50 px-4 pb-6 sm:px-6 lg:px-[3.1%]">
         <Navbar
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
@@ -30,20 +30,14 @@ export default function App() {
           setCartOpen={setCartOpen}
         />
 
-        <SearchPanel
-          isOpen={searchOpen}
-          onClose={() => setSearchOpen(false)}
-        />
+        <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
 
         <NavigationDrawer
           isOpen={menuOpen}
           onClose={() => setMenuOpen(false)}
         />
 
-        <CartDrawer
-          isOpen={cartOpen}
-          onClose={() => setCartOpen(false)}
-        />
+        <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
 
         <HeroCarousel
           slides={slides}
@@ -51,6 +45,9 @@ export default function App() {
           setActiveSlide={setActiveSlide}
         />
       </div>
+
+      <BestSellers />
+      {/* <ShopByDesigns /> */}
     </main>
   );
 }

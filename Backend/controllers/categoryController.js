@@ -34,7 +34,15 @@ const saveCategoryImage = (file) =>
 // CREATE CATEGORY
 exports.createCategory = async (req, res) => {
   try {
-    const { name, slug, image, images, presetImage, description } = req.body || {};
+    const {
+      name,
+      slug,
+      image,
+      images,
+      presetImage,
+      description,
+      bestProduct,
+    } = req.body || {};
 
     if (!name || !name.trim()) {
       return res.status(400).json({
@@ -90,6 +98,7 @@ exports.createCategory = async (req, res) => {
       image: primaryImage,
       images: allImages.length ? allImages : [primaryImage].filter(Boolean),
       description: description ? description.trim() : "",
+      bestProduct: bestProduct === true || bestProduct === "true",
       isActive: true,
     });
 
@@ -140,8 +149,16 @@ exports.getCategories = async (req, res) => {
 // UPDATE CATEGORY
 exports.updateCategory = async (req, res) => {
   try {
-    const { name, slug, image, images, presetImage, description, isActive } =
-      req.body || {};
+    const {
+      name,
+      slug,
+      image,
+      images,
+      presetImage,
+      description,
+      bestProduct,
+      isActive,
+    } = req.body || {};
 
     const category = await Category.findById(req.params.id);
 
@@ -204,6 +221,11 @@ exports.updateCategory = async (req, res) => {
 
     if (description !== undefined) {
       category.description = description.trim();
+    }
+
+    if (bestProduct !== undefined) {
+      category.bestProduct =
+        bestProduct === true || bestProduct === "true";
     }
 
     if (isActive !== undefined) {

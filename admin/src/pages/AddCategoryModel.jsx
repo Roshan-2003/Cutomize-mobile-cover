@@ -12,6 +12,7 @@ function CategoryModal({ onClose, onCategoryAdded }) {
     slug: "",
     images: [],
     description: "",
+    bestProduct: false,
   });
 
   const [previews, setPreviews] = useState([]);
@@ -167,6 +168,7 @@ function CategoryModal({ onClose, onCategoryAdded }) {
       formData.append("name", form.name.trim());
       formData.append("slug", form.slug.trim());
       formData.append("description", form.description.trim());
+      formData.append("bestProduct", String(form.bestProduct));
 
       form.images.forEach((file) => {
         formData.append("images", file);
@@ -353,6 +355,24 @@ function CategoryModal({ onClose, onCategoryAdded }) {
               className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-indigo-500"
             />
           </div>
+
+          <label className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-4">
+            <input
+              type="checkbox"
+              name="bestProduct"
+              checked={form.bestProduct}
+              onChange={(event) =>
+                setForm((prev) => ({
+                  ...prev,
+                  bestProduct: event.target.checked,
+                }))
+              }
+              className="h-5 w-5 accent-black"
+            />
+            <span className="text-sm font-semibold text-slate-700">
+              Mark this category as Best Product
+            </span>
+          </label>
 
           {message && (
             <p
