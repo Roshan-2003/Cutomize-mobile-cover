@@ -10,7 +10,7 @@ export default function HeroCarousel({
   useEffect(() => {
     const timeout = setTimeout(() => {
       setActiveSlide((current) => (current + 1) % slides.length);
-    }, 7500);
+    }, 5500);
 
     return () => clearTimeout(timeout);
   }, [activeSlide, setActiveSlide, slides.length]);
