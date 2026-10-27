@@ -1,5 +1,8 @@
 const configuredApiUrl =
-  import.meta.env.VITE_API_URL?.trim().replace(/\/+$/, "") || "http://localhost:5000";
+  import.meta.env.VITE_API_URL?.trim().replace(/\/+$/, "") ||
+  (import.meta.env.PROD
+    ? "https://cutomize-mobile-cover-f42y.vercel.app"
+    : "http://localhost:5000");
 
 export const API_BASE_URL = configuredApiUrl.endsWith("/api")
   ? configuredApiUrl
