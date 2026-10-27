@@ -68,27 +68,27 @@ export default function BestSellers() {
             No Silicon Cases products are available yet.
           </p>
         ) : (
-        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-4 lg:grid-cols-4 lg:gap-5">
           {products.map((product) => (
             <article key={product._id} className="group min-w-0">
               {/* Product image */}
-              <div className="relative flex h-[360px] items-center justify-center overflow-hidden rounded-t-2xl  sm:h-[330px] lg:h-[390px]">
-                <span className="absolute right-3 top-3 z-10 rounded-sm bg-emerald-500 px-2 py-1 text-[11px] font-bold text-white">
+              <div className="relative flex h-[220px] items-center justify-center overflow-hidden rounded-t-2xl sm:h-[300px] lg:h-[390px]">
+                <span className="absolute right-2 top-2 z-10 rounded-sm bg-emerald-500 px-1.5 py-0.5 text-[10px] font-bold text-white sm:right-3 sm:top-3 sm:px-2 sm:py-1 sm:text-[11px]">
                   BUY 1 GET 2
                 </span>
 
                 <img
                   src={product.image}
                   alt={product.title}
-                  className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                  className="h-full w-full object-contain p-2.5 transition-transform duration-300 group-hover:scale-105 sm:p-4"
                   loading="lazy"
                 />
               </div>
 
               {/* Product details */}
-<div className="rounded-b-2xl border border-white bg-white px-4 py-5 shadow-sm sm:px-5">
-                <div className="flex min-h-[44px] items-start justify-between gap-3">
-                  <h3 className="text-[15px] font-medium leading-5 text-black">
+              <div className="rounded-b-2xl border border-white bg-white p-3 shadow-sm sm:px-5 sm:py-5">
+                <div className="flex min-h-[40px] items-start justify-between gap-2 sm:min-h-[44px] sm:gap-3">
+                  <h3 className="text-[13px] font-medium leading-4 text-black line-clamp-2 sm:text-[15px] sm:leading-5">
                     {product.title}
                   </h3>
 
@@ -97,27 +97,27 @@ export default function BestSellers() {
                     aria-label={`Add ${product.title} to cart`}
                     className="shrink-0 rounded-md p-1 text-black transition hover:bg-gray-200"
                   >
-                    <ShoppingBag size={22} strokeWidth={1.8} />
+                    <ShoppingBag className="h-4 w-4 sm:h-[22px] sm:w-[22px]" strokeWidth={1.8} />
                   </button>
                 </div>
 
                 {/* Price */}
-                <div className="mt-2 flex items-center gap-2">
-                  <span className="text-[15px] font-semibold text-black">
+                <div className="mt-1.5 flex flex-wrap items-center gap-1.5 sm:mt-2 sm:gap-2">
+                  <span className="text-xs font-semibold text-black sm:text-[15px]">
                     ₹{Number(product.price).toLocaleString("en-IN")}
                   </span>
 
                   {product.originalPrice != null && (
-                    <span className="text-sm text-gray-500 line-through">
+                    <span className="text-[11px] text-gray-500 line-through sm:text-sm">
                       ₹{Number(product.originalPrice).toLocaleString("en-IN")}
                     </span>
                   )}
                 </div>
 
                 {/* Offer */}
-                <p className="mt-1 text-[13px] text-black">
+                <p className="mt-1 text-[11px] text-black sm:text-[13px]">
                   Get any 3 for ₹999{" "}
-                  <span className="font-medium text-emerald-600">
+                  <span className="font-medium text-emerald-600 block sm:inline">
                     (₹333 each)
                   </span>
                 </p>

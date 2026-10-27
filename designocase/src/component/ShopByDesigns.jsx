@@ -40,7 +40,7 @@ export default function ShopByDesigns() {
           Shop By Designs
         </h2>
 
-        <div className="grid grid-cols-1 gap-x-5 gap-y-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 sm:gap-5 lg:grid-cols-4 lg:gap-8">
           {designs.map((design) => (
             <a
               key={design.id}
@@ -48,32 +48,30 @@ export default function ShopByDesigns() {
               className="group block min-w-0"
             >
               {/* Product image */}
-              <div className="flex h-[360px] items-center justify-center overflow-hidden bg-[#f8f8f8] sm:h-[390px] lg:h-[420px]">
+              <div className="flex h-[220px] items-center justify-center overflow-hidden bg-[#f8f8f8] sm:h-[320px] lg:h-[420px]">
                 <img
                   src={design.image}
                   alt={design.title}
                   loading="lazy"
-                  className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-105"
+                  className="h-full w-full object-contain p-2.5 transition-transform duration-300 group-hover:scale-105 sm:p-0"
                 />
               </div>
 
               {/* Collection title */}
-              <div className="flex min-h-[76px] items-center justify-between gap-3 rounded-b-2xl border border-gray-100 bg-white px-5 py-4 transition-shadow duration-300 group-hover:shadow-md sm:px-7">
-                <h3 className="text-sm font-semibold leading-5 text-black underline-offset-2 group-hover:underline sm:text-base">
+              <div className="flex min-h-[56px] items-center justify-between gap-2 rounded-b-2xl border border-gray-100 bg-white p-3 transition-shadow duration-300 group-hover:shadow-md sm:min-h-[76px] sm:gap-3 sm:px-7 sm:py-4">
+                <h3 className="text-xs font-semibold leading-4 text-black underline-offset-2 group-hover:underline sm:text-base sm:leading-5">
                   {design.title}
                 </h3>
 
                 {design.arrow === "down" ? (
                   <ArrowDown
-                    size={20}
                     strokeWidth={1.5}
-                    className="shrink-0 text-black"
+                    className="h-4 w-4 shrink-0 text-black sm:h-5 sm:w-5"
                   />
                 ) : (
                   <ArrowRight
-                    size={20}
                     strokeWidth={1.5}
-                    className="shrink-0 text-black transition-transform duration-300 group-hover:translate-x-1"
+                    className="h-4 w-4 shrink-0 text-black transition-transform duration-300 group-hover:translate-x-1 sm:h-5 sm:w-5"
                   />
                 )}
               </div>
