@@ -12,3 +12,49 @@ body {
 button {
   cursor: pointer;
 }
+
+
+@keyframes slideFromRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideFromLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.offer-slide {
+  max-width: 100%;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-fill-mode: both;
+}
+
+.slide-from-right {
+  animation-name: slideFromRight;
+}
+
+.slide-from-left {
+  animation-name: slideFromLeft;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .offer-slide {
+    animation: none;
+  }
+}
