@@ -3,17 +3,17 @@ const slides = [
   {
     title: "MagSafe Wallet's",
     image:
-      "/images/image1.avif",
+      "/images/image11.avif",
   },
   {
     title: "Premium Phone Cases",
     image:
-      "/images/image2.avif",
+      "/images/image111.png",
   },
   {
     title: "Everyday Essentials",
     image:
-      "/images/image3.avif",
+      "/images/imag44.avif",
   },
   {
     title: "Shop Best Sellers",
