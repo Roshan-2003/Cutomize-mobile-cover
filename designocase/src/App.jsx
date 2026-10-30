@@ -9,7 +9,7 @@ import HeroCarousel from "./component/HeroCarousel";
 
 import slides from "./data/slides";
 import BestSellers from "./component/BestSellers";
-import ShopyByDesign from "./component/ShopyByDesign";
+import ShopyByDesign from "./component/ShopByDesign";
 
 export default function App() {
   const [activeSlide, setActiveSlide] = useState(0);
