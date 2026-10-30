@@ -10,6 +10,9 @@ import HeroCarousel from "./component/HeroCarousel";
 import slides from "./data/slides";
 import BestSellers from "./component/BestSellers";
 import ShopyByDesign from "./component/ShopByDesign";
+import TrustBar from "./component/Trustbar";
+import NewsletterGallery from "./component/NewsGallery";
+import Footer from "./component/Footer";
 
 export default function App() {
   const [activeSlide, setActiveSlide] = useState(0);
@@ -49,6 +52,9 @@ export default function App() {
 
       <BestSellers />
       <ShopyByDesign/>
+      <TrustBar/>
+      <NewsletterGallery/>
+      <Footer/>
       {/* <ShopByDesigns /> */}
     </main>
   );
