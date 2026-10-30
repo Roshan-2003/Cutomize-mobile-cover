@@ -1,25 +1,25 @@
 import React from "react";
-// import { FiTruck, FiShield, FiRotateCcw, FiLock } from "react-icons/fi";
+import { FiTruck, FiShield, FiRotateCcw, FiLock } from "react-icons/fi";
 
 const TrustBar = () => {
   const items = [
     {
-    //   icon: <FiTruck className="text-white" />,
+      icon: <FiTruck className="text-white" />,
       title: "Free Express Shipping",
       subtitle: "On all orders across India",
     },
     {
-    //   icon: <FiShield className="text-white" />,
+      icon: <FiShield className="text-white" />,
       title: "Lifetime Print Warranty",
       subtitle: "Non-fading premium finish",
     },
     {
-    //   icon: <FiRotateCcw className="text-white" />,
+      icon: <FiRotateCcw className="text-white" />,
       title: "7-Day Replacement",
       subtitle: "Hassle-free guarantee",
     },
     {
-    //   icon: <FiLock className="text-white" />,
+      icon: <FiLock className="text-white" />,
       title: "Secure Checkout",
       subtitle: "256-bit encrypted payment",
     },
