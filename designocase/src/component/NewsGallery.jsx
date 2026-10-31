@@ -92,3 +92,4 @@ const NewsletterGallery = () => {
 };
 
 export default NewsletterGallery;
+
