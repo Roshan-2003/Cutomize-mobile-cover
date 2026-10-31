@@ -50,7 +50,7 @@ export default function BestSellers() {
       <div className="mx-auto max-w-[1500px]">
         {/* Section heading */}
         <div className="my-10">
-          <h2 class="text-[42px] font-sans font-bold uppercase tracking-wide text-gray-900">
+          <h2 className="font-sans text-[32px] font-bold tracking-tight text-gray-900 sm:text-[42px] lg:text-[52px]">
             Best Seller
           </h2>{" "}
         </div>
