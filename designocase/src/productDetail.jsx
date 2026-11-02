@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
-  ArrowLeft,
   ShieldCheck,
   Zap,
   Sparkles,
@@ -12,9 +11,14 @@ import {
   RotateCcw,
   CheckCircle2,
 } from "lucide-react";
-import { getProductById } from "./api/productApi";
-import Footer from "./component/Footer";
+
+import AnnouncementBar from "./component/AnnouncementBar";
 import Navbar from "./component/Navbar";
+import SearchPanel from "./component/SearchPanel";
+import NavigationDrawer from "./component/NavigationDrawer";
+import CartDrawer from "./component/CartDrawer";
+import Footer from "./component/Footer";
+import { getProductById } from "./api/productApi";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -22,6 +26,11 @@ export default function ProductDetail() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState("features");
+
+  // Navbar & Drawer states (same as HomePage)
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -44,28 +53,58 @@ export default function ProductDetail() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#f5f1ea] px-4">
-        <div className="text-center">
-          <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-black border-t-transparent" />
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-neutral-500">
-            Loading product details...
-          </p>
+      <main className="min-h-screen bg-white text-neutral-900">
+        <AnnouncementBar />
+        <Navbar
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+          searchOpen={searchOpen}
+          setSearchOpen={setSearchOpen}
+          cartOpen={cartOpen}
+          setCartOpen={setCartOpen}
+        />
+        <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+        <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+        <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+
+        <div className="flex min-h-[60vh] items-center justify-center px-4">
+          <div className="text-center">
+            <div className="mx-auto mb-4 h-12 w-12 animate-spin rounded-full border-4 border-black border-t-transparent" />
+            <p className="text-xs font-bold uppercase tracking-[0.25em] text-neutral-500">
+              Loading product details...
+            </p>
+          </div>
         </div>
-      </div>
+      </main>
     );
   }
 
   if (error || !product) {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-[#f5f1ea] px-6 text-center">
-        <h2 className="mb-4 text-2xl font-bold text-red-500">{error || "Product not found"}</h2>
-        <Link
-          to="/"
-          className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-neutral-700"
-        >
-          Back to Home
-        </Link>
-      </div>
+      <main className="min-h-screen bg-white text-neutral-900">
+        <AnnouncementBar />
+        <Navbar
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+          searchOpen={searchOpen}
+          setSearchOpen={setSearchOpen}
+          cartOpen={cartOpen}
+          setCartOpen={setCartOpen}
+        />
+        <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+        <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+        <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+
+        <div className="flex min-h-[60vh] flex-col items-center justify-center px-6 text-center">
+          <h2 className="mb-4 text-2xl font-bold text-red-500">{error || "Product not found"}</h2>
+          <Link
+            to="/"
+            className="rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-neutral-700"
+          >
+            Back to Home
+          </Link>
+        </div>
+      </main>
     );
   }
 
@@ -117,21 +156,36 @@ export default function ProductDetail() {
   ];
 
   return (
-    <div >
-    <Navbar/>
-    <main className="min-h-screen bg-[#f5f1ea]">
-    
-      {/* Top Product Section */}
-      <div className="mx-auto flex min-h-[85vh] w-full flex-col bg-[#f8f4ef]">
-     
+    <main className="min-h-screen bg-white text-neutral-900">
+      {/* Same AnnouncementBar as Home Page */}
+      <AnnouncementBar />
 
-        <div className="grid flex-1 items-center lg:grid-cols-2">
+      {/* Same Navbar as Home Page with full state props */}
+      <Navbar
+        menuOpen={menuOpen}
+        setMenuOpen={setMenuOpen}
+        searchOpen={searchOpen}
+        setSearchOpen={setSearchOpen}
+        cartOpen={cartOpen}
+        setCartOpen={setCartOpen}
+      />
+
+      {/* Same Panels & Drawers as Home Page */}
+      <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+
+  
+
+      {/* Top Product Section */}
+      <div className="mx-auto flex min-h-[85vh] w-full max-w-[1500px] flex-col px-4 sm:px-8 lg:px-12">
+        <div className="grid flex-1 items-center gap-8 overflow-hidden rounded-3xl bg-[#f8f4ef] lg:grid-cols-2">
           {/* Product Image */}
           <div className="flex items-center justify-center bg-[#efeae1] p-6 sm:p-8 lg:p-12">
             <img
               src={product.image}
               alt={product.title}
-              className="max-h-[72vh] w-full max-w-[560px] object-contain drop-shadow-[0_30px_35px_rgba(0,0,0,0.15)]"
+              className="max-h-[70vh] w-full max-w-[540px] object-contain drop-shadow-[0_30px_35px_rgba(0,0,0,0.15)]"
             />
           </div>
 
@@ -141,7 +195,7 @@ export default function ProductDetail() {
               {product.category || "Premium Case"}
             </p>
 
-            <h1 className="mt-3 text-3xl font-bold tracking-tight text-black sm:text-4xl lg:text-[3.1rem]">
+            <h1 className="mt-3 text-3xl font-bold tracking-tight text-black sm:text-4xl lg:text-[3rem]">
               {product.title}
             </h1>
 
@@ -170,13 +224,20 @@ export default function ProductDetail() {
 
             <div className="mt-8 flex flex-col gap-3 sm:max-w-md sm:flex-row">
               <button
-                onClick={() => console.log("Add to cart:", product.title)}
+                onClick={() => {
+                  console.log("Add to cart:", product.title);
+                  setCartOpen(true);
+                }}
                 className="flex-1 cursor-pointer rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-neutral-700"
               >
                 Add to Cart
               </button>
 
               <button
+                onClick={() => {
+                  console.log("Buy now:", product.title);
+                  setCartOpen(true);
+                }}
                 className="flex-1 cursor-pointer rounded-full border border-neutral-300 bg-white px-6 py-3 text-sm font-medium text-black transition hover:bg-neutral-100"
               >
                 Buy Now
@@ -335,6 +396,5 @@ export default function ProductDetail() {
       {/* Footer */}
       <Footer />
     </main>
-    </div>
   );
 }
