@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { getProductById } from "./api/productApi";
 import Footer from "./component/Footer";
+import Navbar from "./component/Navbar";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -116,7 +117,10 @@ export default function ProductDetail() {
   ];
 
   return (
+    <div >
+    <Navbar/>
     <main className="min-h-screen bg-[#f5f1ea]">
+    
       {/* Top Product Section */}
       <div className="mx-auto flex min-h-[85vh] w-full flex-col bg-[#f8f4ef]">
      
@@ -331,5 +335,6 @@ export default function ProductDetail() {
       {/* Footer */}
       <Footer />
     </main>
+    </div>
   );
 }

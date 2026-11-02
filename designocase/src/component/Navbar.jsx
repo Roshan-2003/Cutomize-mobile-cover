@@ -9,7 +9,8 @@ export default function Navbar({
   setCartOpen,
 }) {
   return (
-    <header className="relative flex h-[100px] items-center justify-between sm:h-[115px]">
+      <div className="relative mx-auto max-w-full rounded-t-[28px] bg-white/50 px-4 pb-6 sm:px-6 lg:px-[3.1%]">
+    <header className="relative flex h-[70px] items-center justify-between sm:h-[115px]">
       <button
         onClick={() => setMenuOpen(!menuOpen)}
         aria-label="Toggle navigation menu"
@@ -52,5 +53,6 @@ export default function Navbar({
         </button>
       </div>
     </header>
+    </div>
   );
 }

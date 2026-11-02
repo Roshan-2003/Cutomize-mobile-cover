@@ -26,7 +26,7 @@ function HomePage() {
     <main className="min-h-screen bg-white text-neutral-900">
       <AnnouncementBar />
 
-      <div className="relative mx-auto max-w-full rounded-t-[28px] bg-white/50 px-4 pb-6 sm:px-6 lg:px-[3.1%]">
+      {/* <div className="relative mx-auto max-w-full rounded-t-[28px] bg-white/50 px-4 pb-6 sm:px-6 lg:px-[3.1%]"> */}
         <Navbar
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
@@ -50,7 +50,7 @@ function HomePage() {
           activeSlide={activeSlide}
           setActiveSlide={setActiveSlide}
         />
-      </div>
+      {/* </div> */}
 
       <BestSellers />
       <ShopyByDesign />
