@@ -1,10 +1,4 @@
-import {
-  Menu,
-  Search,
-  ShoppingCart,
-  Zap,
-  X,
-} from "lucide-react";
+import { Menu, Search, ShoppingCart, Zap, X } from "lucide-react";
 
 export default function Navbar({
   menuOpen,

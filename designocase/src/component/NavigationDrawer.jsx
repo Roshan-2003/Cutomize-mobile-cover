@@ -18,14 +18,12 @@ export default function NavigationDrawer({ isOpen, onClose }) {
       <button
         aria-label="Close navigation overlay"
         onClick={onClose}
-        className="fixed inset-0 z-30 bg-black/30"
+        className="fixed inset-0 z-30 bg-black/40 backdrop-blur-[0.5px]"
       />
 
-      <nav className="absolute left-0 top-0 z-40 min-h-[400px] w-[290px] rounded-br-2xl bg-white p-7 shadow-2xl">
+      <nav className="fixed left-0 top-0 z-40 h-screen w-full max-w-[290px] bg-white p-7 shadow-2xl">
         <div className="mb-8 flex items-center justify-between">
-          <span className="font-serif text-lg">
-            THE CASE FACTORY
-          </span>
+          <span className="font-serif text-lg">THE CASE FACTORY</span>
 
           <button onClick={onClose} aria-label="Close menu">
             <X size={22} />
