@@ -1,4 +1,4 @@
-import { Menu, Search, ShoppingCart, Zap, X } from "lucide-react";
+import { Menu, Search, ShoppingCart, UserRound, X } from "lucide-react";
 
 export default function Navbar({
   menuOpen,
@@ -40,7 +40,7 @@ export default function Navbar({
           aria-label="Flash sale"
           className="relative hidden p-1 sm:block"
         >
-          <Zap size={25} strokeWidth={1.8} />
+          <UserRound size={25} strokeWidth={1.8} />
           <span className="absolute right-0 top-0 h-2 w-2 rounded-full bg-orange-500" />
         </button>
 
