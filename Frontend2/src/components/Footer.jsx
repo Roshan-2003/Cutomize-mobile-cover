@@ -42,7 +42,7 @@ const Footer = () => {
               <a
                 key={idx}
                 href="#"
-                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:border-[#c5a059] hover:text-[#c5a059] transition-all"
+                className="h-9 w-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center  hover:text-[#c5a059] transition-all"
                 aria-label="Social Link"
               >
                 <Icon size={14} />

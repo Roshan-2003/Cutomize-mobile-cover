@@ -1,9 +1,10 @@
 import React from "react";
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 
+
 const Footer = () => {
   const socialClass =
-    "flex h-10 w-10 items-center justify-center rounded-full border border-white/20 transition hover:border-orange-400 hover:text-orange-400";
+    "flex h-10 w-10 items-center justify-center rounded-full border border-white/20 transition ";
 
   return (
     <footer className="bg-[#111111] text-white">
@@ -20,7 +21,6 @@ const Footer = () => {
           </p>
         </div>
 
-        {/* Quick Links */}
         <div>
           <h3 className="mb-5 text-lg font-bold">Quick Links</h3>
 
@@ -35,7 +35,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Customer Support */}
         <div>
           <h3 className="mb-5 text-lg font-bold">Customer Support</h3>
 
@@ -56,7 +55,6 @@ const Footer = () => {
           </ul>
         </div>
 
-        {/* Social Media */}
         <div>
           <h3 className="mb-5 text-lg font-bold">Follow Us</h3>
 
@@ -99,7 +97,6 @@ const Footer = () => {
       </div>
       {/* ↑ this closing div was missing */}
 
-      {/* Copyright */}
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-[1500px] flex-col items-center justify-between gap-4 px-6 py-6 sm:flex-row lg:px-12">
           <p className="text-xs text-gray-500">
