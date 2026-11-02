@@ -41,8 +41,8 @@ const NewsletterGallery = () => {
     <div className="flex w-full flex-col justify-center rounded-2xl border border-[#c5a059]/30 bg-black p-6 text-white shadow-xl sm:p-10 lg:w-1/2">
 
       <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.25em] text-[#c5a059]">
-        <FiMail />
-        <span>VIP Access</span>
+        {/* <FiMail /> */}
+        {/* <span>VIP Access</span> */}
       </div>
 
       <h2 className="mb-4 font-heading text-xl font-bold uppercase leading-snug tracking-wider sm:text-2xl lg:text-3xl">
