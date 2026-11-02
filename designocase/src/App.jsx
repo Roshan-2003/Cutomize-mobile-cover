@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import AnnouncementBar from "./component/AnnouncementBar";
 import Navbar from "./component/Navbar";
@@ -13,8 +14,9 @@ import ShopyByDesign from "./component/ShopByDesign";
 import TrustBar from "./component/Trustbar";
 import NewsletterGallery from "./component/NewsGallery";
 import Footer from "./component/Footer";
+import ProductDetail from "./productDetail";
 
-export default function App() {
+function HomePage() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -51,11 +53,21 @@ export default function App() {
       </div>
 
       <BestSellers />
-      <ShopyByDesign/>
-      <TrustBar/>
-      <NewsletterGallery/>
-      <Footer/>
-      {/* <ShopByDesigns /> */}
+      <ShopyByDesign />
+      <TrustBar />
+      <NewsletterGallery />
+      <Footer />
     </main>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/product/:id" element={<ProductDetail />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
