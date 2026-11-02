@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import {
   ShieldCheck,
@@ -10,6 +10,9 @@ import {
   Truck,
   RotateCcw,
   CheckCircle2,
+  Smartphone,
+  ChevronDown,
+  Check,
 } from "lucide-react";
 
 import AnnouncementBar from "./component/AnnouncementBar";
@@ -20,6 +23,53 @@ import CartDrawer from "./component/CartDrawer";
 import Footer from "./component/Footer";
 import { getProductById } from "./api/productApi";
 
+const IPHONE_MODELS = [
+  "iPhone 17 Pro Max",
+  "iPhone 17 Pro",
+  "iPhone 17 Air",
+  "iPhone 17",
+  "iPhone 16 Pro Max",
+  "iPhone 16 Pro",
+  "iPhone 16 Plus",
+  "iPhone 16",
+  "iPhone 15 Pro Max",
+  "iPhone 15 Pro",
+  "iPhone 15 Plus",
+  "iPhone 15",
+  "iPhone 14 Pro Max",
+  "iPhone 14 Pro",
+  "iPhone 14 Plus",
+  "iPhone 14",
+  "iPhone 13 Pro Max",
+  "iPhone 13 Pro",
+  "iPhone 13",
+  "iPhone 12 Pro Max",
+  "iPhone 12 Pro",
+  "iPhone 12",
+  "iPhone 11",
+];
+
+const SAMSUNG_MODELS = [
+  "Samsung Galaxy S25 Ultra",
+  "Samsung Galaxy S25+",
+  "Samsung Galaxy S25",
+  "Samsung Galaxy S24 Ultra",
+  "Samsung Galaxy S24+",
+  "Samsung Galaxy S24",
+  "Samsung Galaxy S23 Ultra",
+  "Samsung Galaxy S23+",
+  "Samsung Galaxy S23",
+  "Samsung Galaxy S22 Ultra",
+  "Samsung Galaxy S22+",
+  "Samsung Galaxy S22",
+  "Samsung Galaxy Z Fold 6",
+  "Samsung Galaxy Z Flip 6",
+  "Samsung Galaxy Z Fold 5",
+  "Samsung Galaxy Z Flip 5",
+  "Samsung Galaxy A55 5G",
+  "Samsung Galaxy A35 5G",
+];
+
 export default function ProductDetail() {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
@@ -27,10 +77,35 @@ export default function ProductDetail() {
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState("features");
 
+  // Phone brand and model variant state
+  const [selectedBrand, setSelectedBrand] = useState("Apple");
+  const [selectedModel, setSelectedModel] = useState("iPhone 16 Pro Max");
+  const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
   // Navbar & Drawer states
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+
+  const currentModels = selectedBrand === "Apple" ? IPHONE_MODELS : SAMSUNG_MODELS;
+
+  const handleBrandChange = (brand) => {
+    setSelectedBrand(brand);
+    setSelectedModel(brand === "Apple" ? "iPhone 16 Pro Max" : "Samsung Galaxy S25 Ultra");
+    setModelDropdownOpen(false);
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setModelDropdownOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -146,7 +221,10 @@ export default function ProductDetail() {
   const specs = [
     { label: "Product Name", value: product.title },
     { label: "Category", value: product.category || "Designer Phone Case" },
-    { label: "Brand Compatibility", value: product.brand || "Apple iPhone / Samsung Galaxy" },
+    {
+      label: "Selected Device",
+      value: `${selectedBrand === "Apple" ? "Apple iPhone" : "Samsung Galaxy"} · ${selectedModel}`,
+    },
     { label: "Material", value: product.material || "High-Grade Polycarbonate + Shockproof TPU" },
     {
       label: "Finish",
@@ -177,18 +255,15 @@ export default function ProductDetail() {
       <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
       <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
 
-      {/* Breadcrumb Navigation - Responsive margin & padding */}
-    
-
-      {/* Top Product Section - Responsive layout for Mobile, Tablet, Laptop */}
-      <div className="mx-auto w-full max-w-[1500px] px-3 sm:px-6 md:px-8 lg:px-12 pb-6 sm:pb-8 lg:pb-12">
-        <div className="grid items-center gap-6 sm:gap-8 lg:gap-10 xl:gap-14 overflow-hidden rounded-2xl sm:rounded-3xl bg-[#f8f4ef] lg:grid-cols-2">
+      {/* Top Product Section */}
+      <div className="mx-auto w-full max-w-[1500px] px-3 sm:px-6 md:px-8 lg:px-12 ">
+        <div className="relative grid items-center gap-6 sm:gap-8 lg:gap-10 xl:gap-14 rounded-2xl sm:rounded-3xl bg-[#f8f4ef] lg:grid-cols-2">
           {/* Product Image Container */}
-          <div className="flex items-center justify-center bg-[#efeae1] p-5 sm:p-7 md:p-9 lg:p-12 xl:p-16">
+          <div className="flex items-center justify-center rounded-2xl ">
             <img
               src={product.image}
               alt={product.title}
-              className="max-h-[300px] sm:max-h-[380px] md:max-h-[460px] lg:max-h-[64vh] xl:max-h-[70vh] w-full max-w-[520px] object-contain drop-shadow-[0_20px_25px_rgba(0,0,0,0.12)] sm:drop-shadow-[0_30px_35px_rgba(0,0,0,0.15)]"
+              className=" object-contain drop-shadow-[0_20px_25px_rgba(0,0,0,0.12)] sm:drop-shadow-[0_30px_35px_rgba(0,0,0,0.15)]"
             />
           </div>
 
@@ -214,12 +289,107 @@ export default function ProductDetail() {
               )}
             </div>
 
-            <p className="mt-3.5 sm:mt-5 md:mt-6 max-w-xl text-xs sm:text-sm md:text-base lg:text-base leading-6 sm:leading-7 text-neutral-600">
+            {/* --- PHONE BRAND & MODEL VARIANT SELECTOR (Opens downwards) --- */}
+            <div className="relative z-30 mt-4 sm:mt-5 rounded-2xl border border-neutral-200/90 bg-white/80 p-3.5 sm:p-4.5 backdrop-blur-sm shadow-sm space-y-3">
+              <div className="flex items-center justify-between">
+                <label className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-neutral-800 flex items-center gap-1.5">
+                  <Smartphone className="h-4 w-4 text-emerald-600" />
+                  <span>Select Phone Model *</span>
+                </label>
+                <span className="rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-0.5 text-[10px] sm:text-xs font-bold">
+                  {selectedModel}
+                </span>
+              </div>
+
+              {/* Brand Switcher Tabs: Apple vs Samsung */}
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleBrandChange("Apple")}
+                  className={`flex-1 cursor-pointer rounded-xl py-2 px-3 text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                    selectedBrand === "Apple"
+                      ? "bg-black text-white shadow-sm"
+                      : "bg-white text-neutral-700 border border-neutral-200 hover:border-neutral-400"
+                  }`}
+                >
+                   Apple iPhone
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleBrandChange("Samsung")}
+                  className={`flex-1 cursor-pointer rounded-xl py-2 px-3 text-xs font-bold uppercase tracking-wider transition-all duration-200 ${
+                    selectedBrand === "Samsung"
+                      ? "bg-black text-white shadow-sm"
+                      : "bg-white text-neutral-700 border border-neutral-200 hover:border-neutral-400"
+                  }`}
+                >
+                  Samsung Galaxy
+                </button>
+              </div>
+
+              {/* Custom Downside Opening Model Selector */}
+              <div ref={dropdownRef} className="relative">
+                <button
+                  type="button"
+                  onClick={() => setModelDropdownOpen((prev) => !prev)}
+                  className="w-full cursor-pointer flex items-center justify-between rounded-xl border-2 border-neutral-900 bg-white py-2.5 pl-3.5 pr-3 text-xs sm:text-sm font-bold text-neutral-900 shadow-sm transition hover:bg-neutral-50 focus:ring-2 focus:ring-emerald-600"
+                  aria-expanded={modelDropdownOpen}
+                >
+                  <span className="truncate">{selectedModel}</span>
+                  <ChevronDown
+                    className={`h-4 w-4 text-neutral-700 transition-transform duration-200 shrink-0 ml-2 ${
+                      modelDropdownOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </button>
+
+                {/* Downward Dropdown Menu */}
+                {modelDropdownOpen && (
+                  <div className="absolute left-0 right-0 top-full mt-2 z-50 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl">
+                    <div className="bg-neutral-50 px-3.5 py-2 border-b border-neutral-100 flex items-center justify-between">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                        {selectedBrand === "Apple" ? "Apple iPhone Models" : "Samsung Galaxy Models"}
+                      </span>
+                      <span className="text-[10px] font-medium text-neutral-400">
+                        {currentModels.length} models
+                      </span>
+                    </div>
+
+                    <ul className="max-h-60 sm:max-h-72 overflow-y-auto divide-y divide-neutral-100">
+                      {currentModels.map((m) => {
+                        const isSelected = m === selectedModel;
+                        return (
+                          <li key={m}>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setSelectedModel(m);
+                                setModelDropdownOpen(false);
+                              }}
+                              className={`w-full cursor-pointer flex items-center justify-between px-3.5 py-2.5 text-xs sm:text-sm text-left transition ${
+                                isSelected
+                                  ? "bg-black text-white font-bold"
+                                  : "text-neutral-700 hover:bg-neutral-100 hover:text-black font-medium"
+                              }`}
+                            >
+                              <span>{m}</span>
+                              {isSelected && <Check className="h-4 w-4 text-white shrink-0" />}
+                            </button>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            <p className="mt-3.5 sm:mt-5 max-w-xl text-xs sm:text-sm md:text-base leading-6 sm:leading-7 text-neutral-600">
               {product.description ||
                 "Designed for everyday protection and style, this premium case gives your device a sleek, refined look while keeping it safe from scratches, bumps, and everyday wear."}
             </p>
 
-            <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-2.5 text-xs sm:text-sm md:text-sm text-neutral-700">
+            <div className="mt-4 sm:mt-5 space-y-2 text-xs sm:text-sm text-neutral-700">
               <p className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-neutral-800 shrink-0" />
                 Slim and lightweight build
@@ -234,10 +404,13 @@ export default function ProductDetail() {
               </p>
             </div>
 
-            <div className="mt-6 sm:mt-7 md:mt-8 flex flex-col gap-2.5 sm:gap-3 sm:max-w-md sm:flex-row">
+            <div className="mt-6 sm:mt-7 flex flex-col gap-2.5 sm:gap-3 sm:max-w-md sm:flex-row">
               <button
                 onClick={() => {
-                  console.log("Add to cart:", product.title);
+                  console.log("Add to cart:", product.title, {
+                    brand: selectedBrand,
+                    model: selectedModel,
+                  });
                   setCartOpen(true);
                 }}
                 className="flex-1 cursor-pointer rounded-full bg-black py-3 sm:py-3.5 px-6 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-neutral-800 active:scale-[0.99]"
@@ -247,7 +420,10 @@ export default function ProductDetail() {
 
               <button
                 onClick={() => {
-                  console.log("Buy now:", product.title);
+                  console.log("Buy now:", product.title, {
+                    brand: selectedBrand,
+                    model: selectedModel,
+                  });
                   setCartOpen(true);
                 }}
                 className="flex-1 cursor-pointer rounded-full border border-neutral-300 bg-white py-3 sm:py-3.5 px-6 text-xs sm:text-sm font-semibold uppercase tracking-wider text-black transition hover:bg-neutral-100 active:scale-[0.99]"
@@ -402,7 +578,7 @@ export default function ProductDetail() {
               </div>
 
               <div className="rounded-xl sm:rounded-2xl border border-neutral-100 bg-[#fbf9f6] p-4 sm:p-6 text-center">
-                <div className="mx-auto flex h-10 w-10 sm:h-12 sm:w-12 items-center justify-center rounded-xl sm:rounded-2xl bg-black text-white">
+                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-black text-white">
                   <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6" />
                 </div>
                 <h4 className="mt-3 sm:mt-4 text-sm sm:text-base font-bold text-neutral-900">
