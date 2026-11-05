@@ -15,18 +15,24 @@ import TrustBar from "./component/Trustbar";
 import NewsletterGallery from "./component/NewsGallery";
 import Footer from "./component/Footer";
 import ProductDetail from "./productDetail";
+import ProfilePage from "./pages/ProfilePage";
 
 function HomePage() {
   const [activeSlide, setActiveSlide] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const shouldBlurContent = menuOpen || searchOpen || cartOpen;
 
   return (
     <main className="min-h-screen bg-white text-neutral-900">
       <AnnouncementBar />
 
-      {/* <div className="relative mx-auto max-w-full rounded-t-[28px] bg-white/50 px-4 pb-6 sm:px-6 lg:px-[3.1%]"> */}
+      <div
+        className={
+          shouldBlurContent ? "blur-[1.6px] brightness-90 transition-all duration-200" : "transition-all duration-200"
+        }
+      >
         <Navbar
           menuOpen={menuOpen}
           setMenuOpen={setMenuOpen}
@@ -36,27 +42,22 @@ function HomePage() {
           setCartOpen={setCartOpen}
         />
 
-        <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-
-        <NavigationDrawer
-          isOpen={menuOpen}
-          onClose={() => setMenuOpen(false)}
-        />
-
-        <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
-
         <HeroCarousel
           slides={slides}
           activeSlide={activeSlide}
           setActiveSlide={setActiveSlide}
         />
-      {/* </div> */}
 
-      <BestSellers />
-      <ShopyByDesign />
-      <TrustBar />
-      <NewsletterGallery />
-      <Footer />
+        <BestSellers />
+        <ShopyByDesign />
+        <TrustBar />
+        <NewsletterGallery />
+        <Footer />
+      </div>
+
+      <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
     </main>
   );
 }
@@ -67,6 +68,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/product/:id" element={<ProductDetail />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </BrowserRouter>
   );

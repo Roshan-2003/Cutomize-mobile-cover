@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowUp, ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { getProducts } from "../api/productApi";
+import { addProductToCart } from "../utils/cartStorage";
 
 export default function BestSellers() {
   const [products, setProducts] = useState([]);
@@ -40,7 +41,7 @@ export default function BestSellers() {
   }, []);
 
   const addToCart = (product) => {
-    console.log("Added to cart:", product.title);
+    addProductToCart(product, { selectedModel: "Standard" });
   };
 
   const scrollToTop = () => {

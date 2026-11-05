@@ -22,6 +22,7 @@ import NavigationDrawer from "./component/NavigationDrawer";
 import CartDrawer from "./component/CartDrawer";
 import Footer from "./component/Footer";
 import { getProductById } from "./api/productApi";
+import { addProductToCart } from "./utils/cartStorage";
 
 const IPHONE_MODELS = [
   "iPhone 17 Pro Max",
@@ -77,26 +78,27 @@ export default function ProductDetail() {
   const [error, setError] = useState("");
   const [activeTab, setActiveTab] = useState("features");
 
-  // Phone brand and model variant state
   const [selectedBrand, setSelectedBrand] = useState("Apple");
   const [selectedModel, setSelectedModel] = useState("iPhone 16 Pro Max");
   const [modelDropdownOpen, setModelDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Navbar & Drawer states
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
+  const shouldBlurContent = menuOpen || searchOpen || cartOpen;
 
-  const currentModels = selectedBrand === "Apple" ? IPHONE_MODELS : SAMSUNG_MODELS;
+  const currentModels =
+    selectedBrand === "Apple" ? IPHONE_MODELS : SAMSUNG_MODELS;
 
   const handleBrandChange = (brand) => {
     setSelectedBrand(brand);
-    setSelectedModel(brand === "Apple" ? "iPhone 16 Pro Max" : "Samsung Galaxy S25 Ultra");
+    setSelectedModel(
+      brand === "Apple" ? "iPhone 16 Pro Max" : "Samsung Galaxy S25 Ultra",
+    );
     setModelDropdownOpen(false);
   };
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -130,26 +132,36 @@ export default function ProductDetail() {
     return (
       <main className="min-h-screen bg-white text-neutral-900">
         <AnnouncementBar />
-        <Navbar
-          menuOpen={menuOpen}
-          setMenuOpen={setMenuOpen}
-          searchOpen={searchOpen}
-          setSearchOpen={setSearchOpen}
-          cartOpen={cartOpen}
-          setCartOpen={setCartOpen}
-        />
+
+        <div
+          className={
+            shouldBlurContent
+              ? "blur-[1.6px] brightness-90 transition-all duration-200"
+              : "transition-all duration-200"
+          }
+        >
+          <Navbar
+            menuOpen={menuOpen}
+            setMenuOpen={setMenuOpen}
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+            cartOpen={cartOpen}
+            setCartOpen={setCartOpen}
+          />
+
+          <div className="flex min-h-[50vh] sm:min-h-[60vh] items-center justify-center px-4 py-12">
+            <div className="text-center">
+              <div className="mx-auto mb-3 sm:mb-4 h-10 w-10 sm:h-12 sm:w-12 animate-spin rounded-full border-4 border-black border-t-transparent" />
+              <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">
+                Loading product details...
+              </p>
+            </div>
+          </div>
+        </div>
+
         <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
         <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
         <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
-
-        <div className="flex min-h-[50vh] sm:min-h-[60vh] items-center justify-center px-4 py-12">
-          <div className="text-center">
-            <div className="mx-auto mb-3 sm:mb-4 h-10 w-10 sm:h-12 sm:w-12 animate-spin rounded-full border-4 border-black border-t-transparent" />
-            <p className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] text-neutral-500">
-              Loading product details...
-            </p>
-          </div>
-        </div>
       </main>
     );
   }
@@ -158,29 +170,39 @@ export default function ProductDetail() {
     return (
       <main className="min-h-screen bg-white text-neutral-900">
         <AnnouncementBar />
-        <Navbar
-          menuOpen={menuOpen}
-          setMenuOpen={setMenuOpen}
-          searchOpen={searchOpen}
-          setSearchOpen={setSearchOpen}
-          cartOpen={cartOpen}
-          setCartOpen={setCartOpen}
-        />
+
+        <div
+          className={
+            shouldBlurContent
+              ? "blur-[1.6px] brightness-90 transition-all duration-200"
+              : "transition-all duration-200"
+          }
+        >
+          <Navbar
+            menuOpen={menuOpen}
+            setMenuOpen={setMenuOpen}
+            searchOpen={searchOpen}
+            setSearchOpen={setSearchOpen}
+            cartOpen={cartOpen}
+            setCartOpen={setCartOpen}
+          />
+
+          <div className="flex min-h-[50vh] sm:min-h-[60vh] flex-col items-center justify-center px-4 sm:px-6 py-12 text-center">
+            <h2 className="mb-4 text-xl sm:text-2xl font-bold text-red-500">
+              {error || "Product not found"}
+            </h2>
+            <Link
+              to="/"
+              className="rounded-full bg-black px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium text-white transition hover:bg-neutral-700"
+            >
+              Back to Home
+            </Link>
+          </div>
+        </div>
+
         <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
         <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
         <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
-
-        <div className="flex min-h-[50vh] sm:min-h-[60vh] flex-col items-center justify-center px-4 sm:px-6 py-12 text-center">
-          <h2 className="mb-4 text-xl sm:text-2xl font-bold text-red-500">
-            {error || "Product not found"}
-          </h2>
-          <Link
-            to="/"
-            className="rounded-full bg-black px-5 sm:px-6 py-2.5 sm:py-3 text-xs sm:text-sm font-medium text-white transition hover:bg-neutral-700"
-          >
-            Back to Home
-          </Link>
-        </div>
       </main>
     );
   }
@@ -225,10 +247,15 @@ export default function ProductDetail() {
       label: "Selected Device",
       value: `${selectedBrand === "Apple" ? "Apple iPhone" : "Samsung Galaxy"} · ${selectedModel}`,
     },
-    { label: "Material", value: product.material || "High-Grade Polycarbonate + Shockproof TPU" },
+    {
+      label: "Material",
+      value: product.material || "High-Grade Polycarbonate + Shockproof TPU",
+    },
     {
       label: "Finish",
-      value: product.color ? `${product.color} (Matte UV Finish)` : "Anti-Scratch Matte Finish",
+      value: product.color
+        ? `${product.color} (Matte UV Finish)`
+        : "Anti-Scratch Matte Finish",
     },
     { label: "Form Factor", value: "Slim Protective Snap Case" },
     { label: "In The Box", value: "1x Premium Case, 1x Authenticity Card" },
@@ -237,60 +264,54 @@ export default function ProductDetail() {
 
   return (
     <main className="min-h-screen bg-white text-neutral-900">
-      {/* Same AnnouncementBar as Home Page */}
       <AnnouncementBar />
 
-      {/* Same Navbar as Home Page with full state props */}
-      <Navbar
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-        searchOpen={searchOpen}
-        setSearchOpen={setSearchOpen}
-        cartOpen={cartOpen}
-        setCartOpen={setCartOpen}
-      />
+      <div
+        className={
+          shouldBlurContent ? "blur-[1.6px] brightness-90 transition-all duration-200" : "transition-all duration-200"
+        }
+      >
+        <Navbar
+          menuOpen={menuOpen}
+          setMenuOpen={setMenuOpen}
+          searchOpen={searchOpen}
+          setSearchOpen={setSearchOpen}
+          cartOpen={cartOpen}
+          setCartOpen={setCartOpen}
+        />
 
-      {/* Drawers */}
-      <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
-      <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
-      <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
-
-      {/* Top Product Section */}
-      <div className="mx-auto w-full max-w-[1500px] px-3 sm:px-6 md:px-8 lg:px-12 ">
-        <div className="relative grid items-center gap-6 sm:gap-8 lg:gap-10 xl:gap-14 rounded-2xl sm:rounded-3xl bg-[#f8f4ef] lg:grid-cols-2">
-          {/* Product Image Container */}
-          <div className="flex items-center justify-center rounded-2xl ">
-            <img
-              src={product.image}
-              alt={product.title}
-              className=" object-contain drop-shadow-[0_20px_25px_rgba(0,0,0,0.12)] sm:drop-shadow-[0_30px_35px_rgba(0,0,0,0.15)]"
-            />
-          </div>
-
-          {/* Product Info Container */}
-          <div className="flex flex-col justify-center px-4 pb-6 sm:px-7 sm:pb-8 md:px-8 lg:p-8 lg:pr-10 xl:p-12">
-            <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-emerald-600">
-              {product.category || "Premium Case"}
-            </p>
-
-            <h1 className="mt-2 sm:mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3rem] font-bold tracking-tight text-black leading-tight">
-              {product.title}
-            </h1>
-
-            <div className="mt-3.5 sm:mt-5 flex items-center gap-2.5 sm:gap-3">
-              <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">
-                ₹{Number(product.price).toLocaleString("en-IN")}
-              </span>
-
-              {product.originalPrice != null && (
-                <span className="text-base sm:text-lg md:text-xl text-neutral-400 line-through">
-                  ₹{Number(product.originalPrice).toLocaleString("en-IN")}
-                </span>
-              )}
+        <div className="mx-auto w-full max-w-[1500px] px-3 sm:px-6 md:px-8 lg:px-12 ">
+          <div className="relative grid items-center gap-6 sm:gap-8 lg:gap-10 xl:gap-14 rounded-2xl sm:rounded-3xl bg-[#f8f4ef] lg:grid-cols-2">
+            <div className="flex items-center justify-center rounded-2xl ">
+              <img
+                src={product.image}
+                alt={product.title}
+                className=" object-contain drop-shadow-[0_20px_25px_rgba(0,0,0,0.12)] sm:drop-shadow-[0_30px_35px_rgba(0,0,0,0.15)]"
+              />
             </div>
 
-            {/* --- PHONE BRAND & MODEL VARIANT SELECTOR (Opens downwards) --- */}
-            <div className="relative z-30 mt-4 sm:mt-5 rounded-2xl border border-neutral-200/90 bg-white/80 p-3.5 sm:p-4.5 backdrop-blur-sm shadow-sm space-y-3">
+            <div className="flex flex-col justify-center px-4 pb-6 sm:px-7 sm:pb-8 md:px-8 lg:p-8 lg:pr-10 xl:p-12">
+              <p className="text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] sm:tracking-[0.22em] text-emerald-600">
+                {product.category || "Premium Case"}
+              </p>
+
+              <h1 className="mt-2 sm:mt-3 text-2xl sm:text-3xl md:text-4xl lg:text-[2.6rem] xl:text-[3rem] font-bold tracking-tight text-black leading-tight">
+                {product.title}
+              </h1>
+
+              <div className="mt-3.5 sm:mt-5 flex items-center gap-2.5 sm:gap-3">
+                <span className="text-2xl sm:text-3xl md:text-4xl font-bold text-black">
+                  ₹{Number(product.price).toLocaleString("en-IN")}
+                </span>
+
+                {product.originalPrice != null && (
+                  <span className="text-base sm:text-lg md:text-xl text-neutral-400 line-through">
+                    ₹{Number(product.originalPrice).toLocaleString("en-IN")}
+                  </span>
+                )}
+              </div>
+
+              <div className="relative z-30 mt-4 sm:mt-5 rounded-2xl border border-neutral-200/90 bg-white/80 p-3.5 sm:p-4.5 backdrop-blur-sm shadow-sm space-y-3">
               <div className="flex items-center justify-between">
                 <label className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-neutral-800 flex items-center gap-1.5">
                   <Smartphone className="h-4 w-4 text-emerald-600" />
@@ -301,7 +322,6 @@ export default function ProductDetail() {
                 </span>
               </div>
 
-              {/* Brand Switcher Tabs: Apple vs Samsung */}
               <div className="flex gap-2">
                 <button
                   type="button"
@@ -327,7 +347,6 @@ export default function ProductDetail() {
                 </button>
               </div>
 
-              {/* Custom Downside Opening Model Selector */}
               <div ref={dropdownRef} className="relative">
                 <button
                   type="button"
@@ -343,12 +362,13 @@ export default function ProductDetail() {
                   />
                 </button>
 
-                {/* Downward Dropdown Menu */}
                 {modelDropdownOpen && (
                   <div className="absolute left-0 right-0 top-full mt-2 z-50 overflow-hidden rounded-2xl border border-neutral-200 bg-white shadow-2xl">
                     <div className="bg-neutral-50 px-3.5 py-2 border-b border-neutral-100 flex items-center justify-between">
                       <span className="text-[10px] font-bold uppercase tracking-wider text-neutral-500">
-                        {selectedBrand === "Apple" ? "Apple iPhone Models" : "Samsung Galaxy Models"}
+                        {selectedBrand === "Apple"
+                          ? "Apple iPhone Models"
+                          : "Samsung Galaxy Models"}
                       </span>
                       <span className="text-[10px] font-medium text-neutral-400">
                         {currentModels.length} models
@@ -373,7 +393,9 @@ export default function ProductDetail() {
                               }`}
                             >
                               <span>{m}</span>
-                              {isSelected && <Check className="h-4 w-4 text-white shrink-0" />}
+                              {isSelected && (
+                                <Check className="h-4 w-4 text-white shrink-0" />
+                              )}
                             </button>
                           </li>
                         );
@@ -407,11 +429,10 @@ export default function ProductDetail() {
             <div className="mt-6 sm:mt-7 flex flex-col gap-2.5 sm:gap-3 sm:max-w-md sm:flex-row">
               <button
                 onClick={() => {
-                  console.log("Add to cart:", product.title, {
-                    brand: selectedBrand,
-                    model: selectedModel,
+                  addProductToCart(product, {
+                    selectedModel,
+                    quantity: 1,
                   });
-                  setCartOpen(true);
                 }}
                 className="flex-1 cursor-pointer rounded-full bg-black py-3 sm:py-3.5 px-6 text-xs sm:text-sm font-semibold uppercase tracking-wider text-white transition hover:bg-neutral-800 active:scale-[0.99]"
               >
@@ -420,9 +441,9 @@ export default function ProductDetail() {
 
               <button
                 onClick={() => {
-                  console.log("Buy now:", product.title, {
-                    brand: selectedBrand,
-                    model: selectedModel,
+                  addProductToCart(product, {
+                    selectedModel,
+                    quantity: 1,
                   });
                   setCartOpen(true);
                 }}
@@ -435,7 +456,8 @@ export default function ProductDetail() {
         </div>
       </div>
 
-      {/* Bottom Product Details Container - Fully responsive */}
+      </div>
+
       <section className="mx-auto w-full max-w-[1500px] px-3 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-12 md:py-14 lg:py-16">
         <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-200/80 bg-white p-4 sm:p-7 md:p-9 lg:p-12 shadow-sm">
           {/* Section Header */}
@@ -488,7 +510,9 @@ export default function ProductDetail() {
           {activeTab === "features" && (
             <div className="space-y-6 sm:space-y-8">
               <div className="max-w-3xl">
-                <h3 className="text-base sm:text-lg font-bold text-neutral-900">Description</h3>
+                <h3 className="text-base sm:text-lg font-bold text-neutral-900">
+                  Description
+                </h3>
                 <p className="mt-2 text-xs sm:text-sm md:text-base leading-6 sm:leading-7 text-neutral-600">
                   {product.description ||
                     "Engineered with premium polycarbonate and impact-damping TPU bumpers, this phone case delivers reliable 360-degree protection while keeping a modern, slim profile. The exterior is coated with a scratch-resistant UV matte seal that prevents yellowing and keeps the artwork vibrant."}
@@ -559,8 +583,8 @@ export default function ProductDetail() {
                   Free Fast Delivery
                 </h4>
                 <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm leading-5 sm:leading-6 text-neutral-600">
-                  Dispatched within 24-48 hours. Delivered across India in 3 to 5 business days with
-                  full live tracking.
+                  Dispatched within 24-48 hours. Delivered across India in 3 to
+                  5 business days with full live tracking.
                 </p>
               </div>
 
@@ -572,8 +596,8 @@ export default function ProductDetail() {
                   7-Day Easy Returns
                 </h4>
                 <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm leading-5 sm:leading-6 text-neutral-600">
-                  Received wrong size or damaged case? No questions asked instant replacement or
-                  refund within 7 days.
+                  Received wrong size or damaged case? No questions asked
+                  instant replacement or refund within 7 days.
                 </p>
               </div>
 
@@ -585,7 +609,8 @@ export default function ProductDetail() {
                   100% Quality Assurance
                 </h4>
                 <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm leading-5 sm:leading-6 text-neutral-600">
-                  High-definition UV printing that never fades or peels off under normal daily usage.
+                  High-definition UV printing that never fades or peels off
+                  under normal daily usage.
                 </p>
               </div>
             </div>
@@ -593,7 +618,10 @@ export default function ProductDetail() {
         </div>
       </section>
 
-      {/* Footer */}
+      <SearchPanel isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
+      <NavigationDrawer isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
+      <CartDrawer isOpen={cartOpen} onClose={() => setCartOpen(false)} />
+
       <Footer />
     </main>
   );
