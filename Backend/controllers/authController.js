@@ -4,6 +4,19 @@ const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET || "YOUR_SECRET_KEY";
 
+const normalizeNameParts = (name = "") => {
+  const trimmedName = name.trim();
+  if (!trimmedName) {
+    return { firstName: "", lastName: "" };
+  }
+
+  const parts = trimmedName.split(/\s+/);
+  return {
+    firstName: parts[0] || "",
+    lastName: parts.slice(1).join(" "),
+  };
+};
+
 exports.register = async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -31,9 +44,12 @@ exports.register = async (req, res) => {
       });
     }
 
+    const { firstName, lastName } = normalizeNameParts(name);
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({
       name: name.trim(),
+      firstName,
+      lastName,
       email: cleanEmail,
       password: hashedPassword,
     });
@@ -102,4 +118,73 @@ exports.getMe = async (req, res) => {
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }
-};
+};
+
+exports.updateProfile = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const {
+      firstName,
+      lastName,
+      email,
+      phone,
+      dateOfBirth,
+      gender,
+      address,
+      city,
+      state,
+      postalCode,
+      country,
+    } = req.body;
+
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
+
+    if (email) {
+      const cleanEmail = email.trim().toLowerCase();
+      const existingUser = await User.findOne({
+        email: cleanEmail,
+        _id: { $ne: user._id },
+      });
+
+      if (existingUser) {
+        return res.status(400).json({
+          success: false,
+          message: "This email is already in use by another account.",
+        });
+      }
+
+      user.email = cleanEmail;
+    }
+
+    const nextFirstName = typeof firstName === "string" ? firstName.trim() : user.firstName || "";
+    const nextLastName = typeof lastName === "string" ? lastName.trim() : user.lastName || "";
+
+    user.firstName = nextFirstName;
+    user.lastName = nextLastName;
+    user.name = [nextFirstName, nextLastName].filter(Boolean).join(" ").trim() || user.name;
+    user.phone = typeof phone === "string" ? phone.trim() : user.phone || "";
+    user.dateOfBirth = typeof dateOfBirth === "string" ? dateOfBirth : user.dateOfBirth || "";
+    user.gender = typeof gender === "string" ? gender.trim() : user.gender || "";
+    user.address = typeof address === "string" ? address.trim() : user.address || "";
+    user.city = typeof city === "string" ? city.trim() : user.city || "";
+    user.state = typeof state === "string" ? state.trim() : user.state || "";
+    user.postalCode = typeof postalCode === "string" ? postalCode.trim() : user.postalCode || "";
+    user.country = typeof country === "string" ? country.trim() : user.country || "";
+
+    await user.save();
+
+    const updatedUser = await User.findById(user._id).select("-password");
+
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    console.error("Update profile error:", error);
+    res.status(500).json({ success: false, message: error.message || "Profile update failed" });
+  }
+};

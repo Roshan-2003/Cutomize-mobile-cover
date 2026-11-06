@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   UserRound,
   Mail,
   Phone,
   MapPin,
-  CalendarDays,
   ShieldCheck,
   Bell,
   PackageCheck,
@@ -13,6 +12,7 @@ import {
   LockKeyhole,
   Camera,
 } from "lucide-react";
+import { API_BASE_URL } from "../api/apiUrl";
 
 const initialProfile = {
   firstName: "Sushant",
@@ -36,6 +36,7 @@ const InputField = ({
   type = "text",
   placeholder,
   icon: Icon,
+  disabled = false,
 }) => {
   return (
     <div className="space-y-2">
@@ -58,19 +59,72 @@ const InputField = ({
           value={value}
           onChange={onChange}
           placeholder={placeholder}
+          disabled={disabled}
           className={`w-full rounded-xl border border-neutral-200 bg-white py-3 text-sm text-neutral-900 outline-none transition placeholder:text-neutral-400 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 ${
             Icon ? "pl-10 pr-4" : "px-4"
-          }`}
+          } ${disabled ? "cursor-not-allowed bg-neutral-100 text-neutral-500" : ""}`}
         />
       </div>
     </div>
   );
 };
 
+const normalizeProfileData = (userData) => ({
+  firstName: userData?.firstName || "",
+  lastName: userData?.lastName || "",
+  email: userData?.email || "",
+  phone: userData?.phone || "",
+  dateOfBirth: userData?.dateOfBirth || "",
+  gender: userData?.gender || "",
+  address: userData?.address || "",
+  city: userData?.city || "",
+  state: userData?.state || "",
+  postalCode: userData?.postalCode || "",
+  country: userData?.country || "",
+});
+
 export default function ProfilePage() {
   const [profile, setProfile] = useState(initialProfile);
   const [isEditing, setIsEditing] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const cachedProfile = localStorage.getItem("profileData");
+    if (cachedProfile) {
+      try {
+        setProfile({ ...initialProfile, ...JSON.parse(cachedProfile) });
+      } catch (error) {
+        console.error("Could not read saved profile data", error);
+      }
+    }
+
+    const userId = localStorage.getItem("userId");
+    if (!userId) return;
+
+    const fetchProfile = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/auth/me/${userId}`);
+        const data = await response.json();
+
+        if (response.ok && data.success && data.user) {
+          const normalizedProfile = normalizeProfileData(data.user);
+          setProfile({ ...initialProfile, ...normalizedProfile });
+          localStorage.setItem("profileData", JSON.stringify(normalizedProfile));
+          if (data.user.name) {
+            localStorage.setItem("userName", data.user.name);
+          }
+          if (data.user.email) {
+            localStorage.setItem("userEmail", data.user.email);
+          }
+        }
+      } catch (error) {
+        console.error("Profile fetch error:", error);
+      }
+    };
+
+    fetchProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -83,15 +137,77 @@ export default function ProfilePage() {
     setSaved(false);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
 
-    setIsEditing(false);
-    setSaved(true);
+    const userId = localStorage.getItem("userId");
+    const profilePayload = {
+      ...profile,
+      firstName: profile.firstName || "",
+      lastName: profile.lastName || "",
+      email: profile.email || "",
+      phone: profile.phone || "",
+      dateOfBirth: profile.dateOfBirth || "",
+      gender: profile.gender || "",
+      address: profile.address || "",
+      city: profile.city || "",
+      state: profile.state || "",
+      postalCode: profile.postalCode || "",
+      country: profile.country || "",
+    };
+
+    try {
+      if (userId) {
+        const response = await fetch(`${API_BASE_URL}/auth/profile/${userId}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(profilePayload),
+        });
+
+        const data = await response.json();
+        if (!response.ok || !data.success) {
+          throw new Error(data.message || "Profile could not be saved.");
+        }
+
+        if (data.user?.name) {
+          localStorage.setItem("userName", data.user.name);
+        }
+        if (data.user?.email) {
+          localStorage.setItem("userEmail", data.user.email);
+        }
+      }
+
+      localStorage.setItem("profileData", JSON.stringify(profilePayload));
+      setIsEditing(false);
+      setSaved(true);
+    } catch (error) {
+      console.error("Profile update error:", error);
+      setSaved(false);
+      alert(error.message || "Profile could not be saved.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleCancel = () => {
-    setProfile(initialProfile);
+    const savedProfile = localStorage.getItem("profileData");
+    let parsedProfile = {};
+
+    if (savedProfile) {
+      try {
+        parsedProfile = JSON.parse(savedProfile);
+      } catch (error) {
+        console.error("Could not parse saved profile data", error);
+      }
+    }
+
+    setProfile({
+      ...initialProfile,
+      ...parsedProfile,
+    });
     setIsEditing(false);
     setSaved(false);
   };
@@ -192,6 +308,7 @@ export default function ProfilePage() {
                     name="firstName"
                     value={profile.firstName}
                     onChange={handleChange}
+                    disabled={!isEditing}
                     placeholder="Enter first name"
                   />
 
@@ -200,6 +317,7 @@ export default function ProfilePage() {
                     name="lastName"
                     value={profile.lastName}
                     onChange={handleChange}
+                    disabled={!isEditing}
                     placeholder="Enter last name"
                   />
 
@@ -209,6 +327,7 @@ export default function ProfilePage() {
                     type="email"
                     value={profile.email}
                     onChange={handleChange}
+                    disabled={!isEditing}
                     icon={Mail}
                     placeholder="Enter email address"
                   />
@@ -219,6 +338,7 @@ export default function ProfilePage() {
                     type="tel"
                     value={profile.phone}
                     onChange={handleChange}
+                    disabled={!isEditing}
                     icon={Phone}
                     placeholder="Enter phone number"
                   />
@@ -229,6 +349,7 @@ export default function ProfilePage() {
                     type="date"
                     value={profile.dateOfBirth}
                     onChange={handleChange}
+                    disabled={!isEditing}
                   />
 
                   <div className="space-y-2">
@@ -244,7 +365,8 @@ export default function ProfilePage() {
                       name="gender"
                       value={profile.gender}
                       onChange={handleChange}
-                      className="w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100"
+                      disabled={!isEditing}
+                      className={`w-full rounded-xl border border-neutral-200 bg-white px-4 py-3 text-sm outline-none focus:border-emerald-600 focus:ring-2 focus:ring-emerald-100 ${!isEditing ? "cursor-not-allowed bg-neutral-100 text-neutral-500" : ""}`}
                     >
                       <option value="">Select gender</option>
                       <option value="Male">Male</option>
@@ -275,6 +397,7 @@ export default function ProfilePage() {
                       name="address"
                       value={profile.address}
                       onChange={handleChange}
+                      disabled={!isEditing}
                       placeholder="House no., street, area"
                     />
                   </div>
@@ -284,6 +407,7 @@ export default function ProfilePage() {
                     name="city"
                     value={profile.city}
                     onChange={handleChange}
+                    disabled={!isEditing}
                     placeholder="Enter city"
                   />
 
@@ -292,6 +416,7 @@ export default function ProfilePage() {
                     name="state"
                     value={profile.state}
                     onChange={handleChange}
+                    disabled={!isEditing}
                     placeholder="Enter state"
                   />
 
@@ -300,6 +425,7 @@ export default function ProfilePage() {
                     name="postalCode"
                     value={profile.postalCode}
                     onChange={handleChange}
+                    disabled={!isEditing}
                     placeholder="Enter postal code"
                   />
 
@@ -308,6 +434,7 @@ export default function ProfilePage() {
                     name="country"
                     value={profile.country}
                     onChange={handleChange}
+                    disabled={!isEditing}
                     placeholder="Enter country"
                   />
                 </div>
@@ -326,10 +453,11 @@ export default function ProfilePage() {
 
                   <button
                     type="submit"
-                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800"
+                    disabled={isSubmitting}
+                    className="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-800 disabled:cursor-not-allowed disabled:opacity-70"
                   >
                     <Save className="h-4 w-4" />
-                    Save Changes
+                    {isSubmitting ? "Saving..." : "Save Changes"}
                   </button>
                 </div>
               )}
@@ -460,5 +588,6 @@ export default function ProfilePage() {
         </div>
       </div>
     </main>
+    
   );
 }
